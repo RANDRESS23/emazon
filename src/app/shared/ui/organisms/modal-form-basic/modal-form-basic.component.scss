@@ -1,0 +1,61 @@
+@import '/src/styles/styles.scss';
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 15px 30px 0px rgba(62, 19, 77, 0.09);
+
+  &__content {
+    position: relative;
+    width: 85%;
+    background-color: $white-color;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__header {
+    margin-top: 10px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: $black-color;
+    text-align: center;
+  }
+  
+  &__title-primary {
+    color: $primary;
+  }
+
+  &__close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    top: 7px;
+    right: 7px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .2s ease all;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.055);
+    }
+  }
+}

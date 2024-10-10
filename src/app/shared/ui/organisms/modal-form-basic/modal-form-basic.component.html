@@ -1,0 +1,22 @@
+<div class="modal" *ngIf="showModal" [@modalAnimationContainer]>
+  <div class="modal__content" [@modalAnimationContent]>
+    <div class="modal__header">
+      <h2 class="modal__title">
+        {{ modalTitle }}
+        <span class="modal__title-primary">{{ modalTitlePrimary }}</span>
+      </h2>
+      <button class="modal__close" (click)="onShowModal()">
+        <img [src]="pathCloseIcon" alt="Close icon" />
+      </button>
+    </div>
+    <div class="modal__body">
+      <molecule-form-basic 
+        [nameMaxLength]="nameMaxLength"
+        [descriptionMaxLength]="descriptionMaxLength"
+        [showModal]="onShowModal.bind(this)"
+        (changeStatusSaveButtonEvent)="changeStatusSaveButtonOutput($event)"
+        (formDataEvent)="handleSubmit($event)"
+      ></molecule-form-basic>
+    </div>
+  </div>
+</div>
