@@ -1,0 +1,9 @@
+<button 
+  class="button" 
+  [type]="type" 
+  [ngClass]="{'button-size-l': size === buttonSizeL, 'button-size-m': size === buttonSizeM, 'button-size-s': size === buttonSizeS, 'button-secondary': isSecondaryButton, 'button-size-full': isFullWidth}"
+  [disabled]="isDisabled"
+>
+  <ng-content></ng-content>
+  <span>{{ text }}</span>
+</button>
