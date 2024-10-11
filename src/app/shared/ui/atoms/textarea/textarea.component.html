@@ -1,0 +1,18 @@
+<div class="container">
+  <label 
+    [htmlFor]="textareaName" 
+    class="container__label"
+    *ngIf="textareaLabel"
+  >{{ textareaLabel }}</label>
+  <textarea
+    [placeholder]="textareaPlaceholder"
+    [name]="textareaName"
+    class="container__textarea"
+    [ngClass]="{'container__textarea--error': isErrored}"
+    [value]="value"
+    (input)="onInputChange($event)"
+  ></textarea>
+  <div class="error" *ngIf="isErrored">
+    <p class="error__text">{{ errorText }}</p>
+  </div>
+</div>

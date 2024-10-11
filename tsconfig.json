@@ -21,7 +21,16 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@src/*": ["src/*"],
+      "@atoms/*": ["src/app/shared/components/atoms/*"],
+      "@molecules/*": ["src/app/shared/components/molecules/*"],
+      "@organisms/*": ["src/app/shared/components/organisms/*"],
+      "@constants/*": ["src/app/shared/domain/constants/*"],
+      "@enums/*": ["src/app/shared/domain/enums/*"],
+      "@interfaces/*": ["src/app/shared/domain/interfaces/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

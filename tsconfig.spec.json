@@ -4,11 +4,21 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "jasmine"
-    ]
+      "jest"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@src/*": ["src/*"],
+      "@atoms/*": ["src/app/shared/components/atoms/*"],
+      "@molecules/*": ["src/app/shared/components/molecules/*"],
+      "@organisms/*": ["src/app/shared/components/organisms/*"],
+      "@constants/*": ["src/app/shared/domain/constants/*"],
+      "@enums/*": ["src/app/shared/domain/enums/*"],
+      "@interfaces/*": ["src/app/shared/domain/interfaces/*"]
+    }
   },
   "files": [
-    "src/test.ts",
     "src/polyfills.ts"
   ],
   "include": [

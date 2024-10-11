@@ -1,0 +1,78 @@
+// Mobile Headlines
+h1 {
+  font-size: 29px;
+  font-weight: 600;
+  line-height: 124%;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 128%;
+}
+
+h3 {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 128%;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 128%;
+}
+
+// Tablet Headlines
+@media (min-width: 760px) {
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 124%;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 128%;
+  }
+  
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 124%;
+  }
+  
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 132%;
+  }
+}
+
+// Desktop Headlines
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 128%;
+  }
+  
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 120%;
+  }
+  
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 124%;
+  }
+  
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 132%;
+  }
+}
