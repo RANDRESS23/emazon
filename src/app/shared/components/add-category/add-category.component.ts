@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_DESCRIPTION_FIELD, MAX_LENGTH_NAME_FIELD, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '../../domain/constants/admin';
 import { Size } from '../../domain/types/size';
 import { SizeEnum } from '../../domain/enums/size';
@@ -30,6 +30,8 @@ export class AddCategoryComponent implements OnInit {
   showToast: () => void = () => {};
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
 
+  @Input() addNewCategoryCount: () => void = () => {};
+
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -47,6 +49,10 @@ export class AddCategoryComponent implements OnInit {
     this.changeStatusSaveButton = onChangeStatusSaveButton;
   }
 
+  addCategoryCount(): void {
+    this.addNewCategoryCount()
+  }
+
   handleSubmit(category: CategoryRequest): void {
     this.changeStatusSaveButton(true, false);
 
@@ -58,6 +64,7 @@ export class AddCategoryComponent implements OnInit {
         this.changeStatusSaveButton(false, true);
         this.showModal();
         this.showToast();
+        this.addCategoryCount();
 
         setTimeout(() => {
           this.showToast();
