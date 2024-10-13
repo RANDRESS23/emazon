@@ -4,10 +4,14 @@ import { ModalFormBasicComponent } from './modal-form-basic/modal-form-basic.com
 import { AtomsModule } from "../atoms/atoms.module";
 import { MoleculesModule } from "../molecules/molecules.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableComponent } from './table/table.component';
+import { HeaderTableComponent } from './header-table/header-table.component';
 
 @NgModule({
   declarations: [
-    ModalFormBasicComponent
+    ModalFormBasicComponent,
+    TableComponent,
+    HeaderTableComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MoleculesModule
 ],
   exports: [
-    ModalFormBasicComponent
+    ModalFormBasicComponent,
+    TableComponent,
+    HeaderTableComponent
   ]
 })
 export class OrganismsModule { }
