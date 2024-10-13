@@ -5,13 +5,17 @@ import { ButtonComponent } from './button/button.component';
 import { ToastComponent } from './toast/toast.component';
 import { TextareaComponent } from './textarea/textarea.component';
 import { IconsModule } from './icons/icons.module';
+import { PaginationComponent } from './pagination/pagination.component';
+import { DropdownTableComponent } from './dropdown-table/dropdown-table.component';
 
 @NgModule({
   declarations: [
     InputComponent,
     ButtonComponent,
     ToastComponent,
-    TextareaComponent
+    TextareaComponent,
+    PaginationComponent,
+    DropdownTableComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,9 @@ import { IconsModule } from './icons/icons.module';
     ButtonComponent,
     ToastComponent,
     TextareaComponent,
-    ToastComponent
+    ToastComponent,
+    PaginationComponent,
+    DropdownTableComponent
   ]
 })
 export class AtomsModule { }

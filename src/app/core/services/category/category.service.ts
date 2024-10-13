@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CategoryRequest, CategoryResponse } from '@src/app/shared/domain/interfaces/category';
+import { CategoryRequest, CategoryResponse, PageCategories } from '@src/app/shared/domain/interfaces/category';
 import { environment } from '@src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -14,5 +14,9 @@ export class CategoryService {
 
   saveCategory(category: CategoryRequest): Observable<CategoryResponse> {
     return this.http.post<CategoryResponse>(`${this.BASE_URL}/category`, category);
+  }
+  
+  getAllCategories(page: number, size: number, sortOrder: string): Observable<PageCategories> {
+    return this.http.get<PageCategories>(`${this.BASE_URL}/category?page=${page}&size=${size}&sortOrder=${sortOrder}`);
   }
 }

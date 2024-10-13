@@ -47,6 +47,9 @@ export class ModalFormBasicComponent implements OnInit {
 
   onShowModal(): void {
     this.showModal = !this.showModal;
+
+    if (this.showModal) document.body.classList.add('no-scroll');
+    else document.body.classList.remove('no-scroll');
   }
 
   changeStatusSaveButtonOutput(onChangeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void): void {

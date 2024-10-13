@@ -6,10 +6,12 @@ import { MoleculesModule } from '../ui/molecules/molecules.module';
 import { OrganismsModule } from '../ui/organisms/organisms.module';
 import { IconsModule } from '../ui/atoms/icons/icons.module';
 import { ServicesModule } from '@src/app/core/services/services.module';
+import { ListOfCategoriesComponent } from './list-of-categories/list-of-categories.component';
 
 @NgModule({
   declarations: [
-    AddCategoryComponent
+    AddCategoryComponent,
+    ListOfCategoriesComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { ServicesModule } from '@src/app/core/services/services.module';
     ServicesModule
   ],
   exports: [
-    AddCategoryComponent
+    AddCategoryComponent,
+    ListOfCategoriesComponent
   ]
 })
 export class ComponentsModule { }
