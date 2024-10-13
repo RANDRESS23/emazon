@@ -1,3 +1,5 @@
+import { CategoryResponse } from "../interfaces/category";
+
 export const EMPTY_STRING = '';
 
 export const ADD_CATEGORY_BUTTON_TEXT = 'Añadir categoría';
@@ -28,5 +30,21 @@ export const SERVER_ERROR_TEXT = 'Error inesperado al guardar en el servidor';
 export const SUCCESS_ICON_PATH = '/assets/icons/success-icon.svg';
 export const ERROR_ICON_PATH = '/assets/icons/error-icon.svg';
 export const WARNING_ICON_PATH = '/assets/icons/warning-icon.svg';
+export const ARROW_LEFT_ICON_PATH = '/assets/icons/arrow-left-icon.svg';
+export const ARROW_RIGHT_ICON_PATH = '/assets/icons/arrow-right-icon.svg';
 
 export const CATEGORY_SAVED_TEXT = 'La categoría fue guardada con éxito';
+
+export const TABLE_HEADERS_CATEGORY = ['ID', 'Nombre', 'Descripción'];
+export const CATEGORY_KEYS: (keyof CategoryResponse)[] = ['categoryId', 'name', 'description'];
+
+export const INITIAL_PAGE_TABLE = 0;
+export const INITIAL_TOTAL_PAGE_TABLE = 0;
+export const INITIAL_TOTAL_ELEMENTS_TABLE = 0;
+export const INITIAL_SIZE_ELEMENTS_TABLE = 10;
+export const INITIAL_SORT_ORDER_ELEMENTS_TABLE = 'asc';
+
+export const LABEL_SHOW_BY_DROPDOWN = 'Mostrar';
+export const LABEL_SORT_BY_DROPDOWN = 'Ordenar';
+export const OPTIONS_SHOW_BY_DROPDOWN: Record<string, string | number>[] = [{ label: '10', value: 10 }, { label: '20', value: 20 }, { label: '50', value: 50 }];
+export const OPTIONS_SORT_BY_DROPDOWN: Record<string, string | number>[] = [{ label: 'Ascendente', value: 'asc' }, { label: 'Descendete', value: 'desc' }];
