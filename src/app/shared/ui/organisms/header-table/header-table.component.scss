@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  &__dropdowns {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 760px) {
+  .header {
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    
+    &__dropdowns {
+      gap: 20px;
+    }
+  }
+}

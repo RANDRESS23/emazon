@@ -1,0 +1,15 @@
+<header class="header">
+  <ng-content></ng-content>
+  <div class="header__dropdowns">
+    <atom-dropdown-table
+      [label]="labelShowByDropdown"
+      [options]="optionsShowByDropdown"
+      (optionChange)="changeShowBy($event)"
+    ></atom-dropdown-table>
+    <atom-dropdown-table
+      [label]="labelSortByDropdown"
+      [options]="optionsSortByDropdown"
+      (optionChange)="changeSortBy($event)"
+    ></atom-dropdown-table>
+  </div>
+</header>
