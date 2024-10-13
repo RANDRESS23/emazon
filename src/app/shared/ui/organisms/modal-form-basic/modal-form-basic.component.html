@@ -11,6 +11,13 @@
     </div>
     <div class="modal__body">
       <molecule-form-basic 
+        [inputLabel]="inputLabel"
+        [inputPlaceholder]="inputPlaceholder"
+        [inputName]="inputName"
+        [textareaLabel]="textareaLabel"
+        [textareaPlaceholder]="textareaPlaceholder"
+        [textareaName]="textareaName"
+        [buttonSaveText]="buttonSaveText"
         [nameMaxLength]="nameMaxLength"
         [descriptionMaxLength]="descriptionMaxLength"
         [showModal]="onShowModal.bind(this)"

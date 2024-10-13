@@ -6,10 +6,12 @@ import { OrganismsModule } from '../shared/ui/organisms/organisms.module';
 import { MoleculesModule } from '../shared/ui/molecules/molecules.module';
 import { IconsModule } from '../shared/ui/atoms/icons/icons.module';
 import { ComponentsModule } from '../shared/components/components.module';
+import { BrandPanelComponent } from './profile/admin/brand-panel/brand-panel.component';
 
 @NgModule({
   declarations: [
-    CategoryPanelComponent
+    CategoryPanelComponent,
+    BrandPanelComponent
   ],
   imports: [
     CommonModule,

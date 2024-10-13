@@ -29,6 +29,13 @@ export class ModalFormBasicComponent implements OnInit {
   closeIconAlt: string = ADD_CATEGORY_CLOSE_ICON_ALT;
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
 
+  @Input() inputLabel: string = EMPTY_STRING;
+  @Input() inputPlaceholder: string = EMPTY_STRING;
+  @Input() inputName: string = EMPTY_STRING;
+  @Input() textareaLabel: string = EMPTY_STRING;
+  @Input() textareaPlaceholder: string = EMPTY_STRING;
+  @Input() textareaName: string = EMPTY_STRING;
+  @Input() buttonSaveText: string = EMPTY_STRING;
   @Output() modalEvent = new EventEmitter<() => void>();
   @Input() modalTitle: string = EMPTY_STRING;
   @Input() modalTitlePrimary: string = EMPTY_STRING;

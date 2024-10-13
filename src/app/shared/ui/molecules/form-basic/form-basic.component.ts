@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_LABEL, DESCRIPTION_CATEGORY_TEXTAREA_NAME, DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_LABEL, NAME_CATEGORY_INPUT_NAME, NAME_CATEGORY_INPUT_PLACEHOLDER, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT } from '@src/app/shared/domain/constants/admin';
+import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT } from '@src/app/shared/domain/constants/admin';
 import { ButtonTypeEnum } from '@src/app/shared/domain/enums/button';
 import { InputTypeEnum } from '@src/app/shared/domain/enums/input';
 import { SizeEnum } from '@src/app/shared/domain/enums/size';
@@ -16,18 +16,10 @@ import { Size } from '@src/app/shared/domain/types/size';
 export class FormBasicComponent implements OnInit {
   form!: FormGroup;
 
-  inputLabel: string = NAME_CATEGORY_INPUT_LABEL;
-  inputPlaceholder: string = NAME_CATEGORY_INPUT_PLACEHOLDER;
   inputType: InputType = InputTypeEnum.TEXT;
-  inputName: string = NAME_CATEGORY_INPUT_NAME;
   inputErrorText: string = EMPTY_STRING;
-
-  textareaLabel: string = DESCRIPTION_CATEGORY_TEXTAREA_LABEL;
-  textareaPlaceholder: string = DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER;
-  textareaName: string = DESCRIPTION_CATEGORY_TEXTAREA_NAME;
   textareaErrorText: string = EMPTY_STRING;
 
-  buttonSaveText: string = SAVE_CATEGORY_BUTTON_TEXT;
   buttonSizeMedium: Size = SizeEnum.MEDIUM;
   buttonTypeSubmit: ButtonType = ButtonTypeEnum.SUBMIT;
   
@@ -40,6 +32,13 @@ export class FormBasicComponent implements OnInit {
     description: EMPTY_STRING
   }
 
+  @Input() inputLabel: string = EMPTY_STRING;
+  @Input() inputPlaceholder: string = EMPTY_STRING;
+  @Input() inputName: string = EMPTY_STRING;
+  @Input() textareaLabel: string = EMPTY_STRING;
+  @Input() textareaPlaceholder: string = EMPTY_STRING;
+  @Input() textareaName: string = EMPTY_STRING;
+  @Input() buttonSaveText: string = EMPTY_STRING;
   @Input() showModal: () => void = () => {};
   @Input() nameMaxLength: number = 0;
   @Input() descriptionMaxLength: number = 0;
