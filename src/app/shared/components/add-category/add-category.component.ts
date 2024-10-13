@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_DESCRIPTION_FIELD, MAX_LENGTH_NAME_FIELD, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '../../domain/constants/admin';
+import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_LABEL, DESCRIPTION_CATEGORY_TEXTAREA_NAME, DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_CATEGORY_DESCRIPTION_FIELD, MAX_LENGTH_CATEGORY_NAME_FIELD, NAME_CATEGORY_INPUT_LABEL, NAME_CATEGORY_INPUT_NAME, NAME_CATEGORY_INPUT_PLACEHOLDER, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SAVE_CATEGORY_BUTTON_TEXT, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '../../domain/constants/admin';
 import { Size } from '../../domain/types/size';
 import { SizeEnum } from '../../domain/enums/size';
 import { ButtonType } from '../../domain/types/button';
@@ -15,13 +15,20 @@ import { StatusEnum } from '../../domain/enums/status';
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent implements OnInit {
+  inputLabel: string = NAME_CATEGORY_INPUT_LABEL;
+  inputPlaceholder: string = NAME_CATEGORY_INPUT_PLACEHOLDER;
+  inputName: string = NAME_CATEGORY_INPUT_NAME;
+  textareaLabel: string = DESCRIPTION_CATEGORY_TEXTAREA_LABEL;
+  textareaPlaceholder: string = DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER;
+  textareaName: string = DESCRIPTION_CATEGORY_TEXTAREA_NAME;
+  buttonSaveText: string = SAVE_CATEGORY_BUTTON_TEXT;
   buttonText: string = ADD_CATEGORY_BUTTON_TEXT;
   buttonSizeMedium: Size = SizeEnum.MEDIUM;
   buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
   modalTitle: string = REGISTER_NEW_CATEGORY_TEXT;
   modalTitlePrimary: string = REGISTER_NEW_CATEGORY_TEXT_PRIMARY;
-  nameMaxLength: number = MAX_LENGTH_NAME_FIELD;
-  descriptionMaxLength: number = MAX_LENGTH_DESCRIPTION_FIELD;
+  nameMaxLength: number = MAX_LENGTH_CATEGORY_NAME_FIELD;
+  descriptionMaxLength: number = MAX_LENGTH_CATEGORY_DESCRIPTION_FIELD;
   pathIcon: string = SUCCESS_ICON_PATH;
   toastMessage: string = EMPTY_STRING;
   toastStatus: StatusType = StatusEnum.SUCCESS;
