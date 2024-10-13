@@ -43,9 +43,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Aquí puedes manejar si el campo debe estar deshabilitado
-  }
+  setDisabledState?(isDisabled: boolean): void {}
 
   onInputChange(event: any): void {
     const value = event.target.value;
