@@ -12,7 +12,7 @@
     [value]="value"
     (input)="onInputChange($event)"
   ></textarea>
-  <div class="error" *ngIf="isErrored">
-    <p class="error__text">{{ errorText }}</p>
+  <div class="error">
+    <p class="error__text" *ngIf="isErrored">{{ errorText }}</p>
   </div>
 </div>

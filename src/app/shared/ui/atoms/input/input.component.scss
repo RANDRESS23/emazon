@@ -47,13 +47,15 @@
 
 .error {
   width: 100%;
+  min-height: 18px;
   display: flex;
   align-items: center;
   justify-content: right;
 
   &__text {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     color: $error;
+    text-align: right;
   }
 }
