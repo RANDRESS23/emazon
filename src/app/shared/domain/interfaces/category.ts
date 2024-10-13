@@ -8,3 +8,11 @@ export interface CategoryResponse {
   name: string;
   description: string;
 }
+
+export interface PageCategories {
+  pageNumber: number,
+	pageSize: number,
+	totalElements: number,
+	totalPages: number,
+	content: CategoryResponse[]
+}
