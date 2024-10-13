@@ -7,11 +7,15 @@ import { OrganismsModule } from '../ui/organisms/organisms.module';
 import { IconsModule } from '../ui/atoms/icons/icons.module';
 import { ServicesModule } from '@src/app/core/services/services.module';
 import { ListOfCategoriesComponent } from './list-of-categories/list-of-categories.component';
+import { ListOfBrandsComponent } from './list-of-brands/list-of-brands.component';
+import { AddBrandComponent } from './add-brand/add-brand.component';
 
 @NgModule({
   declarations: [
     AddCategoryComponent,
-    ListOfCategoriesComponent
+    ListOfCategoriesComponent,
+    ListOfBrandsComponent,
+    AddBrandComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,9 @@ import { ListOfCategoriesComponent } from './list-of-categories/list-of-categori
   ],
   exports: [
     AddCategoryComponent,
-    ListOfCategoriesComponent
+    AddBrandComponent,
+    ListOfCategoriesComponent,
+    ListOfBrandsComponent
   ]
 })
 export class ComponentsModule { }
