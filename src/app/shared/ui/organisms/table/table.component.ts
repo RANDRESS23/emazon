@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BrandResponse } from '@src/app/shared/domain/interfaces/brand';
-import { CategoryResponse } from '@src/app/shared/domain/interfaces/category';
+import { BrandResponse } from '@domain/interfaces/brand';
+import { CategoryResponse } from '@domain/interfaces/category';
 
 @Component({
   selector: 'organism-table',
