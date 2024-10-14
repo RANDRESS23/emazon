@@ -5,3 +5,13 @@
     [addNewBrandCount]="addNewBrandCount.bind(this)"
   ></app-add-brand>
 </organism-header-table>
+<organism-table
+  [list]="listOfBrands"
+  [headers]="headers"
+  [keys]="keys"
+></organism-table>
+<atom-pagination
+  [pageNumber]="pageNumber"
+  [totalPages]="totalPages"
+  (pageNumberChange)="changePage($event)"
+></atom-pagination>
