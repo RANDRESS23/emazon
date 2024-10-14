@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING } from '@src/app/shared/domain/constants/admin';
+import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING } from '@domain/constants/admin';
 
 @Component({
   selector: 'organism-modal-form-basic',

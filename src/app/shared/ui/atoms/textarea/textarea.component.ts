@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EMPTY_STRING } from '@src/app/shared/domain/constants/admin';
+import { EMPTY_STRING } from '@domain/constants/admin';
 
 @Component({
   selector: 'atom-textarea',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ARROW_LEFT_ICON_PATH, ARROW_RIGHT_ICON_PATH } from '@src/app/shared/domain/constants/admin';
+import { ARROW_LEFT_ICON_PATH, ARROW_RIGHT_ICON_PATH } from '@domain/constants/admin';
 
 @Component({
   selector: 'atom-pagination',

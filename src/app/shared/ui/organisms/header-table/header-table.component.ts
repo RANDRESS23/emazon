@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING, LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, OPTIONS_SHOW_BY_DROPDOWN, OPTIONS_SORT_BY_DROPDOWN } from '@src/app/shared/domain/constants/admin';
+import { EMPTY_STRING, LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, OPTIONS_SHOW_BY_DROPDOWN, OPTIONS_SORT_BY_DROPDOWN } from '@domain/constants/admin';
 
 @Component({
   selector: 'organism-header-table',

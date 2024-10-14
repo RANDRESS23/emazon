@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT } from '@src/app/shared/domain/constants/admin';
-import { ButtonTypeEnum } from '@src/app/shared/domain/enums/button';
-import { InputTypeEnum } from '@src/app/shared/domain/enums/input';
-import { SizeEnum } from '@src/app/shared/domain/enums/size';
-import { ButtonType } from '@src/app/shared/domain/types/button';
-import { InputType } from '@src/app/shared/domain/types/input';
-import { Size } from '@src/app/shared/domain/types/size';
+import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT } from '@domain/constants/admin';
+import { ButtonTypeEnum } from '@domain/enums/button';
+import { InputTypeEnum } from '@domain/enums/input';
+import { SizeEnum } from '@domain/enums/size';
+import { ButtonType } from '@domain/types/button';
+import { InputType } from '@domain/types/input';
+import { Size } from '@domain/types/size';
 
 @Component({
   selector: 'molecule-form-basic',

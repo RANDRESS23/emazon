@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING } from '@src/app/shared/domain/constants/admin';
-import { StatusEnum } from '@src/app/shared/domain/enums/status';
-import { StatusType } from '@src/app/shared/domain/types/status';
+import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING } from '@domain/constants/admin';
+import { StatusEnum } from '@domain/enums/status';
+import { StatusType } from '@domain/types/status';
 
 @Component({
   selector: 'atom-toast',
