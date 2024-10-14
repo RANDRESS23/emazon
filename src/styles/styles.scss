@@ -9,6 +9,23 @@
   font-family: 'Poppins', sans-serif;
 }
 
+html::-webkit-scrollbar,
+main::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+html::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 2rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 .no-scroll {
   overflow: hidden;
 }
