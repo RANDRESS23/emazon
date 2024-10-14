@@ -8,3 +8,11 @@ export interface BrandResponse {
   name: string;
   description: string;
 }
+
+export interface PageBrands {
+  pageNumber: number,
+	pageSize: number,
+	totalElements: number,
+	totalPages: number,
+	content: BrandResponse[]
+}
