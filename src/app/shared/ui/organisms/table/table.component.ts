@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BrandResponse } from '@src/app/shared/domain/interfaces/brand';
 import { CategoryResponse } from '@src/app/shared/domain/interfaces/category';
 
 @Component({
@@ -7,9 +8,9 @@ import { CategoryResponse } from '@src/app/shared/domain/interfaces/category';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @Input() list: CategoryResponse[] = [];
+  @Input() list: (CategoryResponse | BrandResponse)[] = [];
   @Input() headers: string[] = [];
-  @Input() keys: (keyof CategoryResponse)[] = [];
+  @Input() keys: (keyof (CategoryResponse | BrandResponse))[] = [];
 
   constructor() { }
 
