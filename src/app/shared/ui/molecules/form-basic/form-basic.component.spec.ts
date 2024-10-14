@@ -74,6 +74,9 @@ describe('FormBasicComponent', () => {
     fixture = TestBed.createComponent(FormBasicComponent);
     component = fixture.componentInstance;
 
+    component.inputName = 'name';
+    component.textareaName = 'description'; 
+
     component.nameMaxLength = 50;
     component.descriptionMaxLength = 90;
 

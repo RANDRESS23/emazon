@@ -101,3 +101,11 @@
     }
   }
 }
+
+@media (min-width: 760px) {
+  .toast {
+    width: 400px;
+    right: 30px;
+    left: auto;
+  }
+}
