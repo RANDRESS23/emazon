@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ARROW_LEFT_ICON_PATH, ARROW_RIGHT_ICON_PATH } from '@domain/constants/admin';
+import { ARROW_LEFT_ICON_PATH, ARROW_RIGHT_ICON_PATH, ZERO } from '@domain/constants/admin';
 
 @Component({
   selector: 'atom-pagination',
@@ -12,13 +12,13 @@ export class PaginationComponent implements OnInit, OnChanges {
   
   pages: number[] = [];
   pagesActives: number[] = [];
-  pageMin = 0;
-  pageMax = 0;
+  pageMin = ZERO;
+  pageMax = ZERO;
   showArrowLeft = false;
   showArrowRight = false;
 	
-  @Input() pageNumber: number = 0;
-  @Input() totalPages: number = 0;
+  @Input() pageNumber: number = ZERO;
+  @Input() totalPages: number = ZERO;
   @Output() pageNumberChange = new EventEmitter<number>();
 
   constructor() { }

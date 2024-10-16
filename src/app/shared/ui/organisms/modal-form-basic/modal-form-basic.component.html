@@ -9,7 +9,7 @@
         <img [src]="pathCloseIcon" alt="Close icon" />
       </button>
     </div>
-    <div class="modal__body">
+    <main class="modal__body">
       <molecule-form-basic 
         [inputLabel]="inputLabel"
         [inputPlaceholder]="inputPlaceholder"
@@ -21,9 +21,14 @@
         [nameMaxLength]="nameMaxLength"
         [descriptionMaxLength]="descriptionMaxLength"
         [showModal]="onShowModal.bind(this)"
+        [moreFields]="moreFields"
+        [moreInputs]="moreInputs"
+        [isDisabledDropdowns]="isDisabledDropdowns"
         (changeStatusSaveButtonEvent)="changeStatusSaveButtonOutput($event)"
         (formDataEvent)="handleSubmit($event)"
-      ></molecule-form-basic>
-    </div>
+      >
+      <ng-content></ng-content>
+    </molecule-form-basic>
+    </main>
   </div>
 </div>

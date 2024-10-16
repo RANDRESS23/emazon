@@ -62,6 +62,10 @@
 
   &__body {
     margin-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-height: 400px;
+    overflow: auto;
   }
 }
 
