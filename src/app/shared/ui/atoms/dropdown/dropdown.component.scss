@@ -1,0 +1,86 @@
+@import '/src/styles/styles.scss';
+
+.dropdown {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+
+  &__label {
+    font-size: 16px;
+    font-weight: 400;
+    color: $black-color;
+  }
+  
+  &__toggle {
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 4px;
+    border: 1px solid $spacer-light-color;
+    background-color: $white-color;
+    color: #aba6af;
+    font-weight: 400;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    &-arrow-down {
+      color: $black-color;
+    }
+  }
+
+  &__toggle--selected {
+    color: $black-color;
+  }
+}
+
+.menu {
+  position: absolute;
+  z-index: 200;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid $spacer-light-color;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  max-height: 140px;
+  overflow-y: auto;
+  font-size: 14px;
+
+  &__item {
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    color: $black-color;
+
+    &:hover {
+      background-color: $primary;
+      color: $white-color;
+    }
+
+    &.selected {
+      background-color: $primary;
+      color: $white-color;
+    }
+  }
+}
+
+.error {
+  width: 100%;
+  margin-top: 4px;
+  min-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+
+  &__text {
+    font-size: 12px;
+    font-weight: 400;
+    color: $error;
+    text-align: right;
+  }
+}

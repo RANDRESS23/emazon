@@ -3,10 +3,13 @@ export interface CategoryRequest {
   description: string;
 }
 
-export interface CategoryResponse {
+export interface CategoryResponse extends CategoryRequest {
+  categoryId: number;
+}
+
+export interface CategoryProductResponse {
   categoryId: number;
   name: string;
-  description: string;
 }
 
 export interface PageCategories {

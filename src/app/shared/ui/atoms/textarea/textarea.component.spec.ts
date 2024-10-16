@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TextareaComponent } from './textarea.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';

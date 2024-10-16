@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING } from '@src/app/shared/domain/constants/admin';
+import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING, ZERO } from '@domain/constants/admin';
 
 @Component({
   selector: 'organism-modal-form-basic',
@@ -36,13 +36,17 @@ export class ModalFormBasicComponent implements OnInit {
   @Input() textareaPlaceholder: string = EMPTY_STRING;
   @Input() textareaName: string = EMPTY_STRING;
   @Input() buttonSaveText: string = EMPTY_STRING;
-  @Output() modalEvent = new EventEmitter<() => void>();
   @Input() modalTitle: string = EMPTY_STRING;
   @Input() modalTitlePrimary: string = EMPTY_STRING;
-  @Input() nameMaxLength: number = 0;
-  @Input() descriptionMaxLength: number = 0;
-  @Output() formDataEvent = new EventEmitter<any>();
+  @Input() nameMaxLength: number = ZERO;
+  @Input() descriptionMaxLength: number = ZERO;
+  @Input() moreFields: Record<string, any[]> = {};
+  @Input() moreInputs: Record<string, string>[] = [];
   @Input() isDisabledSaveButton: boolean = true;
+  @Input() isDisabledDropdowns: boolean = true;
+  @Input() resetDropdowns: () => void = () => {};
+  @Output() modalEvent = new EventEmitter<() => void>();
+  @Output() formDataEvent = new EventEmitter<any>();
   @Output() changeStatusSaveButtonEvent = new EventEmitter<(isDisabled: boolean, loaded?: boolean) => void>();
 
   constructor() { }
@@ -54,6 +58,7 @@ export class ModalFormBasicComponent implements OnInit {
 
   onShowModal(): void {
     this.showModal = !this.showModal;
+    this.resetDropdowns();
 
     if (this.showModal) document.body.classList.add('no-scroll');
     else document.body.classList.remove('no-scroll');

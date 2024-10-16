@@ -9,6 +9,31 @@
   font-family: 'Poppins', sans-serif;
 }
 
+html::-webkit-scrollbar,
+main::-webkit-scrollbar,
+textarea::-webkit-scrollbar,
+ul::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+html::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb,
+ul::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 2rem;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 .no-scroll {
   overflow: hidden;
 }
