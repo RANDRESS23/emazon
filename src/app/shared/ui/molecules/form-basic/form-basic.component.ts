@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT } from '@domain/constants/admin';
+import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@domain/constants/admin';
 import { ButtonTypeEnum } from '@domain/enums/button';
 import { InputTypeEnum } from '@domain/enums/input';
 import { SizeEnum } from '@domain/enums/size';
@@ -13,16 +13,14 @@ import { Size } from '@domain/types/size';
   templateUrl: './form-basic.component.html',
   styleUrls: ['./form-basic.component.scss']
 })
-export class FormBasicComponent implements OnInit {
+export class FormBasicComponent implements OnInit, OnChanges {
   form!: FormGroup;
 
   inputType: InputType = InputTypeEnum.TEXT;
   inputErrorText: string = EMPTY_STRING;
   textareaErrorText: string = EMPTY_STRING;
-
   buttonSizeMedium: Size = SizeEnum.MEDIUM;
   buttonTypeSubmit: ButtonType = ButtonTypeEnum.SUBMIT;
-  
   buttonCancelText: string = CANCEL_BUTTON_TEXT;
   buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
   isDisabledSaveButton: boolean = true;
@@ -40,8 +38,11 @@ export class FormBasicComponent implements OnInit {
   @Input() textareaName: string = EMPTY_STRING;
   @Input() buttonSaveText: string = EMPTY_STRING;
   @Input() showModal: () => void = () => {};
-  @Input() nameMaxLength: number = 0;
-  @Input() descriptionMaxLength: number = 0;
+  @Input() nameMaxLength: number = ZERO;
+  @Input() descriptionMaxLength: number = ZERO;
+  @Input() moreFields: Record<string, any[]> = {};
+  @Input() moreInputs: Record<string, string>[] = [];
+  @Input() isDisabledDropdowns: boolean | null = null;
   @Output() formDataEvent = new EventEmitter<any>();
   @Output() changeStatusSaveButtonEvent = new EventEmitter<(isDisabled: boolean, loaded?: boolean) => void>();
 
@@ -50,10 +51,19 @@ export class FormBasicComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.nameMaxLength)]],
-      description: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]]
+      description: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]],
+      ...this.moreFields
     });
 
     this.changeStatusSaveButtonEvent.emit(() => this.changeStatusSaveButton(this.isDisabledSaveButton, this.loading));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.isDisabledDropdowns === null) return;
+    
+    if (changes['isDisabledDropdowns']) {
+      this.changeStatusSaveButton(this.isDisabledDropdowns);
+    }
   }
 
   onShowModal(): void {
@@ -78,8 +88,17 @@ export class FormBasicComponent implements OnInit {
 
       return (control?.touched || control?.dirty) && control?.hasError('maxlength');
     }
+
+    if (control?.hasError('min')) {
+      const min = control?.errors?.['min']?.min;
+      
+      this.getErrorText(controlName, 'min', min);
+      this.changeStatusSaveButton(!this.form.valid);
+
+      return (control?.touched || control?.dirty) && control?.hasError('min');
+    }
     
-    this.changeStatusSaveButton(!this.form.valid || this.loading);
+    this.changeStatusSaveButton(!this.form.valid || this.loading || !!this.isDisabledDropdowns);
 
     return false
   }
@@ -88,6 +107,12 @@ export class FormBasicComponent implements OnInit {
     if (error === 'required') {
       this.inputErrorText = REQUIRED_FIELD_ERROR_TEXT;
       this.textareaErrorText = REQUIRED_FIELD_ERROR_TEXT;
+
+      if (this.moreInputs.length > 0) {
+        this.moreInputs.forEach((input) => {
+          if (input['name'] === controlName) input['errorText'] = REQUIRED_FIELD_ERROR_TEXT;
+        });
+      }
     }
 
     if (controlName === NAME_CATEGORY_INPUT_NAME && error === 'maxlength') {
@@ -96,6 +121,12 @@ export class FormBasicComponent implements OnInit {
 
     if (controlName === DESCRIPTION_CATEGORY_TEXTAREA_NAME && error === 'maxlength') {
       this.textareaErrorText = `${MAX_LENGTH_FIELD_ERROR_TEXT} ${requiredLength}`;
+    }
+
+    if (error === 'min') {
+      this.moreInputs.forEach((input) => {
+        if (input['name'] === controlName) input['errorText'] = MIN_VALUE_FIELD_ERROR_TEXT;
+      });
     }
   }
 
@@ -109,13 +140,6 @@ export class FormBasicComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      const object = {
-        name: this.form.value.name,
-        description: this.form.value.description,
-      }
-
-      this.formDataEvent.emit(object);
-    }
+    if (this.form.valid) this.formDataEvent.emit(this.form.value);
   }
 }

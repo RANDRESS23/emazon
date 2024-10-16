@@ -16,6 +16,19 @@
     [errorText]="textareaErrorText"
     formControlName="{{ textareaName }}"
   ></atom-textarea>
+  
+  <div *ngFor="let field of moreInputs">
+    <atom-input
+      [inputLabel]="field['label']"
+      [inputPlaceholder]="field['placeholder']"
+      [inputType]="field['type']"
+      [inputName]="field['name']"
+      [isErrored]="hasErrors(field['name'])"
+      [errorText]="field['errorText']"
+      formControlName="{{ field['name'] }}"
+    ></atom-input>
+  </div>
+  <ng-content></ng-content>
   <div class="buttons">
     <atom-button 
       [text]="buttonSaveText" 
