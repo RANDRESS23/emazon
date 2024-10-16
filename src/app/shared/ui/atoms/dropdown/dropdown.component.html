@@ -1,0 +1,21 @@
+<div class="dropdown">
+  <label for="" class="dropdown__label">{{ label }}</label>
+  <button 
+    class="dropdown__toggle" 
+    (click)="toggleDropdown()" 
+    [type]="buttonTypeButton"
+    [ngClass]="{'dropdown__toggle--selected': selectedOption }"
+  >{{ selectedOption || 'Selecciona una ' + label2 }} <span class="dropdown__toggle-arrow-down">▼</span></button>
+  <ul class="menu" *ngIf="isDropdownOpen" [@optionsAnimationContainer]>
+    <li 
+      [value]="option['value']" 
+      class="menu__item"
+      *ngFor="let option of options"
+      [class.selected]="option['label'] === selectedOption"
+      (click)="selectOption(option['label'].toString(), option['value'])"
+    >{{ option['label'] }}</li>
+  </ul>
+</div>
+<div class="error">
+  <p class="error__text" *ngIf="isErrored">{{ errorText }}</p>
+</div>

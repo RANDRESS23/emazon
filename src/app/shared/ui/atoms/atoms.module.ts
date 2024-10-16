@@ -7,6 +7,8 @@ import { TextareaComponent } from './textarea/textarea.component';
 import { IconsModule } from './icons/icons.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { DropdownTableComponent } from './dropdown-table/dropdown-table.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { DropdownComboboxComponent } from './dropdown-combobox/dropdown-combobox.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { DropdownTableComponent } from './dropdown-table/dropdown-table.componen
     ToastComponent,
     TextareaComponent,
     PaginationComponent,
-    DropdownTableComponent
+    DropdownTableComponent,
+    DropdownComponent,
+    DropdownComboboxComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { DropdownTableComponent } from './dropdown-table/dropdown-table.componen
     TextareaComponent,
     ToastComponent,
     PaginationComponent,
-    DropdownTableComponent
+    DropdownTableComponent,
+    DropdownComponent,
+    DropdownComboboxComponent
   ]
 })
 export class AtomsModule { }
