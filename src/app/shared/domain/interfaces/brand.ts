@@ -3,10 +3,13 @@ export interface BrandRequest {
   description: string;
 }
 
-export interface BrandResponse {
+export interface BrandResponse extends BrandRequest {
+  brandId: number;
+}
+
+export interface BrandProductResponse {
   brandId: number;
   name: string;
-  description: string;
 }
 
 export interface PageBrands {
