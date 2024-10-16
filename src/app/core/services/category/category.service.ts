@@ -19,4 +19,8 @@ export class CategoryService {
   getAllCategories(page: number, size: number, sortOrder: string): Observable<PageCategories> {
     return this.http.get<PageCategories>(`${this.BASE_URL}/category?page=${page}&size=${size}&sortOrder=${sortOrder}`);
   }
+
+  getTotalCategories(): Observable<CategoryResponse[]> {
+    return this.http.get<CategoryResponse[]>(`${this.BASE_URL}/category/all`);
+  }
 }
