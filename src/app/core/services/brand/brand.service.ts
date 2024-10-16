@@ -19,4 +19,8 @@ export class BrandService {
   getAllBrands(page: number, size: number, sortOrder: string): Observable<PageBrands> {
     return this.http.get<PageBrands>(`${this.BASE_URL}/brand?page=${page}&size=${size}&sortOrder=${sortOrder}`);
   }
+  
+  getTotalBrands(): Observable<BrandResponse[]> {
+    return this.http.get<BrandResponse[]>(`${this.BASE_URL}/brand/all`);
+  }
 }
