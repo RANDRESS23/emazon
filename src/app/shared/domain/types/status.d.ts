@@ -1,1 +1,0 @@
-export type StatusType = 'success' | 'error' | 'warning';
