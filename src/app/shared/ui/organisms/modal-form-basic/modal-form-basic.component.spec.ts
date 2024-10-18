@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalFormBasicComponent } from './modal-form-basic.component';
-import { EMPTY_STRING } from '@src/app/shared/domain/constants/admin';
+import { EMPTY_STRING } from '@src/app/shared/utils/constants/admin';
 
 describe('ModalFormBasicComponent', () => {
   let component: ModalFormBasicComponent;

@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING, ZERO } from '@domain/constants/admin';
+import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING, ZERO } from '@utils/constants/admin';
 
 @Component({
   selector: 'organism-modal-form-basic',
@@ -43,7 +43,7 @@ export class ModalFormBasicComponent implements OnInit {
   @Input() moreFields: Record<string, any[]> = {};
   @Input() moreInputs: Record<string, string>[] = [];
   @Input() isDisabledSaveButton: boolean = true;
-  @Input() isDisabledDropdowns: boolean = true;
+  @Input() isDisabledDropdowns: boolean = false;
   @Input() resetDropdowns: () => void = () => {};
   @Output() modalEvent = new EventEmitter<() => void>();
   @Output() formDataEvent = new EventEmitter<any>();

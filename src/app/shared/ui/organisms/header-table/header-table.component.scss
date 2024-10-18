@@ -1,12 +1,22 @@
 .header {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 15px;
+}
 
-  &__dropdowns {
+.dropdowns {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__principal {
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 
@@ -14,9 +24,16 @@
   .header {
     flex-direction: row; 
     justify-content: space-between;
-    align-items: center;
-    
-    &__dropdowns {
+    align-items: center;  
+  }
+
+  .dropdowns {
+    width: auto;
+    flex-direction: row;
+    gap: 20px;
+
+    &__principal {
+      width: auto;
       gap: 20px;
     }
   }
