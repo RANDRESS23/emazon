@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { BrandService } from './brand.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { BrandRequest, BrandResponse, PageBrands } from '@src/app/shared/domain/interfaces/brand';
+import { BrandRequest, BrandResponse, PageBrands } from '@src/app/shared/utils/interfaces/brand';
 import { environment } from '@src/environments/environment';
 
 describe('BrandService', () => {
@@ -73,5 +73,21 @@ describe('BrandService', () => {
       expect(req.request.method).toBe('GET');
       req.flush(mockPageBrands);
     });
+  });
+
+  it('should retrieve all brands from the API via GET', () => {
+    const dummyBrands: BrandResponse[] = [
+      { name: 'Brand 1', brandId: 1, description: 'description' },
+      { name: 'Brand 2', brandId: 2, description: 'description' },
+    ];
+
+    service.getTotalBrands().subscribe((brands) => {
+      expect(brands.length).toBe(2);
+      expect(brands).toEqual(dummyBrands);
+    });
+
+    const req = httpMock.expectOne(`${environment.BASE_URL}/brand/all`);
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyBrands); 
   });
 });

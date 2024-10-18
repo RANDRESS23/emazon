@@ -126,4 +126,48 @@ describe('PaginationComponent', () => {
     expect(component.showArrowRight).toBe(false);
     expect(component.showArrowLeft).toBe(true);
   });
+
+  it('should set showArrowLeft to false if pagesActives contains pageMin in nextPage', () => {
+    component.pageMin = 1;
+    component.pageNumber = 1;
+    component.pages = [1, 2, 3, 4, 5];
+    component.pagesActives = [1, 2, 3, 4, 5]; 
+  
+    component.nextPage();
+  
+    expect(component.showArrowLeft).toBe(false);
+  });
+  
+  it('should set showArrowRight to false if pagesActives contains pageMax in nextPage', () => {
+    component.pageMax = 5;
+    component.pageNumber = 4;
+    component.pages = [1, 2, 3, 4, 5];
+    component.pagesActives = [1, 2, 3, 4, 5]; 
+  
+    component.nextPage();
+  
+    expect(component.showArrowRight).toBe(false);
+  });
+  
+  it('should set showArrowLeft to false if pagesActives contains pageMin in previousPage', () => {
+    component.pageMin = 1;
+    component.pageNumber = 2;
+    component.pages = [1, 2, 3, 4, 5];
+    component.pagesActives = [1, 2, 3, 4, 5]; 
+  
+    component.previousPage();
+  
+    expect(component.showArrowLeft).toBe(false);
+  });
+  
+  it('should set showArrowRight to false if pagesActives contains pageMax in previousPage', () => {
+    component.pageMax = 5;
+    component.pageNumber = 3;
+    component.pages = [1, 2, 3, 4, 5];
+    component.pagesActives = [1, 2, 3, 4, 5]; 
+  
+    component.previousPage();
+  
+    expect(component.showArrowRight).toBe(false);
+  });  
 });

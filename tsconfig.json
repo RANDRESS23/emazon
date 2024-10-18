@@ -6,7 +6,7 @@
       "@atoms/*": ["src/app/shared/ui/atoms/*"],
       "@molecules/*": ["src/app/shared/ui/molecules/*"],
       "@organisms/*": ["src/app/shared/ui/organisms/*"],
-      "@domain/*": ["src/app/shared/domain/*"],
+      "@utils/*": ["src/app/shared/utils/*"],
       "@src/*": ["src/*"]
     },
     "baseUrl": "./",

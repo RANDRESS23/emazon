@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING } from '@domain/constants/admin';
-import { ButtonTypeEnum } from '@domain/enums/button';
-import { ButtonType } from '@domain/types/button';
+import { EMPTY_STRING } from '@utils/constants/admin';
+import { ButtonTypeEnum } from '@utils/enums/button';
+import { ButtonType } from '@utils/types/button';
 
 @Component({
   selector: 'atom-dropdown',

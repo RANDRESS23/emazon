@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductRequest, ProductResponse } from '@domain/interfaces/product';
+import { PageProducts, ProductRequest, ProductResponse } from '@utils/interfaces/product';
 import { environment } from '@src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -14,5 +14,9 @@ export class ProductService {
 
   saveProduct(product: ProductRequest): Observable<ProductResponse> {
     return this.http.post<ProductResponse>(`${this.BASE_URL}/product`, product);
+  }
+
+  getAllProducts(page: number, size: number, sortOrder: string, sortBy: string): Observable<PageProducts> {
+    return this.http.get<PageProducts>(`${this.BASE_URL}/product?page=${page}&size=${size}&sortOrder=${sortOrder}&sortBy=${sortBy}`);
   }
 }

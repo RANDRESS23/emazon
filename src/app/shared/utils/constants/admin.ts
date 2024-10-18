@@ -1,4 +1,4 @@
-import { ProductResponse } from "@domain/interfaces/product";
+import { ProductResponse } from "@utils/interfaces/product";
 import { BrandResponse } from "../interfaces/brand";
 import { CategoryResponse } from "../interfaces/category";
 

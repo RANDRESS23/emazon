@@ -76,11 +76,9 @@ describe('InputComponent', () => {
     it('should define setDisabledState and call it without errors', () => {
       expect(component.setDisabledState).toBeDefined();
 
-      // Call with true (disabled)
       component.setDisabledState?.(true);
       expect(component.setDisabledState).toBeDefined();
 
-      // Call with false (enabled)
       component.setDisabledState?.(false);
       expect(component.setDisabledState).toBeDefined();
     });

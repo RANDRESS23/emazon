@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BrandRequest, BrandResponse, PageBrands } from '@src/app/shared/domain/interfaces/brand';
+import { BrandRequest, BrandResponse, PageBrands } from '@src/app/shared/utils/interfaces/brand';
 import { environment } from '@src/environments/environment';
 import { Observable } from 'rxjs';
 
