@@ -1,3 +1,4 @@
+import { ProductResponse } from "@utils/interfaces/product";
 import { BrandResponse } from "../interfaces/brand";
 import { CategoryResponse } from "../interfaces/category";
 
@@ -82,18 +83,78 @@ export const CATEGORY_SAVED_TEXT = 'La categoría fue guardada con éxito';
 export const BRAND_SAVED_TEXT = 'La marca fue guardada con éxito';
 export const PRODUCT_SAVED_TEXT = 'El producto fue guardado con éxito';
 
-export const TABLE_HEADERS_CATEGORY = ['ID', 'Nombre', 'Descripción'];
-export const TABLE_HEADERS_BRAND = ['ID', 'Nombre', 'Descripción'];
+export const TABLE_HEADERS_CATEGORY = [
+  {
+    label: 'ID',
+    isCentered: true,
+  },
+  {
+    label: 'Nombre',
+    isCentered: false,
+  },
+  {
+    label: 'Descripción',
+    isCentered: false,
+  }
+];
+export const TABLE_HEADERS_BRAND = [
+  {
+    label: 'ID',
+    isCentered: true,
+  },
+  {
+    label: 'Nombre',
+    isCentered: false,
+  },
+  {
+    label: 'Descripción',
+    isCentered: false,
+  }
+];
+export const TABLE_HEADERS_PRODUCT = [
+  {
+    label: 'ID',
+    isCentered: true,
+  },
+  {
+    label: 'Nombre',
+    isCentered: false,
+  },
+  {
+    label: 'Descripción',
+    isCentered: false,
+  },
+  {
+    label: 'Cantidad',
+    isCentered: true,
+  },
+  {
+    label: 'Precio',
+    isCentered: true,
+  },
+  {
+    label: 'Marca',
+    isCentered: false,
+  },
+  {
+    label: 'Categorías',
+    isCentered: false,
+  }
+]
 export const CATEGORY_KEYS: (keyof CategoryResponse)[] = ['categoryId', 'name', 'description'];
 export const BRAND_KEYS: (keyof BrandResponse)[] = ['brandId', 'name', 'description'];
+export const PRODUCT_KEYS: (keyof ProductResponse)[] = ['productId', 'name', 'description', 'quantity', 'price', 'brand', 'categories'];
 
 export const INITIAL_PAGE_TABLE = 0;
 export const INITIAL_TOTAL_PAGE_TABLE = 0;
 export const INITIAL_TOTAL_ELEMENTS_TABLE = 0;
 export const INITIAL_SIZE_ELEMENTS_TABLE = 10;
 export const INITIAL_SORT_ORDER_ELEMENTS_TABLE = 'asc';
+export const INITIAL_SORT_BY_ELEMENTS_TABLE = 'name';
 
 export const LABEL_SHOW_BY_DROPDOWN = 'Mostrar';
-export const LABEL_SORT_BY_DROPDOWN = 'Ordenar';
+export const LABEL_SORT_ORDER_DROPDOWN = 'Ordenar';
+export const LABEL_SORT_BY_DROPDOWN = 'Ordenar por';
 export const OPTIONS_SHOW_BY_DROPDOWN: Record<string, string | number>[] = [{ label: '10', value: 10 }, { label: '20', value: 20 }, { label: '50', value: 50 }];
-export const OPTIONS_SORT_BY_DROPDOWN: Record<string, string | number>[] = [{ label: 'Ascendente', value: 'asc' }, { label: 'Descendete', value: 'desc' }];
+export const OPTIONS_SORT_ORDER_DROPDOWN: Record<string, string | number>[] = [{ label: 'Ascendente', value: 'asc' }, { label: 'Descendete', value: 'desc' }];
+export const PRODUCT_OPTIONS_SORT_BY_DROPDOWN: Record<string, string | number>[] = [{ label: 'Nombre producto', value: 'name' }, { label: 'Nombre marca', value: 'brand' }, { label: 'Nombre categoría', value: 'categories' }];

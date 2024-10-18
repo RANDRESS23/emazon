@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DropdownComponent } from './dropdown.component';
-import { EMPTY_STRING } from '@domain/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/admin';
 
 describe('DropdownComponent', () => {
   let component: DropdownComponent;
@@ -67,7 +67,7 @@ describe('DropdownComponent', () => {
     component.selectedOption = mockItem;
     component.selectOption(mockItem, mockValue);
     expect(component.selectedOption).toBeNull();
-    expect(spyEmit).toHaveBeenCalledWith(0); // Valor reset a 0
+    expect(spyEmit).toHaveBeenCalledWith(0);
   });
 
   test('should reset selectedOption when resetOption is called', () => {

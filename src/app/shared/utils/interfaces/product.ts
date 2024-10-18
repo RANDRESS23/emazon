@@ -22,3 +22,11 @@ export interface ProductResponse {
   categories: CategoryProductResponse[];
   brand: BrandProductResponse;
 }
+
+export interface PageProducts {
+  pageNumber: number,
+	pageSize: number,
+	totalElements: number,
+	totalPages: number,
+	content: ProductResponse[]
+}

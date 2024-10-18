@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING } from '@domain/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/admin';
 
 @Component({
   selector: 'atom-dropdown-table',

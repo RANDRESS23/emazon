@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING, LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, OPTIONS_SHOW_BY_DROPDOWN, OPTIONS_SORT_BY_DROPDOWN } from '@domain/constants/admin';
+import { EMPTY_STRING, LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, LABEL_SORT_ORDER_DROPDOWN, OPTIONS_SHOW_BY_DROPDOWN, OPTIONS_SORT_ORDER_DROPDOWN } from '@utils/constants/admin';
 
 @Component({
   selector: 'organism-header-table',
@@ -9,12 +9,16 @@ import { EMPTY_STRING, LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, OPTIONS_S
 export class HeaderTableComponent implements OnInit {
   labelShowByDropdown: string = LABEL_SHOW_BY_DROPDOWN;
   optionsShowByDropdown: Record<string, string | number>[] = OPTIONS_SHOW_BY_DROPDOWN;
+  labelSortOrderDropdown: string = LABEL_SORT_ORDER_DROPDOWN;
+  optionsSortOrderDropdown: Record<string, string | number>[] = OPTIONS_SORT_ORDER_DROPDOWN;
   labelSortByDropdown: string = LABEL_SORT_BY_DROPDOWN;
-  optionsSortByDropdown: Record<string, string | number>[] = OPTIONS_SORT_BY_DROPDOWN;
   showBy: string = EMPTY_STRING
+  sortOrder: string = EMPTY_STRING
   sortBy: string = EMPTY_STRING
-
-  @Output() showAndSortBy = new EventEmitter<any>();
+  
+  @Input() showSortByDropdown: boolean = false;
+  @Input() optionsSortByDropdown: Record<string, string | number>[] = [{}];
+  @Output() showFilterOrders = new EventEmitter<any>();
 
   constructor() { }
 
@@ -23,11 +27,16 @@ export class HeaderTableComponent implements OnInit {
 
   changeShowBy(event: any): void {
     this.showBy = event;
-    this.showAndSortBy.emit([this.showBy, this.sortBy]);
+    this.showFilterOrders.emit([this.showBy, this.sortOrder, this.sortBy]);
   }
 
+  changeSortOrder(event: any): void {
+    this.sortOrder = event;
+    this.showFilterOrders.emit([this.showBy, this.sortOrder, this.sortBy]);
+  }
+  
   changeSortBy(event: any): void {
     this.sortBy = event;
-    this.showAndSortBy.emit([this.showBy, this.sortBy]);
+    this.showFilterOrders.emit([this.showBy, this.sortOrder, this.sortBy]);
   }
 }

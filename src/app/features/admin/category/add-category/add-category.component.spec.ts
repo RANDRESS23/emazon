@@ -3,7 +3,7 @@ import { AddCategoryComponent } from './add-category.component';
 import { of, throwError } from 'rxjs';
 import { CategoryService } from '@src/app/core/services/category/category.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CategoryRequest, CategoryResponse } from '../../domain/interfaces/category';
+import { CategoryRequest, CategoryResponse } from '@utils/interfaces/category';
 
 jest.useFakeTimers();
 

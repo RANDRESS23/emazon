@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { ListOfBrandsComponent } from './list-of-brands.component';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
-import { PageBrands } from '../../domain/interfaces/brand';
-import { INITIAL_PAGE_TABLE } from '../../domain/constants/admin';
+import { PageBrands } from '@utils/interfaces/brand';
+import { INITIAL_PAGE_TABLE } from '@utils/constants/admin';
 
 describe('ListOfBrandsComponent', () => {
   let component: ListOfBrandsComponent;
@@ -77,7 +77,7 @@ describe('ListOfBrandsComponent', () => {
     const getBrandsSpy = jest.spyOn(component, 'getBrands');
     const event = [10, 'asc'];
 
-    component.showAndSortBy(event);
+    component.showFilterOrders(event);
     expect(component.size).toBe(10);
     expect(component.sortOrder).toBe('asc');
     expect(component.pageNumber).toBe(INITIAL_PAGE_TABLE);

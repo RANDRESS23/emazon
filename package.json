@@ -39,7 +39,7 @@
       "^@atoms/(.*)$": "<rootDir>/src/app/shared/ui/atoms/$1",
       "^@molecules/(.*)$": "<rootDir>/src/app/shared/ui/molecules/$1",
       "^@organisms/(.*)$": "<rootDir>/src/app/shared/ui/organisms/$1",
-      "^@domain/(.*)$": "<rootDir>/src/app/shared/domain/$1",
+      "^@utils/(.*)$": "<rootDir>/src/app/shared/utils/$1",
       "^@src/(.*)$": "<rootDir>/src/$1"
     },
     "setupFilesAfterEnv": [

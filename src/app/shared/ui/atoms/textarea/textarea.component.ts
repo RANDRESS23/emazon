@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EMPTY_STRING } from '@domain/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/admin';
 
 @Component({
   selector: 'atom-textarea',
@@ -43,7 +43,7 @@ export class TextareaComponent implements OnInit, ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    // Aquí puedes manejar si el campo debe estar deshabilitado
+
   }
 
   onInputChange(event: any): void {

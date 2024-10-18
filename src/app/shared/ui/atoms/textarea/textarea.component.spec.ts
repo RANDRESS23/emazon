@@ -74,13 +74,4 @@ describe('TextareaComponent', () => {
     expect(onChangeSpy).toHaveBeenCalledWith('New input');
     expect(onTouchedSpy).toHaveBeenCalled();
   });
-
-  // it('should display error message when isErrored is true', () => {
-  //   component.isErrored = true;
-  //   component.errorText = 'This field is required';
-  //   fixture.detectChanges();
-    
-  //   const errorElement = fixture.debugElement.query(By.css('.error-text'));
-  //   expect(errorElement.nativeElement.textContent).toContain('This field is required');
-  // });
 });

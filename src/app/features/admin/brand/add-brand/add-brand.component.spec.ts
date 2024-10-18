@@ -3,7 +3,7 @@ import { AddBrandComponent } from './add-brand.component';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { of, throwError } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrandRequest, BrandResponse } from '../../domain/interfaces/brand';
+import { BrandRequest, BrandResponse } from '@utils/interfaces/brand';
 
 jest.useFakeTimers();
 

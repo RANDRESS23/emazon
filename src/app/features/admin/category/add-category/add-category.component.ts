@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_LABEL, DESCRIPTION_CATEGORY_TEXTAREA_NAME, DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_CATEGORY_DESCRIPTION_FIELD, MAX_LENGTH_CATEGORY_NAME_FIELD, NAME_CATEGORY_INPUT_LABEL, NAME_CATEGORY_INPUT_NAME, NAME_CATEGORY_INPUT_PLACEHOLDER, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SAVE_CATEGORY_BUTTON_TEXT, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '../../domain/constants/admin';
-import { Size } from '../../domain/types/size';
-import { SizeEnum } from '../../domain/enums/size';
-import { ButtonType } from '../../domain/types/button';
-import { ButtonTypeEnum } from '../../domain/enums/button';
+import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_LABEL, DESCRIPTION_CATEGORY_TEXTAREA_NAME, DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_CATEGORY_DESCRIPTION_FIELD, MAX_LENGTH_CATEGORY_NAME_FIELD, NAME_CATEGORY_INPUT_LABEL, NAME_CATEGORY_INPUT_NAME, NAME_CATEGORY_INPUT_PLACEHOLDER, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SAVE_CATEGORY_BUTTON_TEXT, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/admin';
+import { Size } from '@utils/types/size';
+import { SizeEnum } from '@utils/enums/size';
+import { ButtonType } from '@utils/types/button';
+import { ButtonTypeEnum } from '@utils/enums/button';
 import { CategoryService } from '@src/app/core/services/category/category.service';
-import { CategoryRequest } from '../../domain/interfaces/category';
-import { StatusType } from '../../domain/types/status';
-import { StatusEnum } from '../../domain/enums/status';
+import { CategoryRequest } from '@utils/interfaces/category';
+import { StatusType } from '@utils/types/status';
+import { StatusEnum } from '@utils/enums/status';
 
 @Component({
   selector: 'app-add-category',

@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING } from '@domain/constants/admin';
-import { ButtonTypeEnum } from '@domain/enums/button';
-import { ButtonType } from '@domain/types/button';
+import { EMPTY_STRING } from '@utils/constants/admin';
+import { ButtonTypeEnum } from '@utils/enums/button';
+import { ButtonType } from '@utils/types/button';
 
 @Component({
   selector: 'atom-dropdown-combobox',
@@ -52,13 +52,13 @@ export class DropdownComboboxComponent implements OnInit {
       if (this.selectedOptions.length < this.maxSelection) {
         this.selectedOptions.push(item);
         this.selectedOptionsValues.push(value as number);
+        this.toggleDropdown();
       }
     } else {
       this.selectedOptions.splice(index, 1);
       this.selectedOptionsValues.splice(index, 1);
     }
   
-    this.toggleDropdown();
     this.optionsChange.emit(this.selectedOptionsValues);
   }
 

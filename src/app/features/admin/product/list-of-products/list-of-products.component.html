@@ -1,12 +1,14 @@
 <organism-header-table
-  (showAndSortBy)="showAndSortBy($event)"
+  (showFilterOrders)="showFilterOrders($event)"
+  [showSortByDropdown]="true"
+  [optionsSortByDropdown]="optionsSortByDropdown"
 >
-  <app-add-brand
-    [addNewBrandCount]="addNewBrandCount.bind(this)"
-  ></app-add-brand>
+  <app-add-product
+    [addNewProductCount]="addNewProductCount.bind(this)"
+  ></app-add-product>
 </organism-header-table>
 <organism-table
-  [list]="listOfBrands"
+  [list]="listOfProducts"
   [headers]="headers"
   [keys]="keys"
 ></organism-table>

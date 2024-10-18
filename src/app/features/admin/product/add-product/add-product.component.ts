@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ADD_PRODUCT_BUTTON_TEXT, BRAND_PRODUCT_INPUT_LABEL, BRAND_PRODUCT_INPUT_LABEL2, BRAND_PRODUCT_INPUT_NAME, CATEGORIES_PRODUCT_INPUT_LABEL, CATEGORIES_PRODUCT_INPUT_LABEL2, CATEGORIES_PRODUCT_INPUT_NAME, DESCRIPTION_PRODUCT_TEXTAREA_LABEL, DESCRIPTION_PRODUCT_TEXTAREA_NAME, DESCRIPTION_PRODUCT_TEXTAREA_PLACEHOLDER, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_PRODUCT_DESCRIPTION_FIELD, MAX_LENGTH_PRODUCT_NAME_FIELD, NAME_PRODUCT_INPUT_LABEL, NAME_PRODUCT_INPUT_NAME, NAME_PRODUCT_INPUT_PLACEHOLDER, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, PRODUCT_SAVED_TEXT, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REGISTER_NEW_PRODUCT_TEXT, REGISTER_NEW_PRODUCT_TEXT_PRIMARY, SAVE_PRODUCT_BUTTON_TEXT, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH, ZERO } from '@domain/constants/admin';
-import { Size } from '@domain/types/size';
-import { SizeEnum } from '@domain/enums/size';
-import { ButtonTypeEnum } from '@domain/enums/button';
-import { ButtonType } from '@domain/types/button';
-import { StatusEnum } from '@domain/enums/status';
-import { StatusType } from '@domain/types/status';
-import { ProductRequest, ProductRequestDto } from '@domain/interfaces/product';
-import { InputTypeEnum } from '@domain/enums/input';
-import { InputType } from '@domain/types/input';
+import { ADD_PRODUCT_BUTTON_TEXT, BRAND_PRODUCT_INPUT_LABEL, BRAND_PRODUCT_INPUT_LABEL2, BRAND_PRODUCT_INPUT_NAME, CATEGORIES_PRODUCT_INPUT_LABEL, CATEGORIES_PRODUCT_INPUT_LABEL2, CATEGORIES_PRODUCT_INPUT_NAME, DESCRIPTION_PRODUCT_TEXTAREA_LABEL, DESCRIPTION_PRODUCT_TEXTAREA_NAME, DESCRIPTION_PRODUCT_TEXTAREA_PLACEHOLDER, EMPTY_STRING, ERROR_ICON_PATH, MAX_LENGTH_PRODUCT_DESCRIPTION_FIELD, MAX_LENGTH_PRODUCT_NAME_FIELD, NAME_PRODUCT_INPUT_LABEL, NAME_PRODUCT_INPUT_NAME, NAME_PRODUCT_INPUT_PLACEHOLDER, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, PRODUCT_SAVED_TEXT, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REGISTER_NEW_PRODUCT_TEXT, REGISTER_NEW_PRODUCT_TEXT_PRIMARY, SAVE_PRODUCT_BUTTON_TEXT, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH, ZERO } from '@utils/constants/admin';
+import { Size } from '@utils/types/size';
+import { SizeEnum } from '@utils/enums/size';
+import { ButtonTypeEnum } from '@utils/enums/button';
+import { ButtonType } from '@utils/types/button';
+import { StatusEnum } from '@utils/enums/status';
+import { StatusType } from '@utils/types/status';
+import { ProductRequest, ProductRequestDto } from '@utils/interfaces/product';
+import { InputTypeEnum } from '@utils/enums/input';
+import { InputType } from '@utils/types/input';
 import { Validators } from '@angular/forms';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { CategoryService } from '@src/app/core/services/category/category.service';
-import { BrandResponse } from '@domain/interfaces/brand';
-import { CategoryResponse } from '@domain/interfaces/category';
+import { BrandResponse } from '@utils/interfaces/brand';
+import { CategoryResponse } from '@utils/interfaces/category';
 import { ProductService } from '@src/app/core/services/product/product.service';
 
 @Component({

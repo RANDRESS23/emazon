@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { ListOfCategoriesComponent } from './list-of-categories.component';
 import { CategoryService } from '@src/app/core/services/category/category.service';
-import { PageCategories } from '../../domain/interfaces/category';
+import { PageCategories } from '@utils/interfaces/category';
 import { of, throwError } from 'rxjs';
-import { INITIAL_PAGE_TABLE } from '../../domain/constants/admin';
+import { INITIAL_PAGE_TABLE } from '@utils/constants/admin';
 
 describe('ListOfCategoriesComponent', () => {
   let component: ListOfCategoriesComponent;
@@ -77,7 +77,7 @@ describe('ListOfCategoriesComponent', () => {
     const getCategoriesSpy = jest.spyOn(component, 'getCategories');
     const event = [10, 'asc'];
 
-    component.showAndSortBy(event);
+    component.showFilterOrders(event);
     expect(component.size).toBe(10);
     expect(component.sortOrder).toBe('asc');
     expect(component.pageNumber).toBe(INITIAL_PAGE_TABLE);

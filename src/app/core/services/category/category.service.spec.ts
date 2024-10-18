@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CategoryService } from './category.service';
-import { CategoryRequest, CategoryResponse, PageCategories } from '@src/app/shared/domain/interfaces/category';
+import { CategoryRequest, CategoryResponse, PageCategories } from '@src/app/shared/utils/interfaces/category';
 import { environment } from '@src/environments/environment';
 
 describe('CategoryService', () => {
@@ -73,5 +73,21 @@ describe('CategoryService', () => {
       expect(req.request.method).toBe('GET');
       req.flush(mockPageCategories);
     });
+  });
+
+  it('should retrieve all categories from the API via GET', () => {
+    const dummyCategories: CategoryResponse[] = [
+      { name: 'Category 1', categoryId: 1, description: 'Description of category 1' },
+      { name: 'Category 2', categoryId: 2, description: 'Description of category 1' },
+    ];
+
+    service.getTotalCategories().subscribe((categories) => {
+      expect(categories.length).toBe(2);
+      expect(categories).toEqual(dummyCategories);
+    });
+
+    const req = httpMock.expectOne(`${environment.BASE_URL}/category/all`);
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyCategories);
   });
 });

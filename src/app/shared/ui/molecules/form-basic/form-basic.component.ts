@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@domain/constants/admin';
-import { ButtonTypeEnum } from '@domain/enums/button';
-import { InputTypeEnum } from '@domain/enums/input';
-import { SizeEnum } from '@domain/enums/size';
-import { ButtonType } from '@domain/types/button';
-import { InputType } from '@domain/types/input';
-import { Size } from '@domain/types/size';
+import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@utils/constants/admin';
+import { ButtonTypeEnum } from '@utils/enums/button';
+import { InputTypeEnum } from '@utils/enums/input';
+import { SizeEnum } from '@utils/enums/size';
+import { ButtonType } from '@utils/types/button';
+import { InputType } from '@utils/types/input';
+import { Size } from '@utils/types/size';
 
 @Component({
   selector: 'molecule-form-basic',

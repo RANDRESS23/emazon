@@ -5,9 +5,9 @@ import { AtomsModule } from '@atoms/atoms.module';
 import { OrganismsModule } from '@organisms/organisms.module';
 import { MoleculesModule } from '@molecules/molecules.module';
 import { IconsModule } from '@atoms/icons/icons.module';
-import { ComponentsModule } from '../shared/components/components.module';
 import { BrandPanelComponent } from './profile/admin/brand-panel/brand-panel.component';
 import { ProductPanelComponent } from './profile/admin/product-panel/product-panel.component';
+import { FeaturesModule } from '../features/features.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { ProductPanelComponent } from './profile/admin/product-panel/product-pan
     MoleculesModule,
     OrganismsModule,
     IconsModule,
-    ComponentsModule
+    FeaturesModule
   ]
 })
 export class PagesModule { }
