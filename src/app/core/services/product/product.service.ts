@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private BASE_URL: string = environment.BASE_URL;
+  private BASE_URL: string = environment.BASE_URL_STOCK;
 
   constructor(private http: HttpClient) { }
 
