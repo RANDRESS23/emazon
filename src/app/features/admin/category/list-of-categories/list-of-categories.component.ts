@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '@src/app/core/services/category/category.service';
 import { CategoryResponse, PageCategories } from '@utils/interfaces/category';
 import { CATEGORY_KEYS, INITIAL_PAGE_TABLE, INITIAL_SIZE_ELEMENTS_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE, TABLE_HEADERS_CATEGORY } from '@utils/constants/admin';
-import { BrandResponse } from '@utils/interfaces/brand';
 
 @Component({
   selector: 'app-list-of-categories',
@@ -17,7 +16,7 @@ export class ListOfCategoriesComponent implements OnInit {
   totalPages: number = INITIAL_TOTAL_PAGE_TABLE;
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   headers: Record<string, string | boolean>[] = TABLE_HEADERS_CATEGORY;
-  keys: (keyof (CategoryResponse | BrandResponse))[] = CATEGORY_KEYS as (keyof (CategoryResponse | BrandResponse))[];
+  keys: (keyof CategoryResponse)[] = CATEGORY_KEYS as (keyof (CategoryResponse))[];
 
   constructor(private categoryService: CategoryService) { }
 
