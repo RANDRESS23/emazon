@@ -43,7 +43,7 @@ export class ModalFormBasicComponent implements OnInit {
   @Input() moreFields: Record<string, any[]> = {};
   @Input() moreInputs: Record<string, string>[] = [];
   @Input() isDisabledSaveButton: boolean = true;
-  @Input() isDisabledDropdowns: boolean = false;
+  @Input() isDisabledDropdowns: boolean | null = null;
   @Input() resetDropdowns: () => void = () => {};
   @Output() modalEvent = new EventEmitter<() => void>();
   @Output() formDataEvent = new EventEmitter<any>();
