@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@utils/constants/admin';
+import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@utils/constants/admin';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { InputTypeEnum } from '@utils/enums/input';
 import { SizeEnum } from '@utils/enums/size';
@@ -24,6 +24,7 @@ export class FormBasicComponent implements OnInit, OnChanges {
   buttonCancelText: string = CANCEL_BUTTON_TEXT;
   buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
   isDisabledSaveButton: boolean = true;
+  buttonSaveTextPrev: string = EMPTY_STRING;
   loading: boolean = false;
   prevValues = {
     name: EMPTY_STRING,
@@ -49,16 +50,25 @@ export class FormBasicComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      name: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.nameMaxLength)]],
-      description: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]],
-      ...this.moreFields
-    });
+    if (this.inputLabel === EMPTY_STRING && this.textareaLabel === EMPTY_STRING) {
+      this.form = this.formBuilder.group({ ...this.moreFields });
+    } else {
+      this.form = this.formBuilder.group({
+        name: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+        description: [EMPTY_STRING, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]],
+        ...this.moreFields
+      });
+    }
 
     this.changeStatusSaveButtonEvent.emit(() => this.changeStatusSaveButton(this.isDisabledSaveButton, this.loading));
+    this.buttonSaveTextPrev = this.buttonSaveText;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void { 
+    if (!this.form) return;
+
+    this.changeStatusSaveButton(!this.form.valid || this.loading || !!this.isDisabledDropdowns);
+
     if (this.isDisabledDropdowns === null) return;
     
     if (changes['isDisabledDropdowns']) {
@@ -72,33 +82,33 @@ export class FormBasicComponent implements OnInit, OnChanges {
 
   hasErrors(controlName: string) {
     const control = this.form.get(controlName);
-
+    
     if (control?.hasError('required')) {
       this.getErrorText(controlName, 'required');
-      this.changeStatusSaveButton(!this.form.valid);
-
+      
       return (control?.touched || control?.dirty) && control?.hasError('required');
     }
     
     if (control?.hasError('maxlength')) {
       const requiredLength = control?.errors?.['maxlength']?.requiredLength;
-      
       this.getErrorText(controlName, 'maxlength', requiredLength);
-      this.changeStatusSaveButton(!this.form.valid);
 
       return (control?.touched || control?.dirty) && control?.hasError('maxlength');
+    }
+
+    if (control?.hasError('pattern')) {
+      this.getErrorText(controlName, 'pattern');
+
+      return (control?.touched || control?.dirty) && control?.hasError('pattern');
     }
 
     if (control?.hasError('min')) {
       const min = control?.errors?.['min']?.min;
       
       this.getErrorText(controlName, 'min', min);
-      this.changeStatusSaveButton(!this.form.valid);
 
       return (control?.touched || control?.dirty) && control?.hasError('min');
     }
-    
-    this.changeStatusSaveButton(!this.form.valid || this.loading || !!this.isDisabledDropdowns);
 
     return false
   }
@@ -111,6 +121,14 @@ export class FormBasicComponent implements OnInit, OnChanges {
       if (this.moreInputs.length > 0) {
         this.moreInputs.forEach((input) => {
           if (input['name'] === controlName) input['errorText'] = REQUIRED_FIELD_ERROR_TEXT;
+        });
+      }
+    }
+    
+    if (error === 'pattern') {
+      if (this.moreInputs.length > 0) {
+        this.moreInputs.forEach((input) => {
+          if (input['name'] === controlName) input['errorText'] = PATTERN_ERRORS[controlName as keyof typeof PATTERN_ERRORS];
         });
       }
     }
@@ -135,7 +153,7 @@ export class FormBasicComponent implements OnInit, OnChanges {
 
     if (loaded !== undefined) {
       this.loading = !loaded;
-      this.buttonSaveText = loaded ? SAVE_CATEGORY_BUTTON_TEXT : SAVING_BUTTON_TEXT;
+      this.buttonSaveText = loaded ? this.buttonSaveTextPrev : SAVING_BUTTON_TEXT;
     }
   }
 
