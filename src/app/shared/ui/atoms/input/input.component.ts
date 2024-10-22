@@ -1,6 +1,8 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EMPTY_STRING } from '@utils/constants/admin';
+import { InputTypeEnum } from '@utils/enums/input';
 
 @Component({
   selector: 'atom-input',
@@ -12,20 +14,31 @@ import { EMPTY_STRING } from '@utils/constants/admin';
       useExisting: forwardRef(() => InputComponent),
       multi: true
     }
+  ],
+  animations: [
+    trigger('ErrorTextAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.9)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'scale(0.9)' }))
+      ])
+    ])
   ]
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
+  value: string = '';
+  onChange: any = () => {};
+  onTouched: any = () => {};
+  showPassword: boolean = false;
+
   @Input() inputLabel: string = EMPTY_STRING;
   @Input() inputPlaceholder: string = EMPTY_STRING;
   @Input() inputType: string = EMPTY_STRING;
   @Input() inputName: string = EMPTY_STRING;
   @Input() isErrored?: boolean = false;
   @Input() errorText: string = EMPTY_STRING;
-
-  value: string = '';
-
-  onChange: any = () => {};
-  onTouched: any = () => {};
 
   constructor() { }
 
@@ -51,5 +64,10 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     this.value = value;
     this.onChange(value);
     this.onTouched();
+  }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
+    this.inputType = this.showPassword ? InputTypeEnum.TEXT : InputTypeEnum.PASSWORD
   }
 }

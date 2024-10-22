@@ -12,6 +12,8 @@ import { AddBrandComponent } from './admin/brand/add-brand/add-brand.component';
 import { ListOfBrandsComponent } from './admin/brand/list-of-brands/list-of-brands.component';
 import { AddProductComponent } from './admin/product/add-product/add-product.component';
 import { ListOfProductsComponent } from './admin/product/list-of-products/list-of-products.component';
+import { AddWarehouseAssistantComponent } from './admin/warehouse-assistant/add-warehouse-assistant/add-warehouse-assistant.component';
+import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/list-of-warehouse-assistant/list-of-warehouse-assistant.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ListOfProductsComponent } from './admin/product/list-of-products/list-o
     AddBrandComponent,
     ListOfBrandsComponent,
     AddProductComponent,
-    ListOfProductsComponent
+    ListOfProductsComponent,
+    AddWarehouseAssistantComponent,
+    ListOfWarehouseAssistantComponent
   ],
   imports: [
     CommonModule,
@@ -35,9 +39,11 @@ import { ListOfProductsComponent } from './admin/product/list-of-products/list-o
     AddCategoryComponent,
     AddBrandComponent,
     AddProductComponent,
+    AddWarehouseAssistantComponent,
     ListOfCategoriesComponent,
     ListOfBrandsComponent,
-    ListOfProductsComponent
+    ListOfProductsComponent,
+    ListOfWarehouseAssistantComponent
   ]
 })
 export class FeaturesModule { }

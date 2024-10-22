@@ -8,12 +8,14 @@ import { IconsModule } from '@atoms/icons/icons.module';
 import { BrandPanelComponent } from './profile/admin/brand-panel/brand-panel.component';
 import { ProductPanelComponent } from './profile/admin/product-panel/product-panel.component';
 import { FeaturesModule } from '../features/features.module';
+import { WarehouseAssistantPanelComponent } from './profile/admin/warehouse-assistant-panel/warehouse-assistant-panel.component';
 
 @NgModule({
   declarations: [
     CategoryPanelComponent,
     BrandPanelComponent,
-    ProductPanelComponent
+    ProductPanelComponent,
+    WarehouseAssistantPanelComponent
   ],
   imports: [
     CommonModule,

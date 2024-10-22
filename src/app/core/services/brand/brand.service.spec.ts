@@ -42,7 +42,7 @@ describe('BrandService', () => {
         expect(response).toEqual(mockBrandResponse);
       });
 
-      const req = httpMock.expectOne(`${environment.BASE_URL}/brand`);
+      const req = httpMock.expectOne(`${environment.BASE_URL_STOCK}/brand`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockBrandRequest);
       req.flush(mockBrandResponse);
@@ -69,7 +69,7 @@ describe('BrandService', () => {
         expect(response).toEqual(mockPageBrands);
       });
 
-      const req = httpMock.expectOne(`${environment.BASE_URL}/brand?page=${page}&size=${size}&sortOrder=${sortOrder}`);
+      const req = httpMock.expectOne(`${environment.BASE_URL_STOCK}/brand?page=${page}&size=${size}&sortOrder=${sortOrder}`);
       expect(req.request.method).toBe('GET');
       req.flush(mockPageBrands);
     });
@@ -86,7 +86,7 @@ describe('BrandService', () => {
       expect(brands).toEqual(dummyBrands);
     });
 
-    const req = httpMock.expectOne(`${environment.BASE_URL}/brand/all`);
+    const req = httpMock.expectOne(`${environment.BASE_URL_STOCK}/brand/all`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyBrands); 
   });

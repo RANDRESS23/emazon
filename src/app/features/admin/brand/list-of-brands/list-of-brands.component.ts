@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BRAND_KEYS, INITIAL_PAGE_TABLE, INITIAL_SIZE_ELEMENTS_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE, TABLE_HEADERS_BRAND } from '@utils/constants/admin';
 import { BrandResponse, PageBrands } from '@utils/interfaces/brand';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
-import { CategoryResponse } from '@utils/interfaces/category';
 
 @Component({
   selector: 'app-list-of-brands',
@@ -17,7 +16,7 @@ export class ListOfBrandsComponent implements OnInit {
   totalPages: number = INITIAL_TOTAL_PAGE_TABLE;
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   headers: Record<string, string | boolean>[] = TABLE_HEADERS_BRAND;
-  keys: (keyof (CategoryResponse | BrandResponse))[] = BRAND_KEYS as (keyof (CategoryResponse | BrandResponse))[];
+  keys: (keyof BrandResponse)[] = BRAND_KEYS as (keyof (BrandResponse))[];
 
   constructor(private brandService: BrandService) { }
 

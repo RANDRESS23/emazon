@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BrandResponse } from '@utils/interfaces/brand';
 import { CategoryResponse } from '@utils/interfaces/category';
-import { ProductResponse } from '@utils/interfaces/product';
 
 @Component({
   selector: 'organism-table',
@@ -9,9 +7,9 @@ import { ProductResponse } from '@utils/interfaces/product';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @Input() list: (CategoryResponse | BrandResponse | ProductResponse)[] = [];
+  @Input() list: any[] = [];
   @Input() headers: Record<string, string | boolean>[] = [];
-  @Input() keys: (keyof (CategoryResponse | BrandResponse | ProductResponse))[] = [];
+  @Input() keys: any[] = [];
 
   constructor() { }
 

@@ -1,5 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
   <atom-input
+    *ngIf="inputLabel !== ''"
     [inputLabel]="inputLabel"
     [inputPlaceholder]="inputPlaceholder"
     [inputType]="inputType"
@@ -9,6 +10,7 @@
     formControlName="{{ inputName }}"
   ></atom-input>
   <atom-textarea
+    *ngIf="textareaLabel !== ''"
     [textareaLabel]="textareaLabel"
     [textareaPlaceholder]="textareaPlaceholder"
     [textareaName]="textareaName"

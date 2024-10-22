@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputComponent } from './input.component';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputTypeEnum } from '@utils/enums/input';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -110,5 +111,41 @@ describe('InputComponent', () => {
       expect(component.isErrored).toBe(false);
       expect(component.errorText).toBe('');
     });
+  });
+
+  it('should toggle showPassword from false to true and set inputType to TEXT', () => {
+    component.toggleShowPassword();
+    
+    expect(component.showPassword).toBeTruthy(); 
+    expect(component.inputType).toBe(InputTypeEnum.TEXT); 
+  });
+
+  it('should toggle showPassword from true to false and set inputType to PASSWORD', () => {
+    component.showPassword = true; 
+    component.inputType = InputTypeEnum.TEXT; 
+
+    component.toggleShowPassword();
+    
+    expect(component.showPassword).toBeFalsy(); 
+    expect(component.inputType).toBe(InputTypeEnum.PASSWORD);
+  });
+
+  it('should register as a ControlValueAccessor', () => {
+    expect(component.registerOnChange).toBeDefined();
+    expect(component.registerOnTouched).toBeDefined();
+    expect(component.writeValue).toBeDefined();
+  });
+
+  it('should call onChange and onTouched when input changes', () => {
+    const onChangeSpy = jest.spyOn(component, 'onChange');
+    const onTouchedSpy = jest.spyOn(component, 'onTouched');
+
+    const inputElement = fixture.nativeElement.querySelector('input');
+    inputElement.value = 'test';
+    inputElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(onChangeSpy).toHaveBeenCalledWith('test');
+    expect(onTouchedSpy).toHaveBeenCalled();
   });
 });

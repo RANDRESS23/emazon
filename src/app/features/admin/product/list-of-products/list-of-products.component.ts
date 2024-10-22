@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { INITIAL_PAGE_TABLE, INITIAL_SIZE_ELEMENTS_TABLE, INITIAL_SORT_BY_ELEMENTS_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE, PRODUCT_KEYS, PRODUCT_OPTIONS_SORT_BY_DROPDOWN, TABLE_HEADERS_PRODUCT } from '@utils/constants/admin';
 import { PageProducts, ProductResponse } from '@utils/interfaces/product';
 import { ProductService } from '@src/app/core/services/product/product.service';
-import { CategoryResponse } from '@utils/interfaces/category';
-import { BrandResponse } from '@utils/interfaces/brand';
 
 @Component({
   selector: 'app-list-of-products',
@@ -20,7 +18,7 @@ export class ListOfProductsComponent implements OnInit {
   totalPages: number = INITIAL_TOTAL_PAGE_TABLE;
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   headers: Record<string, string | boolean>[] = TABLE_HEADERS_PRODUCT;
-  keys: (keyof (CategoryResponse | BrandResponse | ProductResponse))[] = PRODUCT_KEYS as (keyof (CategoryResponse | BrandResponse | ProductResponse))[];
+  keys: (keyof ProductResponse)[] = PRODUCT_KEYS as (keyof (ProductResponse))[];
 
   constructor(private productService: ProductService) { }
 

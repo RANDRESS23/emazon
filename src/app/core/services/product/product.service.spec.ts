@@ -8,7 +8,7 @@ describe('ProductService', () => {
   let service: ProductService;
   let httpTestingController: HttpTestingController;
 
-  const BASE_URL = environment.BASE_URL;
+  const BASE_URL = environment.BASE_URL_STOCK;
   
   beforeEach(() => {
     TestBed.configureTestingModule({
