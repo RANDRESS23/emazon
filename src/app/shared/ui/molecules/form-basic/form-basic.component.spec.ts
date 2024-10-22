@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBasicComponent } from './form-basic.component';
-import { ControlValueAccessor, FormBuilder, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, forwardRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
-import { EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@src/app/shared/utils/constants/admin';
+import { EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, PATTERN_ERRORS, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@src/app/shared/utils/constants/admin';
 import { InputTypeEnum } from '@utils/enums/input';
 
 @Component({
@@ -60,7 +60,7 @@ class MockAtomTextareaComponent implements ControlValueAccessor {
 }
 
 describe('FormBasicComponent', () => {
-  let component: FormBasicComponent;
+  let component: FormBasicComponent & { form: FormGroup | null };
   let fixture: ComponentFixture<FormBasicComponent>;
 
   beforeEach(async () => {
@@ -76,7 +76,9 @@ describe('FormBasicComponent', () => {
     component = fixture.componentInstance;
 
     component.inputName = 'name';
+    component.inputLabel = 'name';
     component.textareaName = 'description'; 
+    component.textareaLabel = 'description'; 
 
     component.nameMaxLength = 50;
     component.descriptionMaxLength = 90;
@@ -192,7 +194,8 @@ describe('FormBasicComponent', () => {
     component.form.get('quantity')?.setValue(1);
     component.form.get('price')?.setValue(1);
 
-    component.hasErrors('name');
+    component.changeStatusSaveButton(!component.form.valid || component.loading || !!component.isDisabledDropdowns);
+    
     expect(component.isDisabledSaveButton).toBe(false);
   });
 
@@ -242,12 +245,12 @@ describe('FormBasicComponent', () => {
     component.changeStatusSaveButton(false, true);
     expect(component.isDisabledSaveButton).toBe(false);
     expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe(SAVE_CATEGORY_BUTTON_TEXT);
+    expect(component.buttonSaveText).toBe(component.buttonSaveTextPrev);
 
     component.changeStatusSaveButton(true, true);
     expect(component.isDisabledSaveButton).toBe(true);
     expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe(SAVE_CATEGORY_BUTTON_TEXT);
+    expect(component.buttonSaveText).toBe(component.buttonSaveTextPrev);
 
     component.changeStatusSaveButton(true, false);
     expect(component.isDisabledSaveButton).toBe(true);
@@ -299,7 +302,7 @@ describe('FormBasicComponent', () => {
     component.changeStatusSaveButton(false, true);
     expect(component.isDisabledSaveButton).toBe(false);
     expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe(SAVE_CATEGORY_BUTTON_TEXT);
+    expect(component.buttonSaveText).toBe(component.buttonSaveTextPrev);
   });
   
   it('should not call showModal when showModal is null or undefined', () => {
@@ -379,4 +382,127 @@ describe('FormBasicComponent', () => {
     const hasError = component.hasErrors(controlName);
     expect(hasError).toBeFalsy();
   });
+
+  it('should initialize the form with only moreFields when inputLabel and textareaLabel are EMPTY_STRING', () => {
+    component.inputLabel = '';
+    component.textareaLabel = '';
+    component.moreFields = { customField: [''] };
+
+    component.ngOnInit();
+
+    expect(component.form.controls['customField']).toBeDefined();
+    expect(component.form.controls['name']).toBeUndefined();
+    expect(component.form.controls['description']).toBeUndefined();
+  });
+
+  it('should initialize the form with name and description when inputLabel and textareaLabel are not EMPTY_STRING', () => {
+    component.inputLabel = 'Name';
+    component.textareaLabel = 'Description';
+    component.nameMaxLength = 50;
+    component.descriptionMaxLength = 100;
+
+    component.ngOnInit();
+
+    expect(component.form.controls['name']).toBeDefined();
+    expect(component.form.controls['description']).toBeDefined();
+  });
+
+  it('should emit the changeStatusSaveButtonEvent with the correct function in ngOnInit', () => {
+    const eventSpy = jest.spyOn(component.changeStatusSaveButtonEvent, 'emit');
+
+    component.ngOnInit();
+
+    expect(eventSpy).toHaveBeenCalledWith(expect.any(Function));
+  });
+
+  it('should toggle loading and update buttonSaveText in changeStatusSaveButton when loaded is passed', () => {
+    component.buttonSaveTextPrev = 'Previous';
+    component.changeStatusSaveButton(false, true);
+
+    expect(component.isDisabledSaveButton).toBe(false);
+    expect(component.loading).toBe(false);
+    expect(component.buttonSaveText).toBe('Previous');
+
+    component.changeStatusSaveButton(true, false);
+
+    expect(component.isDisabledSaveButton).toBe(true);
+    expect(component.loading).toBe(true);
+    expect(component.buttonSaveText).toBe('Guardando...');
+  });
+
+  it('should return true when control has required error', () => {
+    const control = component.form.get('name');
+    control?.setErrors({ required: true });
+    control?.markAsTouched();
+  
+    const hasError = component.hasErrors('name');
+    expect(hasError).toBeTruthy();
+  });
+  
+  it('should return true when control has maxlength error', () => {
+    const control = component.form.get('name');
+    control?.setErrors({ maxlength: { requiredLength: 10 } });
+    control?.markAsTouched();
+  
+    const hasError = component.hasErrors('name');
+    expect(hasError).toBeTruthy();
+  });
+
+  it('should return true when control has pattern error', () => {
+    const control = component.form.get('name');
+    control?.setErrors({ pattern: true });
+    control?.markAsTouched();
+  
+    const hasError = component.hasErrors('name');
+    expect(hasError).toBeTruthy();
+  });
+
+  it('should return true when control has min error', () => {
+    const control = component.form.get('name');
+    control?.setErrors({ min: { min: 5 } });
+    control?.markAsTouched();
+  
+    const hasError = component.hasErrors('name');
+    expect(hasError).toBeTruthy();
+  });
+
+  it('should return false when control has no errors', () => {
+    const control = component.form.get('name');
+    control?.setErrors(null);
+    control?.markAsTouched();
+  
+    const hasError = component.hasErrors('name');
+    expect(hasError).toBeFalsy();
+  });  
+
+  it('should update errorText for matching input name when error is pattern', () => {
+    component.moreInputs = [
+      { name: 'name', errorText: '' }
+    ];
+  
+    const control = component.form.get('name');
+    control?.setErrors({ pattern: true });
+  
+    component.getErrorText('name', 'pattern');
+  
+    expect(component.moreInputs[0]['errorText']).toBe(PATTERN_ERRORS.name);
+  });
+
+  it('should emit changeStatusSaveButtonEvent and call changeStatusSaveButton with isDisabledSaveButton and loading', () => {
+    jest.spyOn(component.changeStatusSaveButtonEvent, 'emit').mockImplementation((callback?: (isDisabled: boolean, loaded?: boolean) => void) => {
+      if (callback) {
+        callback(true, false);
+      }
+    });    
+  
+    const changeStatusSpy = jest.spyOn(component, 'changeStatusSaveButton');
+  
+    component.isDisabledSaveButton = true;
+    component.loading = false;
+  
+    component.ngOnInit();
+  
+    expect(component.changeStatusSaveButtonEvent.emit).toHaveBeenCalled();
+    expect(changeStatusSpy).toHaveBeenCalledWith(true, false);
+  });  
 });

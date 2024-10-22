@@ -42,7 +42,7 @@ describe('CategoryService', () => {
         expect(response).toEqual(mockCategoryResponse);
       });
 
-      const req = httpMock.expectOne(`${environment.BASE_URL}/category`);
+      const req = httpMock.expectOne(`${environment.BASE_URL_STOCK}/category`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockCategoryRequest);
       req.flush(mockCategoryResponse);
@@ -69,7 +69,7 @@ describe('CategoryService', () => {
         expect(response).toEqual(mockPageCategories);
       });
 
-      const req = httpMock.expectOne(`${environment.BASE_URL}/category?page=${page}&size=${size}&sortOrder=${sortOrder}`);
+      const req = httpMock.expectOne(`${environment.BASE_URL_STOCK}/category?page=${page}&size=${size}&sortOrder=${sortOrder}`);
       expect(req.request.method).toBe('GET');
       req.flush(mockPageCategories);
     });
@@ -86,7 +86,7 @@ describe('CategoryService', () => {
       expect(categories).toEqual(dummyCategories);
     });
 
-    const req = httpMock.expectOne(`${environment.BASE_URL}/category/all`);
+    const req = httpMock.expectOne(`${environment.BASE_URL_STOCK}/category/all`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyCategories);
   });
