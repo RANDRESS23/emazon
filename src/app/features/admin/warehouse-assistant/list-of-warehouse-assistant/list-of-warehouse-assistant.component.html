@@ -1,0 +1,19 @@
+<organism-header-table
+  (showFilterOrders)="showFilterOrders($event)"
+  [showSortByDropdown]="true"
+  [optionsSortByDropdown]="optionsSortByDropdown"
+>
+  <app-add-warehouse-assistant
+    [addNewWarehouseAssistantCount]="addNewWarehouseAssistantCount.bind(this)"
+  ></app-add-warehouse-assistant>
+</organism-header-table>
+<organism-table
+  [list]="listOfWarehouseAssistants"
+  [headers]="headers"
+  [keys]="keys"
+></organism-table>
+<atom-pagination
+  [pageNumber]="pageNumber"
+  [totalPages]="totalPages"
+  (pageNumberChange)="changePage($event)"
+></atom-pagination>
