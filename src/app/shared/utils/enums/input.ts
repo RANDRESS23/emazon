@@ -6,5 +6,6 @@ export enum InputTypeEnum {
   TEL = 'tel',
   URL = 'url',
   SEARCH = 'search',
-  SCROLL = 'scroll'
+  SCROLL = 'scroll',
+  DATE = 'date',
 }
