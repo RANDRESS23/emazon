@@ -1,0 +1,15 @@
+@import '/src/styles/styles.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: .2s ease all;
+
+  &:hover {
+    color: $primary;
+  }
+}
