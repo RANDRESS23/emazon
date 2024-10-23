@@ -1,0 +1,63 @@
+<header class="header">
+  <nav class="navbar">
+    <ul class="list-primary">
+      <li class="list-primary__menu-button">
+        <atom-menu-button 
+          *ngIf="!showNavbarMobileContent" 
+          (click)="toggleNavbarMobileContent()"
+        ></atom-menu-button>
+
+        <button 
+          *ngIf="showNavbarMobileContent"
+          (click)="toggleNavbarMobileContent()"
+          class="cancel-button" 
+        >
+          <atom-cancel-icon></atom-cancel-icon>
+        </button>
+      </li>
+      <li class="list-primary__logo">
+        <span>LOGO</span>
+      </li>
+    </ul>
+    <ul class="list-items-desktop">
+      <li *ngFor="let item of menuItems">
+        <a 
+          class="item-desktop"
+          [routerLink]="[item['path']]" 
+          routerLinkActive="item-desktop-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          {{ item['label'] }}
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <atom-button 
+          *ngIf="isLogged"
+          (click)="signOut()"
+          [text]="buttonSignOutText" 
+          [type]="buttonTypeButton" 
+          [size]="buttonSizeSmall"
+        >
+        </atom-button>
+      </li>
+    </ul>
+  </nav>
+  <main class="navbar-mobile-container" *ngIf="showNavbarMobileContent" [@mobileContainerAnimation]>
+    <div class="navbar-mobile-content">
+      <ul class="list-mobile">
+        <li *ngFor="let item of menuItems">
+          <a 
+            class="item-mobile"
+            [routerLink]="[item['path']]" 
+            routerLinkActive="item-mobile-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            {{ item['label'] }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </main>
+</header>
