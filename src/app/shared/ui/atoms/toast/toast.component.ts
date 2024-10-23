@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH, EMPTY_STRING } from '@utils/constants/admin';
+import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH } from '@utils/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/general';
 import { StatusEnum } from '@utils/enums/status';
 import { StatusType } from '@utils/types/status';
 
