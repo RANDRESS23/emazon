@@ -4,6 +4,8 @@ import { SaveIconComponent } from './save-icon/save-icon.component';
 import { AddBoxIconComponent } from './add-box-icon/add-box-icon.component';
 import { EyeIconComponent } from './eye-icon/eye-icon.component';
 import { EyeClosedIconComponent } from './eye-closed-icon/eye-closed-icon.component';
+import { MenuIconComponent } from './menu-icon/menu-icon.component';
+import { CancelIconComponent } from './cancel-icon/cancel-icon.component';
 
 
 
@@ -12,7 +14,9 @@ import { EyeClosedIconComponent } from './eye-closed-icon/eye-closed-icon.compon
     SaveIconComponent,
     AddBoxIconComponent,
     EyeIconComponent,
-    EyeClosedIconComponent
+    EyeClosedIconComponent,
+    MenuIconComponent,
+    CancelIconComponent
   ],
   imports: [
     CommonModule
@@ -21,7 +25,9 @@ import { EyeClosedIconComponent } from './eye-closed-icon/eye-closed-icon.compon
     SaveIconComponent,
     AddBoxIconComponent,
     EyeIconComponent,
-    EyeClosedIconComponent
+    EyeClosedIconComponent,
+    MenuIconComponent,
+    CancelIconComponent
   ]
 })
 export class IconsModule { }
