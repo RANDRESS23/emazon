@@ -9,6 +9,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { DropdownTableComponent } from './dropdown-table/dropdown-table.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { DropdownComboboxComponent } from './dropdown-combobox/dropdown-combobox.component';
+import { MenuButtonComponent } from './menu-button/menu-button.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DropdownComboboxComponent } from './dropdown-combobox/dropdown-combobox
     PaginationComponent,
     DropdownTableComponent,
     DropdownComponent,
-    DropdownComboboxComponent
+    DropdownComboboxComponent,
+    MenuButtonComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { DropdownComboboxComponent } from './dropdown-combobox/dropdown-combobox
     PaginationComponent,
     DropdownTableComponent,
     DropdownComponent,
-    DropdownComboboxComponent
+    DropdownComboboxComponent,
+    MenuButtonComponent
   ]
 })
 export class AtomsModule { }
