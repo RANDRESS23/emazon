@@ -3,14 +3,6 @@ import { BrandResponse } from "../interfaces/brand";
 import { CategoryResponse } from "../interfaces/category";
 import { WarehouseAssistantResponse } from "@utils/interfaces/warehouse-assistant";
 
-export const EMPTY_STRING = '';
-export const ZERO = 0;
-export const NAME_REGEX = "^[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+$";
-export const DOCUMENT_REGEX = "^\\d{7,10}$";
-export const PHONE_REGEX = "^\\+?\\d{1,12}$";
-export const EMAIL_REGEX = "^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-export const PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,}$";
-
 export const ADD_CATEGORY_BUTTON_TEXT = 'Añadir categoría';
 export const ADD_BRAND_BUTTON_TEXT = 'Añadir marca';
 export const ADD_PRODUCT_BUTTON_TEXT = 'Añadir producto';
@@ -22,7 +14,8 @@ export const SAVE_CATEGORY_BUTTON_TEXT = 'Guardar categoría';
 export const SAVE_BRAND_BUTTON_TEXT = 'Guardar marca';
 export const SAVE_PRODUCT_BUTTON_TEXT = 'Guardar producto';
 export const SAVE_WAREHOUSE_ASSISTANT_BUTTON_TEXT = 'Guardar usuario';
-export const SAVING_BUTTON_TEXT = 'Guardando...';
+export const SIGN_IN_BUTTON_TEXT = 'Iniciar sesión';
+export const LOADING_BUTTON_TEXT = 'Cargando...';
 export const CANCEL_BUTTON_TEXT = 'Cancelar';
 
 export const REGISTER_NEW_CATEGORY_TEXT = 'Registrar nueva';
@@ -118,12 +111,6 @@ export const PATTERN_ERRORS = {
   email: 'El correo debe tener un formato válido',
   password: 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial'
 }
-
-export const SUCCESS_ICON_PATH = '/assets/icons/success-icon.svg';
-export const ERROR_ICON_PATH = '/assets/icons/error-icon.svg';
-export const WARNING_ICON_PATH = '/assets/icons/warning-icon.svg';
-export const ARROW_LEFT_ICON_PATH = '/assets/icons/arrow-left-icon.svg';
-export const ARROW_RIGHT_ICON_PATH = '/assets/icons/arrow-right-icon.svg';
 
 export const CATEGORY_SAVED_TEXT = 'La categoría fue guardada con éxito';
 export const BRAND_SAVED_TEXT = 'La marca fue guardada con éxito';
