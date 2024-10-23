@@ -1,0 +1,1 @@
+export type RoleType = 'ADMIN' | 'AUX_BODEGA' | 'CLIENTE';
