@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBasicComponent } from './form-basic.component';
-import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, forwardRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
-import { EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, PATTERN_ERRORS, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@src/app/shared/utils/constants/admin';
+import { EMPTY_STRING, MIN_VALUE_FIELD_ERROR_TEXT, PATTERN_ERRORS, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REQUIRED_FIELD_ERROR_TEXT, LOADING_BUTTON_TEXT } from '@src/app/shared/utils/constants/admin';
 import { InputTypeEnum } from '@utils/enums/input';
 
 @Component({
@@ -255,12 +255,12 @@ describe('FormBasicComponent', () => {
     component.changeStatusSaveButton(true, false);
     expect(component.isDisabledSaveButton).toBe(true);
     expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe(SAVING_BUTTON_TEXT);
+    expect(component.buttonSaveText).toBe(LOADING_BUTTON_TEXT);
 
     component.changeStatusSaveButton(false, false);
     expect(component.isDisabledSaveButton).toBe(false);
     expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe(SAVING_BUTTON_TEXT);
+    expect(component.buttonSaveText).toBe(LOADING_BUTTON_TEXT);
   });
 
   it('should handle changes in isDisabledDropdowns and update button state', () => {
@@ -297,7 +297,7 @@ describe('FormBasicComponent', () => {
     component.changeStatusSaveButton(true, false);
     expect(component.isDisabledSaveButton).toBe(true);
     expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe(SAVING_BUTTON_TEXT);
+    expect(component.buttonSaveText).toBe(LOADING_BUTTON_TEXT);
   
     component.changeStatusSaveButton(false, true);
     expect(component.isDisabledSaveButton).toBe(false);
@@ -427,7 +427,7 @@ describe('FormBasicComponent', () => {
 
     expect(component.isDisabledSaveButton).toBe(true);
     expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe('Guardando...');
+    expect(component.buttonSaveText).toBe('Cargando...');
   });
 
   it('should return true when control has required error', () => {
@@ -505,4 +505,48 @@ describe('FormBasicComponent', () => {
     expect(component.changeStatusSaveButtonEvent.emit).toHaveBeenCalled();
     expect(changeStatusSpy).toHaveBeenCalledWith(true, false);
   });  
+
+  it('should call changeStatusSaveButton within setTimeout when isDisabledSaveIcon is true', () => {
+    component.isDisabledSaveIcon = true;
+    component.loading = false;
+    component.isDisabledDropdowns = false;
+    component.changeStatusSaveButton = jest.fn();
+
+    component.form.get('exampleControl')?.setValue('Some value');
+    component.form.markAsDirty(); 
+    component.form.markAsTouched();
+    component.form.updateValueAndValidity();
+
+    jest.useFakeTimers();
+
+    component.hasErrors('exampleControl');
+
+    jest.runAllTimers();
+
+    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(true);
+
+    jest.useRealTimers();
+  });
+
+  it('should call changeStatusSaveButton with true if form is invalid', () => {
+    component.isDisabledSaveIcon = true;
+    component.loading = false;
+    component.isDisabledDropdowns = false;
+    component.changeStatusSaveButton = jest.fn();
+
+    component.form.get('exampleControl')?.setErrors({ required: true });
+    component.form.markAsDirty();
+    component.form.markAsTouched();
+    component.form.updateValueAndValidity();
+
+    jest.useFakeTimers();
+
+    component.hasErrors('exampleControl');
+
+    jest.runAllTimers();
+
+    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(true);
+
+    jest.useRealTimers();
+  });
 });

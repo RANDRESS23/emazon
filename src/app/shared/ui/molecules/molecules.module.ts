@@ -4,19 +4,24 @@ import { FormBasicComponent } from './form-basic/form-basic.component';
 import { AtomsModule } from "../atoms/atoms.module";
 import { IconsModule } from '../atoms/icons/icons.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    FormBasicComponent
+    FormBasicComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
     AtomsModule,
     IconsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
 ],
   exports: [
-    FormBasicComponent
+    FormBasicComponent,
+    HeaderComponent
   ]
 })
 export class MoleculesModule { }
