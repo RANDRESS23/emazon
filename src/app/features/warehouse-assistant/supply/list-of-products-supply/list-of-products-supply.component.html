@@ -1,0 +1,18 @@
+<section>
+  <organism-header-table
+    (showFilterOrders)="showFilterOrders($event)"
+    [showSortByDropdown]="true"
+    [optionsSortByDropdown]="optionsSortByDropdown"
+  >
+  </organism-header-table>
+  <organism-table
+    [list]="listOfProducts"
+    [headers]="headers"
+    [keys]="keys"
+  ></organism-table>
+  <atom-pagination
+    [pageNumber]="pageNumber"
+    [totalPages]="totalPages"
+    (pageNumberChange)="changePage($event)"
+  ></atom-pagination>
+</section>

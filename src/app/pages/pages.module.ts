@@ -10,6 +10,7 @@ import { ProductPanelComponent } from './profile/admin/product-panel/product-pan
 import { FeaturesModule } from '../features/features.module';
 import { WarehouseAssistantPanelComponent } from './profile/admin/warehouse-assistant-panel/warehouse-assistant-panel.component';
 import { LoginComponent } from './login/login.component';
+import { SupplyPanelComponent } from './profile/warehouse-assistant/supply-panel/supply-panel.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoginComponent } from './login/login.component';
     BrandPanelComponent,
     ProductPanelComponent,
     WarehouseAssistantPanelComponent,
-    LoginComponent
+    LoginComponent,
+    SupplyPanelComponent
   ],
   imports: [
     CommonModule,
