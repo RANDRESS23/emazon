@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EMPTY_STRING } from '@utils/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/general';
 import { InputTypeEnum } from '@utils/enums/input';
 
 @Component({

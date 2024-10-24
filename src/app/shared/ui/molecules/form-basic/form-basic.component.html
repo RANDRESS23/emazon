@@ -40,7 +40,7 @@
       [isSecondaryButton]="false"
       [isFullWidth]="true"
     >
-      <atom-save-icon></atom-save-icon>
+      <atom-save-icon *ngIf="!isDisabledSaveIcon"></atom-save-icon>
     </atom-button>
     <atom-button 
       (click)="onShowModal()"
@@ -50,6 +50,7 @@
       [isDisabled]="false"
       [isSecondaryButton]="true"
       [isFullWidth]="true"
+      *ngIf="!isDisabledSaveIcon"
     >
     </atom-button>
   </div>

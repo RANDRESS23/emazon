@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EMPTY_STRING } from '@src/app/shared/utils/constants/admin';
 import { SizeEnum } from '@src/app/shared/utils/enums/size';
 import { Size } from '@src/app/shared/utils/types/size';
+import { EMPTY_STRING } from '@utils/constants/general';
 
 @Component({
   selector: 'atom-button',

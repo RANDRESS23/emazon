@@ -1,0 +1,144 @@
+@import '/src/styles/styles.scss';
+
+.header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  background-color: $white-color;
+  border-bottom: 1px solid $spacer-light-color;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  width: 90%;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+
+  & ul {
+    list-style: none;
+  }
+}
+
+.list-primary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  &__logo {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+  }
+}
+
+
+.list-items-desktop {
+  display: none;
+  gap: 30px;
+  list-style: none;
+  
+  & li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    & .item-desktop {
+      width: 100%;
+      text-decoration: none;
+      padding: 5px 0;
+      transition: .2s ease all;
+      color: $black-color;
+      
+      &:hover {
+        color: $primary;
+      }
+    }
+    
+    & .item-desktop-active {
+      color: $primary;
+      font-weight: 500;
+    }
+  }
+}
+
+.navbar-mobile-container {
+  width: 100%;
+  position: absolute;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(25px);
+  height: 100vh;
+}
+
+.navbar-mobile-content {
+  width: 90%;
+  margin: 10px auto;
+}
+
+.list-mobile {
+  width: 100%;
+  list-style: none;
+
+  & li {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    & .item-mobile {
+      width: 100%;
+      color: $black-color;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 0;
+      transition: .2s ease all;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    & .item-mobile-active {
+      color: $primary;
+      font-weight: 500;
+    }
+  }
+}
+
+.cancel-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: .2s ease all;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+@media (min-width: 1024px) {
+  .list-primary {
+    &__menu-button {
+      display: none;
+    }
+  }
+
+  .list-items-desktop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

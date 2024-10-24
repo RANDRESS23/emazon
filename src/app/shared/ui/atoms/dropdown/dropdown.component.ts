@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING } from '@utils/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { ButtonType } from '@utils/types/button';
 

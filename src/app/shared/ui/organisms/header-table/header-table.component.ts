@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING, LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, LABEL_SORT_ORDER_DROPDOWN, OPTIONS_SHOW_BY_DROPDOWN, OPTIONS_SORT_ORDER_DROPDOWN } from '@utils/constants/admin';
+import { LABEL_SHOW_BY_DROPDOWN, LABEL_SORT_BY_DROPDOWN, LABEL_SORT_ORDER_DROPDOWN, OPTIONS_SHOW_BY_DROPDOWN, OPTIONS_SORT_ORDER_DROPDOWN } from '@utils/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/general';
 
 @Component({
   selector: 'organism-header-table',
@@ -12,9 +13,9 @@ export class HeaderTableComponent implements OnInit {
   labelSortOrderDropdown: string = LABEL_SORT_ORDER_DROPDOWN;
   optionsSortOrderDropdown: Record<string, string | number>[] = OPTIONS_SORT_ORDER_DROPDOWN;
   labelSortByDropdown: string = LABEL_SORT_BY_DROPDOWN;
-  showBy: string = EMPTY_STRING
-  sortOrder: string = EMPTY_STRING
-  sortBy: string = EMPTY_STRING
+  showBy: string = EMPTY_STRING;
+  sortOrder: string = EMPTY_STRING;
+  sortBy: string = EMPTY_STRING;
   
   @Input() showSortByDropdown: boolean = false;
   @Input() optionsSortByDropdown: Record<string, string | number>[] = [{}];

@@ -1,0 +1,20 @@
+<div class="form">
+  <h2 class="form__title">
+    Iniciar <span class="form__title--primary">sesión</span>
+  </h2>
+  <molecule-form-basic 
+    [buttonSaveText]="buttonSaveText"
+    [moreFields]="moreFields"
+    [moreInputs]="moreInputs"
+    [isDisabledSaveIcon]="isDisabledSaveIcon"
+    (changeStatusSaveButtonEvent)="changeStatusSaveButtonOutput($event)"
+    (formDataEvent)="handleSubmit($event)"
+  >
+  </molecule-form-basic>
+</div>
+<atom-toast
+  [pathIcon]="pathIcon"
+  [label]="toastMessage"
+  [status]="toastStatus"
+  (toastEvent)="showToastOutput($event)" 
+></atom-toast>

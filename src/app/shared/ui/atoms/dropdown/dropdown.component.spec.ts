@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DropdownComponent } from './dropdown.component';
-import { EMPTY_STRING } from '@utils/constants/admin';
+import { EMPTY_STRING } from '@utils/constants/general';
 
 describe('DropdownComponent', () => {
   let component: DropdownComponent;

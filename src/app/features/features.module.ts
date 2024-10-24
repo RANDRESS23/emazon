@@ -14,6 +14,7 @@ import { AddProductComponent } from './admin/product/add-product/add-product.com
 import { ListOfProductsComponent } from './admin/product/list-of-products/list-of-products.component';
 import { AddWarehouseAssistantComponent } from './admin/warehouse-assistant/add-warehouse-assistant/add-warehouse-assistant.component';
 import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/list-of-warehouse-assistant/list-of-warehouse-assistant.component';
+import { FormSignInComponent } from './auth/form-sign-in/form-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/l
     AddProductComponent,
     ListOfProductsComponent,
     AddWarehouseAssistantComponent,
-    ListOfWarehouseAssistantComponent
+    ListOfWarehouseAssistantComponent,
+    FormSignInComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/l
     ListOfCategoriesComponent,
     ListOfBrandsComponent,
     ListOfProductsComponent,
-    ListOfWarehouseAssistantComponent
+    ListOfWarehouseAssistantComponent,
+    FormSignInComponent
   ]
 })
 export class FeaturesModule { }

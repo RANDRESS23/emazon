@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, EMPTY_STRING, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT, SAVE_CATEGORY_BUTTON_TEXT, SAVING_BUTTON_TEXT, ZERO } from '@utils/constants/admin';
+import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT, LOADING_BUTTON_TEXT } from '@utils/constants/admin';
+import { EMPTY_STRING, ZERO } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { InputTypeEnum } from '@utils/enums/input';
 import { SizeEnum } from '@utils/enums/size';
@@ -30,7 +31,7 @@ export class FormBasicComponent implements OnInit, OnChanges {
     name: EMPTY_STRING,
     description: EMPTY_STRING
   }
-
+  
   @Input() inputLabel: string = EMPTY_STRING;
   @Input() inputPlaceholder: string = EMPTY_STRING;
   @Input() inputName: string = EMPTY_STRING;
@@ -44,6 +45,7 @@ export class FormBasicComponent implements OnInit, OnChanges {
   @Input() moreFields: Record<string, any[]> = {};
   @Input() moreInputs: Record<string, string>[] = [];
   @Input() isDisabledDropdowns: boolean | null = null;
+  @Input() isDisabledSaveIcon: boolean = false;
   @Output() formDataEvent = new EventEmitter<any>();
   @Output() changeStatusSaveButtonEvent = new EventEmitter<(isDisabled: boolean, loaded?: boolean) => void>();
 
@@ -110,6 +112,12 @@ export class FormBasicComponent implements OnInit, OnChanges {
       return (control?.touched || control?.dirty) && control?.hasError('min');
     }
 
+    if (this.isDisabledSaveIcon) {
+      setTimeout(() => {
+        this.changeStatusSaveButton(!this.form.valid || this.loading || !!this.isDisabledDropdowns);
+      }, 0);
+    }
+
     return false
   }
   
@@ -153,7 +161,7 @@ export class FormBasicComponent implements OnInit, OnChanges {
 
     if (loaded !== undefined) {
       this.loading = !loaded;
-      this.buttonSaveText = loaded ? this.buttonSaveTextPrev : SAVING_BUTTON_TEXT;
+      this.buttonSaveText = loaded ? this.buttonSaveTextPrev : LOADING_BUTTON_TEXT;
     }
   }
 

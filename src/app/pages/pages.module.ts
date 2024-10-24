@@ -9,13 +9,15 @@ import { BrandPanelComponent } from './profile/admin/brand-panel/brand-panel.com
 import { ProductPanelComponent } from './profile/admin/product-panel/product-panel.component';
 import { FeaturesModule } from '../features/features.module';
 import { WarehouseAssistantPanelComponent } from './profile/admin/warehouse-assistant-panel/warehouse-assistant-panel.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     CategoryPanelComponent,
     BrandPanelComponent,
     ProductPanelComponent,
-    WarehouseAssistantPanelComponent
+    WarehouseAssistantPanelComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
