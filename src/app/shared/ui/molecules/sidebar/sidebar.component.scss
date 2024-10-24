@@ -1,0 +1,50 @@
+@import '/src/styles/styles.scss';
+
+.sidebar {
+  display: none;
+  position: fixed;
+  z-index: 90;
+  width: 350px;
+  padding: 75px 25px 15px 25px;
+  height: 100%;
+  background-color: $white-color;
+  border-right: 1px solid $spacer-light-color;
+  box-shadow: 3px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.list-items {
+  width: 100%;
+  list-style: none;
+
+  & li {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    & .item {
+      width: 100%;
+      color: $black-color;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 0;
+      transition: .2s ease all;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    & .item-active {
+      color: $primary;
+      font-weight: 500;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
