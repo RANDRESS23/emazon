@@ -6,11 +6,13 @@ import { IconsModule } from '../atoms/icons/icons.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     FormBasicComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { RouterModule } from '@angular/router';
 ],
   exports: [
     FormBasicComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ]
 })
 export class MoleculesModule { }

@@ -29,8 +29,9 @@ export class HeaderComponent implements OnInit {
   buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
   buttonSignOutText: string = SIGN_OUT_BUTTON_TEXT;
   isLogged: boolean = false;
-
+  
   @Input() menuItems: Record<string, string>[] = [];
+  @Input() isAdminOrWarehouseAssistantLogged: boolean = false;
 
   constructor(private authService: AuthService) { }
 

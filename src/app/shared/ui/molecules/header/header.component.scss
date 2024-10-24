@@ -130,6 +130,10 @@
 }
 
 @media (min-width: 1024px) {
+  .header {
+    // box-shadow: 350px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
   .list-primary {
     &__menu-button {
       display: none;
