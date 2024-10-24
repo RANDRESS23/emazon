@@ -38,3 +38,13 @@ export const MENU_ITEMS_ADMIN: Record<string, string>[] = [
     path: '/perfil/admin/panel-auxiliar-bodega'
   }
 ]
+export const MENU_ITEMS_WAREHOUSE_ASSISTANT: Record<string, string>[] = [
+  {
+    label: 'Inicio',
+    path: '/perfil/auxiliar-bodega/inicio'
+  },
+  {
+    label: 'Suministros',
+    path: '/perfil/auxiliar-bodega/panel-suministro'
+  }
+]

@@ -102,7 +102,7 @@ export const PASSWORD_WAREHOUSE_ASSISTANT_INPUT_NAME = 'password';
 export const REQUIRED_FIELD_ERROR_TEXT = 'El campo es requerido';
 export const MAX_LENGTH_FIELD_ERROR_TEXT = 'El campo debe tener un máximo de caracteres de';
 export const MIN_VALUE_FIELD_ERROR_TEXT = 'El valor tiene que ser mayor o igual a 1';
-export const SERVER_ERROR_TEXT = 'Error inesperado al guardar en el servidor';
+export const SERVER_ERROR_TEXT = 'Error inesperado en el servidor';
 export const PATTERN_ERRORS = {
   name: 'Los nombres solo puede contener letras',
   lastName: 'Los apellidos solo puede contener letras',
