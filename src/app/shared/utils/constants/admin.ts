@@ -7,8 +7,6 @@ export const ADD_CATEGORY_BUTTON_TEXT = 'Añadir categoría';
 export const ADD_BRAND_BUTTON_TEXT = 'Añadir marca';
 export const ADD_PRODUCT_BUTTON_TEXT = 'Añadir producto';
 export const ADD_WAREHOUSE_ASSISTANT_BUTTON_TEXT = 'Añadir auxiliar de bodega';
-export const ADD_CATEGORY_CLOSE_ICON_PATH = '/assets/icons/close-icon.svg';
-export const ADD_CATEGORY_CLOSE_ICON_ALT = 'Icono de cerrar';
 
 export const SAVE_CATEGORY_BUTTON_TEXT = 'Guardar categoría';
 export const SAVE_BRAND_BUTTON_TEXT = 'Guardar marca';
@@ -65,11 +63,11 @@ export const PRICE_PRODUCT_INPUT_NAME = 'price';
 
 export const BRAND_PRODUCT_INPUT_LABEL = 'Marca producto';
 export const BRAND_PRODUCT_INPUT_LABEL2 = 'marca';
-export const BRAND_PRODUCT_INPUT_NAME = 'brand';
+export const BRAND_PRODUCT_INPUT_NAME = 'brandId';
 
 export const CATEGORIES_PRODUCT_INPUT_LABEL = 'Categorías producto';
 export const CATEGORIES_PRODUCT_INPUT_LABEL2 = 'categorías';
-export const CATEGORIES_PRODUCT_INPUT_NAME = 'categories';
+export const CATEGORIES_PRODUCT_INPUT_NAME = 'categoriesId';
 
 export const NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Nombres completos';
 export const NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Nombres';

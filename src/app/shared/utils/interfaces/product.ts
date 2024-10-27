@@ -1,16 +1,13 @@
 import { BrandProductResponse } from "./brand";
 import { CategoryProductResponse } from "./category";
 
-export interface ProductRequestDto {
+export interface ProductRequest {
   name: string;
   description: string;
   quantity: string | number;
   price: string | number;
-}
-
-export interface ProductRequest extends ProductRequestDto {
-  categoriesId: number[];
-  brandId: number;
+  categoriesId: string[] | number[];
+  brandId: string | number;
 }
 
 export interface ProductResponse {
