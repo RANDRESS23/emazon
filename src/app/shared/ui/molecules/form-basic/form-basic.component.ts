@@ -163,8 +163,9 @@ export class FormBasicComponent implements OnInit {
 
   changeStatusSaveButton(isDisabled: boolean, loaded?: boolean): void {
     this.isDisabledSaveButton = isDisabled;
-
+    
     if (loaded !== undefined) {
+      this.isDisabledSaveButton = !isDisabled;
       this.loading = !loaded;
       this.buttonSaveText = loaded ? this.buttonSaveTextPrev : LOADING_BUTTON_TEXT;
     }
