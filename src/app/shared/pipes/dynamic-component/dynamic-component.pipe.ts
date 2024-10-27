@@ -2,7 +2,6 @@ import { Pipe, PipeTransform, Type } from '@angular/core';
 import { AddUserIconComponent } from '@atoms/icons/add-user-icon/add-user-icon.component';
 import { BrandIconComponent } from '@atoms/icons/brand-icon/brand-icon.component';
 import { CategoryIconComponent } from '@atoms/icons/category-icon/category-icon.component';
-import { EyeIconComponent } from '@atoms/icons/eye-icon/eye-icon.component';
 import { HomeIconComponent } from '@atoms/icons/home-icon/home-icon.component';
 import { ProductIconComponent } from '@atoms/icons/product-icon/product-icon.component';
 import { SupplyIconComponent } from '@atoms/icons/supply-icon/supply-icon.component';

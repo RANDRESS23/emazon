@@ -16,7 +16,7 @@ import { AtomsModule } from "./shared/ui/atoms/atoms.module";
     AppRoutingModule,
     PagesModule,
     AtomsModule
-],
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
