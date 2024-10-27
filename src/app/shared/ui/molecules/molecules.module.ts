@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AtomsModule,
     IconsModule,
     ReactiveFormsModule,
-    RouterModule
-],
+    RouterModule,
+    PipesModule
+  ],
   exports: [
     FormBasicComponent,
     HeaderComponent,
