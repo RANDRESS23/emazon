@@ -8,6 +8,11 @@
           routerLinkActive="item-active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
+          <ng-container *ngIf="item['icon']">
+            <div class="icon-item">
+              <ng-container *ngComponentOutlet="item['icon'] | dynamicComponent"></ng-container>
+            </div>
+          </ng-container>
           {{ item['label'] }}
         </a>
       </li>
