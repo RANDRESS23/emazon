@@ -1,10 +1,13 @@
-<molecule-header [menuItems]="menuItems"></molecule-header>
+<molecule-header [menuItems]="menuItems" [isAdminOrWarehouseAssistantLogged]="isAdminLogged"></molecule-header>
 <main class="container">
-  <div class="titles">
-    <h1 class="title">
-      Administrar <span class="title--primary">marcas</span>
-    </h1>
-    <p class="titles__description">Gestiona fácilmente las marcas de Emazon. Crea, y visualiza todas las marcas en un solo lugar para mantener tu catálogo organizado y actualizado.</p>
-  </div>
-  <app-list-of-brands></app-list-of-brands>
+  <molecule-sidebar [menuItems]="menuItems"></molecule-sidebar>
+  <section class="section">
+    <div class="titles">
+      <h1 class="title">
+        Administrar <span class="title--primary">marcas</span>
+      </h1>
+      <p class="titles__description">Gestiona fácilmente las marcas de Emazon. Crea, y visualiza todas las marcas en un solo lugar para mantener tu catálogo organizado y actualizado.</p>
+    </div>
+    <app-list-of-brands></app-list-of-brands>
+  </section>
 </main>

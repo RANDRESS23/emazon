@@ -8,6 +8,7 @@ import { MENU_ITEMS_ADMIN } from '@utils/constants/general';
 })
 export class WarehouseAssistantPanelComponent implements OnInit {
   menuItems: Record<string, string>[] = MENU_ITEMS_ADMIN;
+  isAdminLogged: boolean = true;
   
   constructor() { }
 
