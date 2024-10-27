@@ -11,6 +11,8 @@ import { FeaturesModule } from '../features/features.module';
 import { WarehouseAssistantPanelComponent } from './profile/admin/warehouse-assistant-panel/warehouse-assistant-panel.component';
 import { LoginComponent } from './login/login.component';
 import { SupplyPanelComponent } from './profile/warehouse-assistant/supply-panel/supply-panel.component';
+import { InicioAdminComponent } from './profile/admin/inicio/inicio.component';
+import { InicioWarehouseAssistantComponent } from './profile/warehouse-assistant/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { SupplyPanelComponent } from './profile/warehouse-assistant/supply-panel
     ProductPanelComponent,
     WarehouseAssistantPanelComponent,
     LoginComponent,
-    SupplyPanelComponent
+    SupplyPanelComponent,
+    InicioAdminComponent,
+    InicioWarehouseAssistantComponent
   ],
   imports: [
     CommonModule,
