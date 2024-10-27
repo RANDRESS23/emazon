@@ -57,4 +57,14 @@ export class AuthService {
 
     return payload.role;
   }
+  
+  getFullName(): string {
+    const token = this.getToken();
+
+    if (!token) return '';
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+
+    return payload.fullName;
+  }
 }
