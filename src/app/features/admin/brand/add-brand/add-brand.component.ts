@@ -9,6 +9,7 @@ import { StatusType } from '@utils/types/status';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { BrandRequest } from '@utils/interfaces/brand';
 import { EMPTY_STRING, ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-add-brand',
@@ -30,27 +31,20 @@ export class AddBrandComponent implements OnInit {
   modalTitlePrimary: string = REGISTER_NEW_BRAND_TEXT_PRIMARY;
   nameMaxLength: number = MAX_LENGTH_BRAND_NAME_FIELD;
   descriptionMaxLength: number = MAX_LENGTH_BRAND_DESCRIPTION_FIELD;
-  pathIcon: string = SUCCESS_ICON_PATH;
   toastMessage: string = EMPTY_STRING;
-  toastStatus: StatusType = StatusEnum.SUCCESS;
   isDisabledSaveButton: boolean = true;
   showModal: () => void = () => {};
-  showToast: () => void = () => {};
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
 
   @Input() addNewBrandCount: () => void = () => {};
 
-  constructor(private brandService: BrandService) { }
+  constructor(private brandService: BrandService, private toastService: ToastService) { }
 
   ngOnInit(): void {
   }
 
   showModalOutput(onShowModal: () => void): void {
     this.showModal = onShowModal;
-  }
-  
-  showToastOutput(onShowToast: () => void): void {
-    this.showToast = onShowToast;
   }
 
   changeStatusSaveButtonOutput(onChangeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void): void {
@@ -66,30 +60,18 @@ export class AddBrandComponent implements OnInit {
 
     this.brandService.saveBrand(brand).subscribe({
       next: () => {
-        this.pathIcon = SUCCESS_ICON_PATH;
-        this.toastMessage = BRAND_SAVED_TEXT;
-        this.toastStatus = StatusEnum.SUCCESS;
         this.changeStatusSaveButton(false, true);
         this.showModal();
-        this.showToast();
         this.addBrandCount();
 
-        setTimeout(() => {
-          this.showToast();
-        }, 3000);
+        this.toastService.showToast(BRAND_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
       },
       error: (error) => {
         if (error.status === 409) this.toastMessage = error.error.message;
         else this.toastMessage = SERVER_ERROR_TEXT;
         
-        this.pathIcon = ERROR_ICON_PATH;
-        this.toastStatus = StatusEnum.ERROR;
         this.changeStatusSaveButton(false, true);
-        this.showToast();
-
-        setTimeout(() => {
-          this.showToast();
-        }, 3000);
+        this.toastService.showToast(this.toastMessage, StatusEnum.ERROR, ERROR_ICON_PATH);
       }
     })
   }

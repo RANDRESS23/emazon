@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { WarehouseAssistantService } from '@src/app/core/services/warehouse-assistant/warehouse-assistant.service';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
 import { ADD_WAREHOUSE_ASSISTANT_BUTTON_TEXT, BIRTHDATE_WAREHOUSE_ASSISTANT_INPUT_LABEL, BIRTHDATE_WAREHOUSE_ASSISTANT_INPUT_LABEL2, BIRTHDATE_WAREHOUSE_ASSISTANT_INPUT_NAME, DOCUMENT_WAREHOUSE_ASSISTANT_INPUT_LABEL, DOCUMENT_WAREHOUSE_ASSISTANT_INPUT_LABEL2, DOCUMENT_WAREHOUSE_ASSISTANT_INPUT_NAME, EMAIL_WAREHOUSE_ASSISTANT_INPUT_LABEL, EMAIL_WAREHOUSE_ASSISTANT_INPUT_LABEL2, EMAIL_WAREHOUSE_ASSISTANT_INPUT_NAME, LAST_NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL, LAST_NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL2, LAST_NAME_WAREHOUSE_ASSISTANT_INPUT_NAME, NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL, NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL2, NAME_WAREHOUSE_ASSISTANT_INPUT_NAME, PASSWORD_WAREHOUSE_ASSISTANT_INPUT_LABEL, PASSWORD_WAREHOUSE_ASSISTANT_INPUT_LABEL2, PASSWORD_WAREHOUSE_ASSISTANT_INPUT_NAME, PHONE_WAREHOUSE_ASSISTANT_INPUT_LABEL, PHONE_WAREHOUSE_ASSISTANT_INPUT_LABEL2, PHONE_WAREHOUSE_ASSISTANT_INPUT_NAME, REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT, REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT_PRIMARY, SAVE_WAREHOUSE_ASSISTANT_BUTTON_TEXT, SERVER_ERROR_TEXT, WAREHOUSE_ASSISTANT_SAVED_TEXT } from '@utils/constants/admin';
 import { DOCUMENT_REGEX, EMAIL_REGEX, EMPTY_STRING, ERROR_ICON_PATH, NAME_REGEX, PASSWORD_REGEX, PHONE_REGEX, SUCCESS_ICON_PATH } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
@@ -11,7 +12,6 @@ import { WarehouseAssistantRequest } from '@utils/interfaces/warehouse-assistant
 import { ButtonType } from '@utils/types/button';
 import { InputType } from '@utils/types/input';
 import { Size } from '@utils/types/size';
-import { StatusType } from '@utils/types/status';
 
 @Component({
   selector: 'app-add-warehouse-assistant',
@@ -30,9 +30,7 @@ export class AddWarehouseAssistantComponent implements OnInit {
   inputTypeDate: InputType = InputTypeEnum.DATE;
   modalTitle: string = REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT;
   modalTitlePrimary: string = REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT_PRIMARY;
-  pathIcon: string = SUCCESS_ICON_PATH;
   toastMessage: string = EMPTY_STRING;
-  toastStatus: StatusType = StatusEnum.SUCCESS;
   isDisabledSaveButton: boolean = true;
   moreInputs: Record<string, string>[] = [
     {
@@ -95,21 +93,16 @@ export class AddWarehouseAssistantComponent implements OnInit {
     [PASSWORD_WAREHOUSE_ASSISTANT_INPUT_NAME]: [EMPTY_STRING, [Validators.required, Validators.pattern(PASSWORD_REGEX)]]
   }
   showModal: () => void = () => {};
-  showToast: () => void = () => {};
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
 
   @Input() addNewWarehouseAssistantCount: () => void = () => {};
 
-  constructor(private warehouseAssistantService: WarehouseAssistantService) { }
+  constructor(private warehouseAssistantService: WarehouseAssistantService, private toastService: ToastService) { }
 
   ngOnInit(): void { }
 
   showModalOutput(onShowModal: () => void): void {
     this.showModal = onShowModal;
-  }
-  
-  showToastOutput(onShowToast: () => void): void {
-    this.showToast = onShowToast;
   }
 
   changeStatusSaveButtonOutput(onChangeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void): void {
@@ -125,30 +118,18 @@ export class AddWarehouseAssistantComponent implements OnInit {
 
     this.warehouseAssistantService.saveWarehouseAssistant(warehouseAssistant).subscribe({
       next: () => {
-        this.pathIcon = SUCCESS_ICON_PATH;
-        this.toastMessage = WAREHOUSE_ASSISTANT_SAVED_TEXT;
-        this.toastStatus = StatusEnum.SUCCESS;
         this.changeStatusSaveButton(false, true);
         this.showModal();
-        this.showToast();
         this.addWarehouseAssistantCount();
-
-        setTimeout(() => {
-          this.showToast();
-        }, 3000);
+        
+        this.toastService.showToast(WAREHOUSE_ASSISTANT_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
       },
       error: (error) => {
         if (error.status === 409 || error.status === 400) this.toastMessage = error.error.message;
         else this.toastMessage = SERVER_ERROR_TEXT;
         
-        this.pathIcon = ERROR_ICON_PATH;
-        this.toastStatus = StatusEnum.ERROR;
         this.changeStatusSaveButton(false, true);
-        this.showToast();
-
-        setTimeout(() => {
-          this.showToast();
-        }, 3000);
+        this.toastService.showToast(this.toastMessage, StatusEnum.ERROR, ERROR_ICON_PATH);
       }
     })
   }

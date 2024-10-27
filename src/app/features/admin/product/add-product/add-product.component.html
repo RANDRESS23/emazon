@@ -24,33 +24,9 @@
   [nameMaxLength]="nameMaxLength"
   [descriptionMaxLength]="descriptionMaxLength"
   [isDisabledSaveButton]="isDisabledSaveButton"
-  [isDisabledDropdowns]="isDisabledDropdowns"
   [moreInputs]="moreInputs"
+  [moreDropdowns]="moreDropdowns"
+  [moreDropdownsCombobox]="moreDropdownsCombobox"
   [moreFields]="moreFields"
-  [resetDropdowns]="resetDropdowns.bind(this)"
 >
-  <atom-dropdown
-    [label]="labelBrandDropdown"
-    [label2]="labelBrandDropdown2"
-    [options]="optionsBrandDropdown"
-    [isErrored]="isErrorBrandDropdown"
-    [errorText]="errorTextBrandDropdown"
-    (optionChange)="changeBrandValue($event)"
-    (resetSelectedOption)="resetOption($event)"
-  ></atom-dropdown>
-  <atom-dropdown-combobox
-    [label]="labelCategoryDropdown"
-    [label2]="labelCategoryDropdown2"
-    [options]="optionsCategoryDropdown"
-    [isErrored]="isErrorCategoryDropdown"
-    [errorText]="errorTextCategoryDropdown"
-    (optionsChange)="changeCategoryValue($event)"
-    (resetSelectedOptions)="resetOptions($event)"
-  ></atom-dropdown-combobox>
 </organism-modal-form-basic>
-<atom-toast
-  [pathIcon]="pathIcon"
-  [label]="toastMessage"
-  [status]="toastStatus"
-  (toastEvent)="showToastOutput($event)" 
-></atom-toast>

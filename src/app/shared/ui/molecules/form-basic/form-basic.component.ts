@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT, LOADING_BUTTON_TEXT } from '@utils/constants/admin';
 import { EMPTY_STRING, ZERO } from '@utils/constants/general';
@@ -14,7 +14,7 @@ import { Size } from '@utils/types/size';
   templateUrl: './form-basic.component.html',
   styleUrls: ['./form-basic.component.scss']
 })
-export class FormBasicComponent implements OnInit, OnChanges {
+export class FormBasicComponent implements OnInit {
   form!: FormGroup;
 
   inputType: InputType = InputTypeEnum.TEXT;
@@ -44,7 +44,8 @@ export class FormBasicComponent implements OnInit, OnChanges {
   @Input() descriptionMaxLength: number = ZERO;
   @Input() moreFields: Record<string, any[]> = {};
   @Input() moreInputs: Record<string, string>[] = [];
-  @Input() isDisabledDropdowns: boolean | null = null;
+  @Input() moreDropdowns: Record<string, any>[] = [];
+  @Input() moreDropdownsCombobox: Record<string, any>[] = [];
   @Input() isDisabledSaveIcon: boolean = false;
   @Output() formDataEvent = new EventEmitter<any>();
   @Output() changeStatusSaveButtonEvent = new EventEmitter<(isDisabled: boolean, loaded?: boolean) => void>();
@@ -64,58 +65,50 @@ export class FormBasicComponent implements OnInit, OnChanges {
 
     this.changeStatusSaveButtonEvent.emit(() => this.changeStatusSaveButton(this.isDisabledSaveButton, this.loading));
     this.buttonSaveTextPrev = this.buttonSaveText;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void { 
-    if (!this.form) return;
-
-    this.changeStatusSaveButton(!this.form.valid || this.loading || !!this.isDisabledDropdowns);
-
-    if (this.isDisabledDropdowns === null) return;
-    
-    if (changes['isDisabledDropdowns']) {
-      this.changeStatusSaveButton(this.isDisabledDropdowns);
-    }
+    this.onChanges();
   }
 
   onShowModal(): void {
     this.showModal();
   }
 
+  onChanges(): void {
+    this.form.valueChanges.subscribe(() => {
+      this.changeStatusSaveButton(!this.form.valid || this.loading);
+    });
+  }
+
   hasErrors(controlName: string) {
     const control = this.form.get(controlName);
+
+    if (!control) return false;
     
-    if (control?.hasError('required')) {
+    if (control.hasError('required')) {
       this.getErrorText(controlName, 'required');
       
-      return (control?.touched || control?.dirty) && control?.hasError('required');
+      return (control.touched || control.dirty) && control.hasError('required');
     }
     
-    if (control?.hasError('maxlength')) {
-      const requiredLength = control?.errors?.['maxlength']?.requiredLength;
+    if (control.hasError('maxlength')) {
+      const requiredLength = control.errors?.['maxlength'].requiredLength;
+
       this.getErrorText(controlName, 'maxlength', requiredLength);
 
-      return (control?.touched || control?.dirty) && control?.hasError('maxlength');
+      return (control.touched || control.dirty) && control.hasError('maxlength');
     }
 
-    if (control?.hasError('pattern')) {
+    if (control.hasError('pattern')) {
       this.getErrorText(controlName, 'pattern');
 
-      return (control?.touched || control?.dirty) && control?.hasError('pattern');
+      return (control.touched || control.dirty) && control.hasError('pattern');
     }
 
-    if (control?.hasError('min')) {
-      const min = control?.errors?.['min']?.min;
+    if (control.hasError('min')) {
+      const min = control.errors?.['min'].min;
       
       this.getErrorText(controlName, 'min', min);
 
-      return (control?.touched || control?.dirty) && control?.hasError('min');
-    }
-
-    if (this.isDisabledSaveIcon) {
-      setTimeout(() => {
-        this.changeStatusSaveButton(!this.form.valid || this.loading || !!this.isDisabledDropdowns);
-      }, 0);
+      return (control.touched || control.dirty) && control.hasError('min');
     }
 
     return false
@@ -129,6 +122,18 @@ export class FormBasicComponent implements OnInit, OnChanges {
       if (this.moreInputs.length > 0) {
         this.moreInputs.forEach((input) => {
           if (input['name'] === controlName) input['errorText'] = REQUIRED_FIELD_ERROR_TEXT;
+        });
+      }
+
+      if (this.moreDropdowns.length > 0) {
+        this.moreDropdowns.forEach((dropdown) => {
+          if (dropdown['name'] === controlName) dropdown['errorText'] = REQUIRED_FIELD_ERROR_TEXT;
+        });
+      }
+      
+      if (this.moreDropdownsCombobox.length > 0) {
+        this.moreDropdownsCombobox.forEach((dropdown) => {
+          if (dropdown['name'] === controlName) dropdown['errorText'] = REQUIRED_FIELD_ERROR_TEXT;
         });
       }
     }

@@ -9,6 +9,7 @@
     [errorText]="inputErrorText"
     formControlName="{{ inputName }}"
   ></atom-input>
+  
   <atom-textarea
     *ngIf="textareaLabel !== ''"
     [textareaLabel]="textareaLabel"
@@ -30,7 +31,29 @@
       formControlName="{{ field['name'] }}"
     ></atom-input>
   </div>
-  <ng-content></ng-content>
+
+  <div *ngFor="let dropdown of moreDropdowns">
+    <atom-dropdown
+      [label]="dropdown['label']"
+      [label2]="dropdown['label2']"
+      [options]="dropdown['options']"
+      [isErrored]="hasErrors(dropdown['name'])"
+      [errorText]="dropdown['errorText']"
+      formControlName="{{ dropdown['name'] }}"
+    ></atom-dropdown>
+  </div>
+
+  <div *ngFor="let dropdown of moreDropdownsCombobox">
+    <atom-dropdown-combobox
+      [label]="dropdown['label']"
+      [label2]="dropdown['label2']"
+      [options]="dropdown['options']"
+      [isErrored]="hasErrors(dropdown['name'])"
+      [errorText]="dropdown['errorText']"
+      formControlName="{{ dropdown['name'] }}"
+    ></atom-dropdown-combobox>
+  </div>
+
   <div class="buttons">
     <atom-button 
       [text]="buttonSaveText" 

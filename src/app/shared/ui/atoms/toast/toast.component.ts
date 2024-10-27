@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH } from '@utils/constants/admin';
-import { EMPTY_STRING } from '@utils/constants/general';
+import { Component, OnInit } from '@angular/core';
+import { Toast, ToastService } from '@src/app/shared/services/toast/toast.service';
+import { CLOSE_ICON_ALT, CLOSE_ICON_PATH, EMPTY_STRING, TOAST_VISIBILITY_DURATION } from '@utils/constants/general';
 import { StatusEnum } from '@utils/enums/status';
 import { StatusType } from '@utils/types/status';
 
@@ -22,25 +22,38 @@ import { StatusType } from '@utils/types/status';
   ]
 })
 export class ToastComponent implements OnInit {
+  private toastTimeoutId: any;
+
   showToast: boolean = false;
-  pathCloseIcon: string = ADD_CATEGORY_CLOSE_ICON_PATH;
-  closeIconAlt: string = ADD_CATEGORY_CLOSE_ICON_ALT;
+  pathCloseIcon: string = CLOSE_ICON_PATH;
+  closeIconAlt: string = CLOSE_ICON_ALT;
   statusSuccess: StatusType = StatusEnum.SUCCESS;
   statusError: StatusType = StatusEnum.ERROR;
   statusWarning: StatusType = StatusEnum.WARNING;
+  pathIcon: string = EMPTY_STRING;
+  message: string = EMPTY_STRING;
+  status: StatusType = StatusEnum.SUCCESS;
 
-  @Input() pathIcon: string = EMPTY_STRING;
-  @Input() label: string = EMPTY_STRING;
-  @Input() status: StatusType = StatusEnum.SUCCESS;
-  @Output() toastEvent = new EventEmitter<() => void>();
-
-  constructor() { }
+  constructor(private toastService: ToastService) { }
 
   ngOnInit(): void {
-    this.toastEvent.emit(() => this.onShowToast());
+    this.toastService.toastState.subscribe((toast: Toast) => {
+      this.message = toast.message;
+      this.status = toast.type;
+      this.pathIcon = toast.pathIcon;
+      this.showToast = true;
+
+      if (this.toastTimeoutId) clearTimeout(this.toastTimeoutId);
+
+      this.toastTimeoutId = setTimeout(() => {
+        this.showToast = false;
+      }, TOAST_VISIBILITY_DURATION);
+    });
   }
 
-  onShowToast(): void {
-    this.showToast = !this.showToast;
+  closeToast(): void {
+    if (this.toastTimeoutId) clearTimeout(this.toastTimeoutId);
+
+    this.showToast = false;
   }
 }

@@ -6,7 +6,7 @@ import { ButtonTypeEnum } from '@utils/enums/button';
 import { ButtonType } from '@utils/types/button';
 import { StatusEnum } from '@utils/enums/status';
 import { StatusType } from '@utils/types/status';
-import { ProductRequest, ProductRequestDto } from '@utils/interfaces/product';
+import { ProductRequest } from '@utils/interfaces/product';
 import { InputTypeEnum } from '@utils/enums/input';
 import { InputType } from '@utils/types/input';
 import { Validators } from '@angular/forms';
@@ -16,6 +16,7 @@ import { BrandResponse } from '@utils/interfaces/brand';
 import { CategoryResponse } from '@utils/interfaces/category';
 import { ProductService } from '@src/app/core/services/product/product.service';
 import { EMPTY_STRING, ERROR_ICON_PATH, SUCCESS_ICON_PATH, ZERO } from '@utils/constants/general';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-add-product',
@@ -38,25 +39,8 @@ export class AddProductComponent implements OnInit {
   modalTitlePrimary: string = REGISTER_NEW_PRODUCT_TEXT_PRIMARY;
   nameMaxLength: number = MAX_LENGTH_PRODUCT_NAME_FIELD;
   descriptionMaxLength: number = MAX_LENGTH_PRODUCT_DESCRIPTION_FIELD;
-  pathIcon: string = SUCCESS_ICON_PATH;
   toastMessage: string = EMPTY_STRING;
-  toastStatus: StatusType = StatusEnum.SUCCESS;
   isDisabledSaveButton: boolean = true;
-  isDisabledDropdowns: boolean = true;
-  brandValue: number = ZERO
-  categoriesValue: number[] = []
-  labelBrandDropdown: string = BRAND_PRODUCT_INPUT_LABEL;
-  labelBrandDropdown2: string = BRAND_PRODUCT_INPUT_LABEL2;
-  nameBrandDropdown: string = BRAND_PRODUCT_INPUT_NAME;
-  isErrorBrandDropdown: boolean = false;
-  errorTextBrandDropdown: string = EMPTY_STRING;
-  labelCategoryDropdown: string = CATEGORIES_PRODUCT_INPUT_LABEL;
-  labelCategoryDropdown2: string = CATEGORIES_PRODUCT_INPUT_LABEL2;
-  nameCategoryDropdown: string = CATEGORIES_PRODUCT_INPUT_NAME;
-  errorTextCategoryDropdown: string = EMPTY_STRING;
-  isErrorCategoryDropdown: boolean = false;
-  optionsBrandDropdown: Record<string, string | number>[] = [];
-  optionsCategoryDropdown: Record<string, string | number>[] = [];
   moreInputs: Record<string, string>[] = [
     {
       label: QUANTITY_PRODUCT_INPUT_LABEL,
@@ -73,24 +57,36 @@ export class AddProductComponent implements OnInit {
       errorText: EMPTY_STRING
     }
   ]
+  moreDropdowns: Record<string, any>[] = []
+  moreDropdownsCombobox: Record<string, any>[] = []
   moreFields: Record<string, any[]> = {
-    quantity: [ZERO, [Validators.required, Validators.min(1)]],
-    price: [ZERO, [Validators.required, Validators.min(1)]]
+    quantity: [EMPTY_STRING, [Validators.required, Validators.min(1)]],
+    price: [EMPTY_STRING, [Validators.required, Validators.min(1)]],
+    brandId: [EMPTY_STRING, [Validators.required]],
+    categoriesId: [EMPTY_STRING, [Validators.required]]
   }
   showModal: () => void = () => {};
-  showToast: () => void = () => {};
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
-  resetDrowdownOption: () => void = () => {};
-  resetDrowdownOptions: () => void = () => {};
 
   @Input() addNewProductCount: () => void = () => {};
 
-  constructor(private brandService: BrandService, private categoryService: CategoryService, private productService: ProductService) { }
+  constructor(private brandService: BrandService, private categoryService: CategoryService, private productService: ProductService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.brandService.getTotalBrands().subscribe({
       next: (data: BrandResponse[]) => {
-        this.optionsBrandDropdown = data.map((brand) => ({ label: brand.name, value: brand.brandId }));
+        const optionsBrandDropdown: Record<string, string | number>[] = data
+          .map((brand) => ({ label: brand.name, value: brand.brandId }));
+
+        this.moreDropdowns = [
+          {
+            label: BRAND_PRODUCT_INPUT_LABEL,
+            label2: BRAND_PRODUCT_INPUT_LABEL2,
+            options: optionsBrandDropdown,
+            name: BRAND_PRODUCT_INPUT_NAME,
+            errorText: EMPTY_STRING
+          }
+        ]
       },
       error: (error) => {
         console.error({ error });
@@ -99,7 +95,18 @@ export class AddProductComponent implements OnInit {
 
     this.categoryService.getTotalCategories().subscribe({
       next: (data: CategoryResponse[]) => {
-        this.optionsCategoryDropdown = data.map((category) => ({ label: category.name, value: category.categoryId }));
+        const optionsCategoryDropdown: Record<string, string | number>[] = data
+          .map((category) => ({ label: category.name, value: category.categoryId }));
+
+        this.moreDropdownsCombobox = [
+          {
+            label: CATEGORIES_PRODUCT_INPUT_LABEL,
+            label2: CATEGORIES_PRODUCT_INPUT_LABEL2,
+            options: optionsCategoryDropdown,
+            name: CATEGORIES_PRODUCT_INPUT_NAME,
+            errorText: EMPTY_STRING
+          }
+        ]
       },
       error: (error) => {
         console.error({ error });
@@ -110,10 +117,6 @@ export class AddProductComponent implements OnInit {
   showModalOutput(onShowModal: () => void): void {
     this.showModal = onShowModal;
   }
-  
-  showToastOutput(onShowToast: () => void): void {
-    this.showToast = onShowToast;
-  }
 
   changeStatusSaveButtonOutput(onChangeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void): void {
     this.changeStatusSaveButton = onChangeStatusSaveButton;
@@ -123,93 +126,23 @@ export class AddProductComponent implements OnInit {
     this.addNewProductCount()
   }
 
-  changeBrandValue(event: any): void {
-    this.brandValue = event;
-
-    if (this.brandValue !== ZERO && this.categoriesValue.length > 0) {
-      this.isDisabledDropdowns = false;
-    } else this.isDisabledDropdowns = true;
-
-    this.hasErrors(BRAND_PRODUCT_INPUT_NAME);
-  }
-  
-  changeCategoryValue(event: any): void {
-    this.categoriesValue = event;
-
-    if (this.brandValue !== ZERO && this.categoriesValue.length > 0) {
-      this.isDisabledDropdowns = false;
-    } else this.isDisabledDropdowns = true;
-    
-    this.hasErrors(CATEGORIES_PRODUCT_INPUT_NAME);
-  }
-
-  hasErrors(controlName: string) {
-    if (controlName === BRAND_PRODUCT_INPUT_NAME && this.brandValue === ZERO) {
-      this.errorTextBrandDropdown = 'Selecciona alguna marca';
-      this.isErrorBrandDropdown = true;
-    } else this.isErrorBrandDropdown = false; 
-
-    if (controlName === CATEGORIES_PRODUCT_INPUT_NAME && this.categoriesValue.length === ZERO) {
-      this.errorTextCategoryDropdown = 'Selecciona al menos una categoría';
-      this.isErrorCategoryDropdown = true;
-    } else this.isErrorCategoryDropdown = false; 
-  }
-
-  resetDropdowns(): void {
-    this.brandValue = ZERO;
-    this.categoriesValue = [];
-    this.isDisabledDropdowns = true;
-    this.isErrorBrandDropdown = false;
-    this.isErrorCategoryDropdown = false;
-    this.resetDrowdownOption();
-    this.resetDrowdownOptions();
-  }
-
-  resetOption(resetSelectedOption: () => void): void {
-    this.resetDrowdownOption = resetSelectedOption;
-  }
-  
-  resetOptions(resetSelectedOptions: () => void): void {
-    this.resetDrowdownOptions = resetSelectedOptions;
-  }
-
-  handleSubmit(productRequest: ProductRequestDto): void {
-    const product: ProductRequest = {
-      ...productRequest,
-      quantity: Number(productRequest.quantity),
-      price: Number(productRequest.price),
-      brandId: this.brandValue,
-      categoriesId: this.categoriesValue,
-    }
-
+  handleSubmit(product: ProductRequest): void {
     this.changeStatusSaveButton(true, false);
 
     this.productService.saveProduct(product).subscribe({
       next: () => {
-        this.pathIcon = SUCCESS_ICON_PATH;
-        this.toastMessage = PRODUCT_SAVED_TEXT;
-        this.toastStatus = StatusEnum.SUCCESS;
         this.changeStatusSaveButton(false, true);
         this.showModal();
-        this.showToast();
         this.addProductCount();
 
-        setTimeout(() => {
-          this.showToast();
-        }, 3000);
+        this.toastService.showToast(PRODUCT_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
       },
       error: (error) => {
         if (error.status === 409) this.toastMessage = error.error.message;
         else this.toastMessage = SERVER_ERROR_TEXT;
         
-        this.pathIcon = ERROR_ICON_PATH;
-        this.toastStatus = StatusEnum.ERROR;
         this.changeStatusSaveButton(false, true);
-        this.showToast();
-
-        setTimeout(() => {
-          this.showToast();
-        }, 3000);
+        this.toastService.showToast(this.toastMessage, StatusEnum.ERROR, ERROR_ICON_PATH);
       }
     })
   }
