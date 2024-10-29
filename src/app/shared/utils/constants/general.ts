@@ -6,6 +6,7 @@ export const DOCUMENT_REGEX = "^\\d{7,10}$";
 export const PHONE_REGEX = "^\\+?\\d{1,12}$";
 export const EMAIL_REGEX = "^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
 export const PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,}$";
+export const QUANTITY_REGEX = "^[1-9][0-9]*$";
 
 export const SUCCESS_ICON_PATH = '/assets/icons/success-icon.svg';
 export const ERROR_ICON_PATH = '/assets/icons/error-icon.svg';
@@ -22,32 +23,39 @@ export const SIGN_OUT_BUTTON_TEXT: string = 'Cerrar sesión';
 export const MENU_ITEMS_ADMIN: Record<string, string>[] = [
   {
     label: 'Inicio',
-    path: '/perfil/admin/inicio'
+    path: '/perfil/admin/inicio',
+    icon: 'home'
   },
   {
     label: 'Categorías',
-    path: '/perfil/admin/panel-categoria'
+    path: '/perfil/admin/panel-categoria',
+    icon: 'category'
   },
   {
     label: 'Marcas',
-    path: '/perfil/admin/panel-marca'
+    path: '/perfil/admin/panel-marca',
+    icon: 'brand'
   },
   {
     label: 'Productos',
-    path: '/perfil/admin/panel-producto'
+    path: '/perfil/admin/panel-producto',
+    icon: 'product'
   },
   {
     label: 'Auxiliares de Bodega',
-    path: '/perfil/admin/panel-auxiliar-bodega'
+    path: '/perfil/admin/panel-auxiliar-bodega',
+    icon: 'addUser'
   }
 ]
 export const MENU_ITEMS_WAREHOUSE_ASSISTANT: Record<string, string>[] = [
   {
     label: 'Inicio',
-    path: '/perfil/auxiliar-bodega/inicio'
+    path: '/perfil/auxiliar-bodega/inicio',
+    icon: 'home'
   },
   {
     label: 'Suministros',
-    path: '/perfil/auxiliar-bodega/panel-suministro'
+    path: '/perfil/auxiliar-bodega/panel-suministro',
+    icon: 'supply'
   }
 ]

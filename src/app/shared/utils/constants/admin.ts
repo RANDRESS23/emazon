@@ -2,6 +2,7 @@ import { ProductResponse } from "@utils/interfaces/product";
 import { BrandResponse } from "../interfaces/brand";
 import { CategoryResponse } from "../interfaces/category";
 import { WarehouseAssistantResponse } from "@utils/interfaces/warehouse-assistant";
+import { ProductSupply } from "@utils/interfaces/supply";
 
 export const ADD_CATEGORY_BUTTON_TEXT = 'Añadir categoría';
 export const ADD_BRAND_BUTTON_TEXT = 'Añadir marca';
@@ -64,10 +65,12 @@ export const PRICE_PRODUCT_INPUT_NAME = 'price';
 export const BRAND_PRODUCT_INPUT_LABEL = 'Marca producto';
 export const BRAND_PRODUCT_INPUT_LABEL2 = 'marca';
 export const BRAND_PRODUCT_INPUT_NAME = 'brandId';
+export const BRAND_NAME = 'brand';
 
 export const CATEGORIES_PRODUCT_INPUT_LABEL = 'Categorías producto';
 export const CATEGORIES_PRODUCT_INPUT_LABEL2 = 'categorías';
 export const CATEGORIES_PRODUCT_INPUT_NAME = 'categoriesId';
+export const CATEGORIES_NAME = 'categories';
 
 export const NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Nombres completos';
 export const NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Nombres';
@@ -173,6 +176,24 @@ export const TABLE_HEADERS_PRODUCT = [
     isCentered: false,
   }
 ]
+export const TABLE_HEADERS_PRODUCT_SUPPLY = [
+  {
+    label: 'ID',
+    isCentered: true,
+  },
+  {
+    label: 'Nombre',
+    isCentered: false,
+  },
+  {
+    label: 'Cantidad',
+    isCentered: true,
+  },
+  {
+    label: 'Acciones',
+    isCentered: true,
+  }
+]
 export const TABLE_HEADERS_WAREHOUSE_ASSISTANT = [
   {
     label: 'ID',
@@ -206,6 +227,7 @@ export const TABLE_HEADERS_WAREHOUSE_ASSISTANT = [
 export const CATEGORY_KEYS: (keyof CategoryResponse)[] = ['categoryId', 'name', 'description'];
 export const BRAND_KEYS: (keyof BrandResponse)[] = ['brandId', 'name', 'description'];
 export const PRODUCT_KEYS: (keyof ProductResponse)[] = ['productId', 'name', 'description', 'quantity', 'price', 'brand', 'categories'];
+export const PRODUCT_SUPPLY_KEYS: (keyof ProductSupply)[] = ['productId', 'name', 'quantity', 'accion'];
 export const WAREHOUSE_ASSISTANT_KEYS: (keyof WarehouseAssistantResponse)[] = ['userId', 'name', 'lastName', 'document', 'email', 'phone', 'birthdate'];
 
 export const INITIAL_PAGE_TABLE = 0;
