@@ -1,7 +1,6 @@
 <section>
   <organism-header-table
     (showFilterOrders)="showFilterOrders($event)"
-    [showSortByDropdown]="true"
     [optionsSortByDropdown]="optionsSortByDropdown"
   >
   </organism-header-table>
@@ -16,3 +15,8 @@
     (pageNumberChange)="changePage($event)"
   ></atom-pagination>
 </section>
+<app-add-supply
+  (modalEvent)="showModalOutput($event)" 
+  [productId]="productId"
+  [addNewSupplyCount]="addNewSupplyCount.bind(this)"
+></app-add-supply>
