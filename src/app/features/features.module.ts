@@ -16,6 +16,7 @@ import { AddWarehouseAssistantComponent } from './admin/warehouse-assistant/add-
 import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/list-of-warehouse-assistant/list-of-warehouse-assistant.component';
 import { FormSignInComponent } from './auth/form-sign-in/form-sign-in.component';
 import { ListOfProductsSupplyComponent } from './warehouse-assistant/supply/list-of-products-supply/list-of-products-supply.component';
+import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-supply.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ListOfProductsSupplyComponent } from './warehouse-assistant/supply/list
     AddWarehouseAssistantComponent,
     ListOfWarehouseAssistantComponent,
     FormSignInComponent,
-    ListOfProductsSupplyComponent
+    ListOfProductsSupplyComponent,
+    AddSupplyComponent
   ],
   imports: [
     CommonModule,

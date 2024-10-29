@@ -1,5 +1,6 @@
 export const EMPTY_STRING = '';
 export const ZERO = 0;
+export const TRUE_TEXT = 'true';
 export const TOAST_VISIBILITY_DURATION = 3000;
 export const NAME_REGEX = "^[A-Za-záéíóúÁÉÍÓÚñÑüÜ\\s]+$";
 export const DOCUMENT_REGEX = "^\\d{7,10}$";
