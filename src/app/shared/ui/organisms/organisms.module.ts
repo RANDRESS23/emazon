@@ -6,6 +6,7 @@ import { MoleculesModule } from "../molecules/molecules.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableComponent } from './table/table.component';
 import { HeaderTableComponent } from './header-table/header-table.component';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HeaderTableComponent } from './header-table/header-table.component';
     CommonModule,
     BrowserAnimationsModule,
     AtomsModule,
-    MoleculesModule
+    MoleculesModule,
+    PipesModule
 ],
   exports: [
     ModalFormBasicComponent,
