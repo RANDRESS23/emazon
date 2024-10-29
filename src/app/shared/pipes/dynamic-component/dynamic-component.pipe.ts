@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform, Type } from '@angular/core';
+import { AddBoxIconComponent } from '@atoms/icons/add-box-icon/add-box-icon.component';
 import { AddUserIconComponent } from '@atoms/icons/add-user-icon/add-user-icon.component';
 import { BrandIconComponent } from '@atoms/icons/brand-icon/brand-icon.component';
 import { CategoryIconComponent } from '@atoms/icons/category-icon/category-icon.component';
@@ -20,7 +21,8 @@ export class DynamicComponentPipe implements PipeTransform {
       brand: BrandIconComponent,
       product: ProductIconComponent,
       addUser: AddUserIconComponent,
-      supply: SupplyIconComponent
+      supply: SupplyIconComponent,
+      add: AddBoxIconComponent
     };
 
     return componentsMap[iconName] || null;
