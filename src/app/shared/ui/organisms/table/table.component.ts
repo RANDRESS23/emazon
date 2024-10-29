@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BRAND_NAME, CATEGORIES_NAME, PRICE_PRODUCT_INPUT_NAME } from '@utils/constants/admin';
 import { CategoryResponse } from '@utils/interfaces/category';
 
 @Component({
@@ -21,15 +22,15 @@ export class TableComponent implements OnInit {
   }
 
   parseItem(item: any, key: string): string {
-    if (key === 'categories') {
+    if (key === CATEGORIES_NAME) {
       return item[key].map((category: CategoryResponse) => category.name).join(', ');
     }
 
-    if (key === 'brand') {
+    if (key === BRAND_NAME) {
       return item[key].name;
     }
 
-    if (key === 'price') {
+    if (key === PRICE_PRODUCT_INPUT_NAME) {
       return `$ ${item[key]}`;
     }
 

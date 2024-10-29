@@ -28,7 +28,7 @@ import { InputTypeEnum } from '@utils/enums/input';
   ]
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
-  value: string = '';
+  value: string = EMPTY_STRING;
   onChange: any = () => {};
   onTouched: any = () => {};
   showPassword: boolean = false;
@@ -38,6 +38,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() inputType: string = EMPTY_STRING;
   @Input() inputName: string = EMPTY_STRING;
   @Input() isErrored?: boolean = false;
+  @Input() isDisabled?: boolean = false;
   @Input() errorText: string = EMPTY_STRING;
 
   constructor() { }

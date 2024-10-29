@@ -68,6 +68,27 @@
       &:nth-child(1) {
         width: 2rem;
       }
+
+      & .icon-item-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      & .icon-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        color: $primary;
+        border: none;
+        cursor: pointer;
+        transition: .2s ease all;
+
+        &:hover {
+          color: $primary-click;
+        }
+      }
     }
 
     &__cell-center {

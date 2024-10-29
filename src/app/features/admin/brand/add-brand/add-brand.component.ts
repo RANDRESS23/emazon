@@ -5,7 +5,6 @@ import { ButtonTypeEnum } from '@utils/enums/button';
 import { ButtonType } from '@utils/types/button';
 import { ADD_BRAND_BUTTON_TEXT, BRAND_SAVED_TEXT, DESCRIPTION_BRAND_TEXTAREA_LABEL, DESCRIPTION_BRAND_TEXTAREA_NAME, DESCRIPTION_BRAND_TEXTAREA_PLACEHOLDER, MAX_LENGTH_BRAND_DESCRIPTION_FIELD, MAX_LENGTH_BRAND_NAME_FIELD, NAME_BRAND_INPUT_LABEL, NAME_BRAND_INPUT_NAME, NAME_BRAND_INPUT_PLACEHOLDER, REGISTER_NEW_BRAND_TEXT, REGISTER_NEW_BRAND_TEXT_PRIMARY, SAVE_BRAND_BUTTON_TEXT, SERVER_ERROR_TEXT } from '@utils/constants/admin';
 import { StatusEnum } from '@utils/enums/status';
-import { StatusType } from '@utils/types/status';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { BrandRequest } from '@utils/interfaces/brand';
 import { EMPTY_STRING, ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';

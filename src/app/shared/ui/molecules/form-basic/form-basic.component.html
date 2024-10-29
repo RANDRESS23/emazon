@@ -27,6 +27,7 @@
       [inputType]="field['type']"
       [inputName]="field['name']"
       [isErrored]="hasErrors(field['name'])"
+      [isDisabled]="field['isDisabled'] === 'true'"
       [errorText]="field['errorText']"
       formControlName="{{ field['name'] }}"
     ></atom-input>
