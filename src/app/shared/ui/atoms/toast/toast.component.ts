@@ -22,7 +22,7 @@ import { StatusType } from '@utils/types/status';
   ]
 })
 export class ToastComponent implements OnInit {
-  private toastTimeoutId: any;
+  toastTimeoutId: any;
 
   showToast: boolean = false;
   pathCloseIcon: string = CLOSE_ICON_PATH;

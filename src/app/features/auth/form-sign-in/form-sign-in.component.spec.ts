@@ -6,12 +6,14 @@ import { UserCredentials } from '@utils/interfaces/auth';
 import { RolesEnum } from '@utils/enums/roles';
 import { of, throwError } from 'rxjs';
 import { StatusEnum } from '@utils/enums/status';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
 describe('FormSignInComponent', () => {
   let component: FormSignInComponent;
   let fixture: ComponentFixture<FormSignInComponent>;
   let authService: AuthService;
   let router: Router;
+  let toastService: ToastService;
 
   const mockUserCredentials: UserCredentials = {
     email: 'test@example.com',
@@ -28,11 +30,16 @@ describe('FormSignInComponent', () => {
       navigate: jest.fn()
     };
 
+    const toastServiceMock = {
+      showToast: jest.fn()
+    };
+
     TestBed.configureTestingModule({
       declarations: [FormSignInComponent],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
-        { provide: Router, useValue: routerMock }
+        { provide: Router, useValue: routerMock },
+        { provide: ToastService, useValue: toastServiceMock }
       ]
     }).compileComponents();
 
@@ -40,6 +47,7 @@ describe('FormSignInComponent', () => {
     component = fixture.componentInstance;
     authService = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
+    toastService = TestBed.inject(ToastService);
   });
 
   it('should call AuthService.login and navigate to the correct home page on success', () => {
@@ -47,7 +55,7 @@ describe('FormSignInComponent', () => {
     (authService.getRole as jest.Mock).mockReturnValue(RolesEnum.ADMIN);
     
     const changeStatusSpy = jest.spyOn(component, 'changeStatusSaveButton');
-    const showToastSpy = jest.spyOn(component, 'showToast');
+    const showToastSpy = jest.spyOn(toastService, 'showToast');
     const navigateSpy = jest.spyOn(router, 'navigate');
 
     component.handleSubmit(mockUserCredentials);
@@ -55,7 +63,7 @@ describe('FormSignInComponent', () => {
     expect(authService.login).toHaveBeenCalledWith(mockUserCredentials);
     expect(changeStatusSpy).toHaveBeenCalledWith(true, false);
 
-    expect(showToastSpy).toHaveBeenCalled();
+    expect(showToastSpy).toHaveBeenCalledWith('Inicio de sesión exitoso', StatusEnum.SUCCESS, '/assets/icons/success-icon.svg');
     expect(changeStatusSpy).toHaveBeenCalledWith(false, true);
     expect(showToastSpy).toHaveBeenCalledTimes(1);
     expect(navigateSpy).toHaveBeenCalledWith(['/perfil/admin/inicio']);
@@ -66,7 +74,7 @@ describe('FormSignInComponent', () => {
     (authService.login as jest.Mock).mockReturnValue(throwError(() => errorResponse));
     
     const changeStatusSpy = jest.spyOn(component, 'changeStatusSaveButton');
-    const showToastSpy = jest.spyOn(component, 'showToast');
+    const showToastSpy = jest.spyOn(toastService, 'showToast');
 
     component.handleSubmit(mockUserCredentials);
 
@@ -74,10 +82,8 @@ describe('FormSignInComponent', () => {
     expect(changeStatusSpy).toHaveBeenCalledWith(true, false);
 
     expect(component.toastMessage).toBe('Invalid credentials');
-    expect(component.pathIcon).toBe('/assets/icons/error-icon.svg');
-    expect(component.toastStatus).toBe(StatusEnum.ERROR);
-
     expect(changeStatusSpy).toHaveBeenCalledWith(false, true);
+    expect(showToastSpy).toHaveBeenCalledWith('Invalid credentials', StatusEnum.ERROR, '/assets/icons/error-icon.svg');
     expect(showToastSpy).toHaveBeenCalledTimes(1);
   });
 

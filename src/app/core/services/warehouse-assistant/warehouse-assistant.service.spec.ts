@@ -49,22 +49,19 @@ describe('WarehouseAssistantService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify();  // Verifica que no haya solicitudes pendientes
+    httpMock.verify();
   });
 
   describe('saveWarehouseAssistant', () => {
     it('should save a warehouse assistant and return the response', () => {
-      // Ejecutar el método
       service.saveWarehouseAssistant(mockWarehouseAssistantRequest).subscribe((response) => {
         expect(response).toEqual(mockWarehouseAssistantResponse);
       });
 
-      // Comprobar que se ha realizado la solicitud correcta
       const req = httpMock.expectOne(`${environment.BASE_URL_USER}/user/aux-bodega-user`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockWarehouseAssistantRequest);
 
-      // Simular la respuesta de la API
       req.flush(mockWarehouseAssistantResponse);
     });
 
@@ -82,7 +79,6 @@ describe('WarehouseAssistantService', () => {
       const req = httpMock.expectOne(`${environment.BASE_URL_USER}/user/aux-bodega-user`);
       expect(req.request.method).toBe('POST');
 
-      // Simular un error de la API
       req.flush(errorMsg, { status: 500, statusText: 'Server Error' });
     });
   });
@@ -98,11 +94,9 @@ describe('WarehouseAssistantService', () => {
         expect(response).toEqual(mockPageWarehouseAssistants);
       });
 
-      // Comprobar que se ha realizado la solicitud correcta
       const req = httpMock.expectOne(`${environment.BASE_URL_USER}/user/aux-bodega-user?page=${page}&size=${size}&sortOrder=${sortOrder}&sortBy=${sortBy}`);
       expect(req.request.method).toBe('GET');
 
-      // Simular la respuesta de la API
       req.flush(mockPageWarehouseAssistants);
     });
 
@@ -124,7 +118,6 @@ describe('WarehouseAssistantService', () => {
       const req = httpMock.expectOne(`${environment.BASE_URL_USER}/user/aux-bodega-user?page=${page}&size=${size}&sortOrder=${sortOrder}&sortBy=${sortBy}`);
       expect(req.request.method).toBe('GET');
 
-      // Simular un error de la API
       req.flush(errorMsg, { status: 500, statusText: 'Server Error' });
     });
   });

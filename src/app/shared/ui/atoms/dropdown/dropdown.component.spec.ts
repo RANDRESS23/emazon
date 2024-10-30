@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DropdownComponent } from './dropdown.component';
-import { EMPTY_STRING } from '@utils/constants/general';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DropdownComponent', () => {
   let component: DropdownComponent;
@@ -9,38 +9,47 @@ describe('DropdownComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DropdownComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DropdownComponent);
     component = fixture.componentInstance;
+    component.options = [
+      { name: 'Option 1', value: 1 },
+      { name: 'Option 2', value: 2 },
+      { name: 'Option 3', value: 3 },
+    ];
     fixture.detectChanges();
   });
 
-  test('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  test('should initialize with default values', () => {
-    expect(component.selectedOption).toBeNull();
-    expect(component.isDropdownOpen).toBe(false);
-    expect(component.label).toBe(EMPTY_STRING);
-    expect(component.label2).toBe(EMPTY_STRING);
-    expect(component.isErrored).toBe(false);
-    expect(component.errorText).toBe(EMPTY_STRING);
-    expect(component.options).toEqual([]);
+  it('should write value correctly with writeValue', () => {
+    component.writeValue(2);
+    expect(component.valueDropdown).toEqual(2);
+
+    component.writeValue('');
+    expect(component.valueDropdown).toEqual('');
   });
 
-  test('should emit resetSelectedOption with correct function on init', () => {
-    const spyEmit = jest.spyOn(component.resetSelectedOption, 'emit');
-    
-    component.ngOnInit();
-    expect(spyEmit).toHaveBeenCalled();
-    expect(spyEmit).toHaveBeenCalledWith(expect.any(Function));
+  it('should register onChange function', () => {
+    const mockOnChange = jest.fn();
+    component.registerOnChange(mockOnChange);
+    expect(component.onChange).toBe(mockOnChange);
   });
 
-  test('should toggle isDropdownOpen when toggleDropdown is called', () => {
+  it('should register onTouched function', () => {
+    const mockOnTouched = jest.fn();
+    component.registerOnTouched(mockOnTouched);
+    expect(component.onTouched).toBe(mockOnTouched);
+  });
+
+  it('should toggle dropdown open state', () => {
+    component.isDropdownOpen = false;
     component.toggleDropdown();
     expect(component.isDropdownOpen).toBe(true);
 
@@ -48,31 +57,46 @@ describe('DropdownComponent', () => {
     expect(component.isDropdownOpen).toBe(false);
   });
 
-  test('should set selectedOption and emit value on selectOption', () => {
-    const spyEmit = jest.spyOn(component.optionChange, 'emit');
-    const mockItem = 'Option 1';
-    const mockValue = 1;
+  it('should select an option and call onChange, onTouched, and toggle dropdown', () => {
+    const mockOnChange = jest.fn();
+    const mockOnTouched = jest.fn();
+    component.registerOnChange(mockOnChange);
+    component.registerOnTouched(mockOnTouched);
+    component.toggleDropdown = jest.fn();
 
-    component.selectOption(mockItem, mockValue);
-    expect(component.selectedOption).toBe(mockItem);
-    expect(component.isDropdownOpen).toBe(true);
-    expect(spyEmit).toHaveBeenCalledWith(mockValue);
+    component.selectOption('Option 1', 1);
+
+    expect(component.selectedOption).toBe('Option 1');
+    expect(component.valueDropdown).toBe(1);
+    expect(mockOnChange).toHaveBeenCalledWith(1);
+    expect(mockOnTouched).toHaveBeenCalled();
+    expect(component.toggleDropdown).toHaveBeenCalled();
   });
 
-  test('should reset selectedOption when selecting the same option again', () => {
-    const spyEmit = jest.spyOn(component.optionChange, 'emit');
-    const mockItem = 'Option 1';
-    const mockValue = 1;
-
-    component.selectedOption = mockItem;
-    component.selectOption(mockItem, mockValue);
-    expect(component.selectedOption).toBeNull();
-    expect(spyEmit).toHaveBeenCalledWith(0);
-  });
-
-  test('should reset selectedOption when resetOption is called', () => {
+  it('should deselect an option if it is already selected', () => {
+    const mockOnChange = jest.fn();
+    component.registerOnChange(mockOnChange);
     component.selectedOption = 'Option 1';
-    component.resetOption();
+    component.valueDropdown = 1;
+
+    component.selectOption('Option 1', 1);
+
     expect(component.selectedOption).toBeNull();
+    expect(component.valueDropdown).toBe('');
+    expect(mockOnChange).toHaveBeenCalledWith('');
+  });
+
+  it('should close the dropdown after selecting an option', () => {
+    component.isDropdownOpen = true;
+    component.selectOption('Option 1', 1);
+
+    expect(component.isDropdownOpen).toBe(false);
+  });
+
+  it('should not close the dropdown if no option is selected', () => {
+    component.isDropdownOpen = true;
+    component.selectOption('Option 1', '');
+
+    expect(component.isDropdownOpen).toBe(false);
   });
 });

@@ -75,7 +75,7 @@ describe('AuthService', () => {
     expect(service.isAuthenticated()).toBe(false);
 
     const expiredToken = 'fake.expired.jwt.token';
-    const expiredPayload = { exp: Date.now() / 1000 - 10 }; // 10 seconds in the past
+    const expiredPayload = { exp: Date.now() / 1000 - 10 };
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(expiredToken);
     jest.spyOn(global, 'atob').mockReturnValue(JSON.stringify(expiredPayload));
 
@@ -121,5 +121,24 @@ describe('AuthService', () => {
     const role = service.getRole();
 
     expect(role).toBe('ADMIN');
+  });
+
+  it('should return the fullName from a valid token', () => {
+    const validToken = 'fake.jwt.token';
+    const validPayload = { fullName: 'Raul' };
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(validToken);
+    jest.spyOn(global, 'atob').mockReturnValue(JSON.stringify(validPayload));
+
+    const fullName = service.getFullName();
+
+    expect(fullName).toBe('Raul');
+  });
+
+  it('should return empty string from a invalid token', () => {
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
+
+    const fullName = service.getFullName();
+
+    expect(fullName).toBe('');
   });
 });

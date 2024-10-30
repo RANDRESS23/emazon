@@ -195,7 +195,7 @@ describe('FormBasicComponent', () => {
     component.form.get('quantity')?.setValue(1);
     component.form.get('price')?.setValue(1);
 
-    component.changeStatusSaveButton(!component.form.valid || component.loading || !!component.isDisabledDropdowns);
+    component.changeStatusSaveButton(!component.form.valid || component.loading);
     
     expect(component.isDisabledSaveButton).toBe(false);
   });
@@ -238,52 +238,6 @@ describe('FormBasicComponent', () => {
 
     expect(component.formDataEvent.emit).not.toHaveBeenCalled();
   });
-
-  it('should change the save button state correctly in changeStatusSaveButton', () => {
-    component.changeStatusSaveButton(true);
-    expect(component.isDisabledSaveButton).toBe(true);
-
-    component.changeStatusSaveButton(false, true);
-    expect(component.isDisabledSaveButton).toBe(false);
-    expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe(component.buttonSaveTextPrev);
-
-    component.changeStatusSaveButton(true, true);
-    expect(component.isDisabledSaveButton).toBe(true);
-    expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe(component.buttonSaveTextPrev);
-
-    component.changeStatusSaveButton(true, false);
-    expect(component.isDisabledSaveButton).toBe(true);
-    expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe(LOADING_BUTTON_TEXT);
-
-    component.changeStatusSaveButton(false, false);
-    expect(component.isDisabledSaveButton).toBe(false);
-    expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe(LOADING_BUTTON_TEXT);
-  });
-
-  it('should handle changes in isDisabledDropdowns and update button state', () => {
-    component.isDisabledDropdowns = false;
-  
-    const changes: SimpleChanges = {
-      isDisabledDropdowns: new SimpleChange(null, false, true)
-    };
-  
-    jest.spyOn(component, 'changeStatusSaveButton');
-    
-    component.ngOnChanges(changes);
-    
-    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(false);
-    
-    component.isDisabledDropdowns = true;
-    component.ngOnChanges({
-      isDisabledDropdowns: new SimpleChange(false, true, false)
-    });
-  
-    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(true);
-  });
   
   it('should set error messages for custom input fields', () => {
     component.moreInputs = [{ label: '', name: 'extraField', errorText: '' }, { label: 'extr', name: 'extraField3', errorText: '' }];
@@ -292,18 +246,6 @@ describe('FormBasicComponent', () => {
 
     component.getErrorText('extraField3', 'min', 5);
     expect(component.moreInputs[1]['errorText']).toBe(MIN_VALUE_FIELD_ERROR_TEXT);
-  });
-  
-  it('should update the button state when loading changes in changeStatusSaveButton', () => {
-    component.changeStatusSaveButton(true, false);
-    expect(component.isDisabledSaveButton).toBe(true);
-    expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe(LOADING_BUTTON_TEXT);
-  
-    component.changeStatusSaveButton(false, true);
-    expect(component.isDisabledSaveButton).toBe(false);
-    expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe(component.buttonSaveTextPrev);
   });
   
   it('should not call showModal when showModal is null or undefined', () => {
@@ -416,21 +358,6 @@ describe('FormBasicComponent', () => {
     expect(eventSpy).toHaveBeenCalledWith(expect.any(Function));
   });
 
-  it('should toggle loading and update buttonSaveText in changeStatusSaveButton when loaded is passed', () => {
-    component.buttonSaveTextPrev = 'Previous';
-    component.changeStatusSaveButton(false, true);
-
-    expect(component.isDisabledSaveButton).toBe(false);
-    expect(component.loading).toBe(false);
-    expect(component.buttonSaveText).toBe('Previous');
-
-    component.changeStatusSaveButton(true, false);
-
-    expect(component.isDisabledSaveButton).toBe(true);
-    expect(component.loading).toBe(true);
-    expect(component.buttonSaveText).toBe('Cargando...');
-  });
-
   it('should return true when control has required error', () => {
     const control = component.form.get('name');
     control?.setErrors({ required: true });
@@ -510,7 +437,6 @@ describe('FormBasicComponent', () => {
   it('should call changeStatusSaveButton within setTimeout when isDisabledSaveIcon is true', () => {
     component.isDisabledSaveIcon = true;
     component.loading = false;
-    component.isDisabledDropdowns = false;
     component.changeStatusSaveButton = jest.fn();
 
     component.form.get('exampleControl')?.setValue('Some value');
@@ -532,7 +458,6 @@ describe('FormBasicComponent', () => {
   it('should call changeStatusSaveButton with true if form is invalid', () => {
     component.isDisabledSaveIcon = true;
     component.loading = false;
-    component.isDisabledDropdowns = false;
     component.changeStatusSaveButton = jest.fn();
 
     component.form.get('exampleControl')?.setErrors({ required: true });

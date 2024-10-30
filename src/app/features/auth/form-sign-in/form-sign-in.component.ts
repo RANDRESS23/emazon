@@ -11,7 +11,6 @@ import { StatusEnum } from '@utils/enums/status';
 import { UserCredentials } from '@utils/interfaces/auth';
 import { InputType } from '@utils/types/input';
 import { RoleType } from '@utils/types/roles';
-import { StatusType } from '@utils/types/status';
 
 @Component({
   selector: 'app-form-sign-in',
