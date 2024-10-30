@@ -7,14 +7,21 @@ import { WarehouseAssistantPanelComponent } from './pages/profile/admin/warehous
 import { LoginComponent } from './pages/login/login.component';
 import { AuthenticatedGuard } from './core/guards/authenticated/authenticated.guard';
 import { AdminGuard } from './core/guards/admin/admin.guard';
+import { SupplyPanelComponent } from './pages/profile/warehouse-assistant/supply-panel/supply-panel.component';
+import { WarehouseAssistantGuard } from './core/guards/warehouse-assistant/warehouse-assistant.guard';
+import { InicioAdminComponent } from './pages/profile/admin/inicio/inicio.component';
+import { InicioWarehouseAssistantComponent } from './pages/profile/warehouse-assistant/inicio/inicio.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthenticatedGuard] },
-  { path: 'perfil/admin/inicio', component: CategoryPanelComponent, canActivate: [AdminGuard] },
+  { path: 'perfil/admin/inicio', component: InicioAdminComponent, canActivate: [AdminGuard] },
   { path: 'perfil/admin/panel-categoria', component: CategoryPanelComponent, canActivate: [AdminGuard] },
   { path: 'perfil/admin/panel-marca', component: BrandPanelComponent, canActivate: [AdminGuard] },
   { path: 'perfil/admin/panel-producto', component: ProductPanelComponent, canActivate: [AdminGuard] },
-  { path: 'perfil/admin/panel-auxiliar-bodega', component: WarehouseAssistantPanelComponent, canActivate: [AdminGuard] }
+  { path: 'perfil/admin/panel-auxiliar-bodega', component: WarehouseAssistantPanelComponent, canActivate: [AdminGuard] },
+  { path: 'perfil/auxiliar-bodega/inicio', component: InicioWarehouseAssistantComponent, canActivate: [WarehouseAssistantGuard] },
+  { path: 'perfil/auxiliar-bodega/panel-suministro', component: SupplyPanelComponent, canActivate: [WarehouseAssistantGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

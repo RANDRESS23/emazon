@@ -18,7 +18,17 @@
         class="body-row__cell" 
         *ngFor="let key of keys"
         [ngClass]="{'body-row__cell-center': isNumber(item[key])}"
-      >{{ parseItem(item, key) }}</td>
+      >
+        <div class="icon-item-container" *ngIf="key === 'accion'; else fieldValue">
+          <button class="icon-item" (click)="item['accion']['accion'](item)">
+            <ng-container *ngComponentOutlet="item['accion']['icon'] | dynamicComponent"></ng-container>
+          </button>
+        </div>
+
+        <ng-template #fieldValue>
+          {{ parseItem(item, key) }}
+        </ng-template>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -15,6 +15,8 @@ import { ListOfProductsComponent } from './admin/product/list-of-products/list-o
 import { AddWarehouseAssistantComponent } from './admin/warehouse-assistant/add-warehouse-assistant/add-warehouse-assistant.component';
 import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/list-of-warehouse-assistant/list-of-warehouse-assistant.component';
 import { FormSignInComponent } from './auth/form-sign-in/form-sign-in.component';
+import { ListOfProductsSupplyComponent } from './warehouse-assistant/supply/list-of-products-supply/list-of-products-supply.component';
+import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-supply.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { FormSignInComponent } from './auth/form-sign-in/form-sign-in.component'
     ListOfProductsComponent,
     AddWarehouseAssistantComponent,
     ListOfWarehouseAssistantComponent,
-    FormSignInComponent
+    FormSignInComponent,
+    ListOfProductsSupplyComponent,
+    AddSupplyComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +50,8 @@ import { FormSignInComponent } from './auth/form-sign-in/form-sign-in.component'
     ListOfBrandsComponent,
     ListOfProductsComponent,
     ListOfWarehouseAssistantComponent,
-    FormSignInComponent
+    FormSignInComponent,
+    ListOfProductsSupplyComponent
   ]
 })
 export class FeaturesModule { }

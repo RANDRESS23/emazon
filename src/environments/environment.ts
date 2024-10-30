@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   BASE_URL_STOCK: 'http://localhost:8080/api/v1',
-  BASE_URL_USER: 'http://localhost:8081/api/v1'
+  BASE_URL_USER: 'http://localhost:8081/api/v1',
+  BASE_URL_TRANSACTION: 'http://localhost:8082/api/v1'
 };
 
 /*

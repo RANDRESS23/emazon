@@ -4,6 +4,10 @@ import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { of, throwError } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrandRequest, BrandResponse } from '@utils/interfaces/brand';
+import { ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { BRAND_SAVED_TEXT, SERVER_ERROR_TEXT } from '@utils/constants/admin';
+import { StatusEnum } from '@utils/enums/status';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
 jest.useFakeTimers();
 
@@ -11,23 +15,29 @@ describe('AddBrandComponent', () => {
   let component: AddBrandComponent;
   let fixture: ComponentFixture<AddBrandComponent>;
   let brandService: jest.Mocked<BrandService>;
+  let toastService: jest.Mocked<ToastService>;
 
   beforeEach(async () => {
     const brandServiceMock = {
       saveBrand: jest.fn()
     };
+    const toastServiceMock = {
+      showToast: jest.fn()
+    };
 
     await TestBed.configureTestingModule({
       declarations: [AddBrandComponent],
       providers: [
-        { provide: BrandService, useValue: brandServiceMock }
+        { provide: BrandService, useValue: brandServiceMock },
+        { provide: ToastService, useValue: toastServiceMock }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA] 
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddBrandComponent);
     component = fixture.componentInstance;
     brandService = TestBed.inject(BrandService) as jest.Mocked<BrandService>;
+    toastService = TestBed.inject(ToastService) as jest.Mocked<ToastService>;
 
     fixture.detectChanges();
   });
@@ -52,24 +62,19 @@ describe('AddBrandComponent', () => {
 
       const changeStatusSaveButtonSpy = jest.spyOn(component, 'changeStatusSaveButton');
       const showModalSpy = jest.spyOn(component, 'showModal');
-      const showToastSpy = jest.spyOn(component, 'showToast');
       const addBrandCountSpy = jest.spyOn(component, 'addBrandCount');
 
       component.handleSubmit(mockBrand);
 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(true, false);
       expect(brandService.saveBrand).toHaveBeenCalledWith(mockBrand);
-      expect(component.pathIcon).toBe('/assets/icons/success-icon.svg');
-      expect(component.toastMessage).toBe('La marca fue guardada con éxito');
-      expect(component.toastStatus).toBe('success');  
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(false, true);
       expect(showModalSpy).toHaveBeenCalled();
-      expect(showToastSpy).toHaveBeenCalled();
       expect(addBrandCountSpy).toHaveBeenCalled();
+      expect(toastService.showToast).toHaveBeenCalledWith(BRAND_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
 
-      
       jest.advanceTimersByTime(3000);
-      expect(showToastSpy).toHaveBeenCalledTimes(2);
+      expect(toastService.showToast).toHaveBeenCalledTimes(1);
     });
 
     it('should handle brand submission error (409 conflict)', () => {
@@ -82,21 +87,17 @@ describe('AddBrandComponent', () => {
       brandService.saveBrand.mockReturnValue(throwError(() => errorResponse));
 
       const changeStatusSaveButtonSpy = jest.spyOn(component, 'changeStatusSaveButton');
-      const showToastSpy = jest.spyOn(component, 'showToast');
 
       component.handleSubmit(mockBrand);
 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(true, false);
       expect(brandService.saveBrand).toHaveBeenCalledWith(mockBrand);
       expect(component.toastMessage).toBe('Brand already exists');
-      expect(component.pathIcon).toBe('/assets/icons/error-icon.svg');
-      expect(component.toastStatus).toBe('error');
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(false, true);
-      expect(showToastSpy).toHaveBeenCalled();
+      expect(toastService.showToast).toHaveBeenCalledWith('Brand already exists', StatusEnum.ERROR, ERROR_ICON_PATH);
 
-      
       jest.advanceTimersByTime(3000);
-      expect(showToastSpy).toHaveBeenCalledTimes(2);
+      expect(toastService.showToast).toHaveBeenCalledTimes(1);
     });
 
     it('should handle brand submission error (other errors)', () => {
@@ -105,26 +106,42 @@ describe('AddBrandComponent', () => {
         description: 'Description of brand 1'
       };
 
-      const errorResponse = { status: 500 };  
+      const errorResponse = { status: 500 };
       brandService.saveBrand.mockReturnValue(throwError(() => errorResponse));
 
       const changeStatusSaveButtonSpy = jest.spyOn(component, 'changeStatusSaveButton');
-      const showToastSpy = jest.spyOn(component, 'showToast');
 
       component.handleSubmit(mockBrand);
 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(true, false);
       expect(brandService.saveBrand).toHaveBeenCalledWith(mockBrand);
-      expect(component.toastMessage).toBe('Error inesperado al guardar en el servidor');
-      expect(component.pathIcon).toBe('/assets/icons/error-icon.svg');
-      expect(component.toastStatus).toBe('error');
+      expect(component.toastMessage).toBe(SERVER_ERROR_TEXT);
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(false, true);
-      expect(showToastSpy).toHaveBeenCalled();
+      expect(toastService.showToast).toHaveBeenCalledWith(SERVER_ERROR_TEXT, StatusEnum.ERROR, ERROR_ICON_PATH);
 
-      
       jest.advanceTimersByTime(3000);
-      expect(showToastSpy).toHaveBeenCalledTimes(2);
+      expect(toastService.showToast).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('should call addBrandCount on addBrandCount method', () => {
+    const addBrandCountSpy = jest.spyOn(component, 'addNewBrandCount');
+    component.addBrandCount();
+    expect(addBrandCountSpy).toHaveBeenCalled();
+  });
+
+  it('should assign onShowModal to showModal property when showModalOutput is called', () => {
+    const mockShowModal = jest.fn();
+
+    component.showModalOutput(mockShowModal);
+    expect(component.showModal).toBe(mockShowModal);
+  });
+
+  it('should assign onChangeStatusSaveButton to changeStatusSaveButton property when changeStatusSaveButtonOutput is called', () => {
+    const mockChangeStatusSaveButton = jest.fn();
+
+    component.changeStatusSaveButtonOutput(mockChangeStatusSaveButton);
+    expect(component.changeStatusSaveButton).toBe(mockChangeStatusSaveButton);
   });
 
   it('should call addBrandCount on addBrandCount method', () => {
@@ -138,13 +155,6 @@ describe('AddBrandComponent', () => {
 
     component.showModalOutput(mockShowModal); 
     expect(component.showModal).toBe(mockShowModal);
-  });
-
-  it('should assign onShowToast to showToast property when showToastOutput is called', () => {
-    const mockShowToast = jest.fn(); 
-
-    component.showToastOutput(mockShowToast); 
-    expect(component.showToast).toBe(mockShowToast);
   });
 
   it('should assign onChangeStatusSaveButton to changeStatusSaveButton property when changeStatusSaveButtonOutput is called', () => {

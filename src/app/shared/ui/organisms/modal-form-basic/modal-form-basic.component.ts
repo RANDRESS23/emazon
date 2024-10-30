@@ -1,7 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ADD_CATEGORY_CLOSE_ICON_ALT, ADD_CATEGORY_CLOSE_ICON_PATH } from '@utils/constants/admin';
-import { EMPTY_STRING, ZERO } from '@utils/constants/general';
+import { CLOSE_ICON_ALT, CLOSE_ICON_PATH, EMPTY_STRING, ZERO } from '@utils/constants/general';
 
 @Component({
   selector: 'organism-modal-form-basic',
@@ -26,8 +25,8 @@ import { EMPTY_STRING, ZERO } from '@utils/constants/general';
 })
 export class ModalFormBasicComponent implements OnInit {
   showModal: boolean = false;
-  pathCloseIcon: string = ADD_CATEGORY_CLOSE_ICON_PATH;
-  closeIconAlt: string = ADD_CATEGORY_CLOSE_ICON_ALT;
+  pathCloseIcon: string = CLOSE_ICON_PATH;
+  closeIconAlt: string = CLOSE_ICON_ALT;
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
 
   @Input() inputLabel: string = EMPTY_STRING;
@@ -43,9 +42,9 @@ export class ModalFormBasicComponent implements OnInit {
   @Input() descriptionMaxLength: number = ZERO;
   @Input() moreFields: Record<string, any[]> = {};
   @Input() moreInputs: Record<string, string>[] = [];
+  @Input() moreDropdowns: Record<string, string>[] = [];
+  @Input() moreDropdownsCombobox: Record<string, string>[] = [];
   @Input() isDisabledSaveButton: boolean = true;
-  @Input() isDisabledDropdowns: boolean | null = null;
-  @Input() resetDropdowns: () => void = () => {};
   @Output() modalEvent = new EventEmitter<() => void>();
   @Output() formDataEvent = new EventEmitter<any>();
   @Output() changeStatusSaveButtonEvent = new EventEmitter<(isDisabled: boolean, loaded?: boolean) => void>();
@@ -59,7 +58,6 @@ export class ModalFormBasicComponent implements OnInit {
 
   onShowModal(): void {
     this.showModal = !this.showModal;
-    this.resetDropdowns();
 
     if (this.showModal) document.body.classList.add('no-scroll');
     else document.body.classList.remove('no-scroll');

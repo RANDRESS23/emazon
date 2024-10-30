@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY_STRING } from '@utils/constants/general';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { EMPTY_STRING, ZERO } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { ButtonType } from '@utils/types/button';
 
@@ -8,6 +9,13 @@ import { ButtonType } from '@utils/types/button';
   selector: 'atom-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DropdownComponent),
+      multi: true
+    }
+  ],
   animations: [
     trigger('optionsAnimationContainer', [
       transition(':enter', [
@@ -20,7 +28,10 @@ import { ButtonType } from '@utils/types/button';
     ])
   ]
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent implements OnInit, ControlValueAccessor {
+  valueDropdown: string | number = ZERO;
+  onChange: any = () => {};
+  onTouched: any = () => {};
   selectedOption: string | null = null;
   isDropdownOpen: boolean = false;
   buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
@@ -30,14 +41,24 @@ export class DropdownComponent implements OnInit {
   @Input() options: Record<string, string | number>[] = [];
   @Input() isErrored?: boolean = false;
   @Input() errorText: string = EMPTY_STRING;
-  @Output() optionChange = new EventEmitter<any>();
-  @Output() resetSelectedOption = new EventEmitter<() => void>();
  
   constructor() { }
 
-  ngOnInit(): void {
-    this.resetSelectedOption.emit(() => this.resetOption());
+  ngOnInit(): void { }
+
+  writeValue(value: any): void {
+    this.valueDropdown = value || '';
   }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {}
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -46,14 +67,12 @@ export class DropdownComponent implements OnInit {
   selectOption(item: string, value: string | number): void {
     if (this.selectedOption === item) {
       this.selectedOption = null;
-      value = 0;
+      value = EMPTY_STRING;
     } else this.selectedOption = item;
 
+    this.valueDropdown = value;
+    this.onChange(value);
+    this.onTouched();
     this.toggleDropdown();
-    this.optionChange.emit(value);
-  }
-
-  resetOption(): void {
-    this.selectedOption = null;
   }
 }

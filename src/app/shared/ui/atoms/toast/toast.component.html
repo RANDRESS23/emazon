@@ -14,9 +14,9 @@
     <span 
       class="content__label"
       [ngClass]="{'content__label--success': status === statusSuccess, 'content__label--error': status === statusError, 'content__label--warning': status === statusWarning}"
-    >{{ label }}</span>
+    >{{ message }}</span>
   </div>
-  <button class="toast__close" (click)="onShowToast()">
+  <button class="toast__close" (click)="closeToast()">
     <img [src]="pathCloseIcon" alt="Close icon" />
   </button>
 </div>

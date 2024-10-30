@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddProductComponent } from './add-product.component';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { CategoryService } from '@src/app/core/services/category/category.service';
@@ -6,7 +6,10 @@ import { ProductService } from '@src/app/core/services/product/product.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BRAND_PRODUCT_INPUT_NAME } from '@utils/constants/admin';
+import { BRAND_PRODUCT_INPUT_LABEL, BRAND_PRODUCT_INPUT_LABEL2, BRAND_PRODUCT_INPUT_NAME, CATEGORIES_PRODUCT_INPUT_LABEL, CATEGORIES_PRODUCT_INPUT_LABEL2, CATEGORIES_PRODUCT_INPUT_NAME, PRODUCT_SAVED_TEXT, SERVER_ERROR_TEXT } from '@utils/constants/admin';
+import { EMPTY_STRING, ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { StatusEnum } from '@utils/enums/status';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
 const mockBrandService = {
   getTotalBrands: jest.fn(),
@@ -18,6 +21,10 @@ const mockCategoryService = {
 
 const mockProductService = {
   saveProduct: jest.fn(),
+};
+
+const mockToastService = {
+  showToast: jest.fn(),
 };
 
 describe('AddProductComponent', () => {
@@ -32,6 +39,7 @@ describe('AddProductComponent', () => {
         { provide: BrandService, useValue: mockBrandService },
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: ProductService, useValue: mockProductService },
+        { provide: ToastService, useValue: mockToastService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -46,219 +54,143 @@ describe('AddProductComponent', () => {
   });
 
   it('should load brands and categories on init', () => {
-    expect(component.optionsBrandDropdown).toEqual([{ label: 'Brand 1', value: 1 }]);
-    expect(component.optionsCategoryDropdown).toEqual([{ label: 'Category 1', value: 1 }]);
+    expect(component.moreDropdowns).toEqual([
+      {
+        label: BRAND_PRODUCT_INPUT_LABEL,
+        label2: BRAND_PRODUCT_INPUT_LABEL2,
+        options: [{ label: 'Brand 1', value: 1 }],
+        name: BRAND_PRODUCT_INPUT_NAME,
+        errorText: EMPTY_STRING,
+      },
+    ]);
+    expect(component.moreDropdownsCombobox).toEqual([
+      {
+        label: CATEGORIES_PRODUCT_INPUT_LABEL,
+        label2: CATEGORIES_PRODUCT_INPUT_LABEL2,
+        options: [{ label: 'Category 1', value: 1 }],
+        name: CATEGORIES_PRODUCT_INPUT_NAME,
+        errorText: EMPTY_STRING,
+      },
+    ]);
   });
 
-  it('should update brandValue and check for errors', () => {
-    component.changeBrandValue(2);
-    expect(component.brandValue).toBe(2);
-    expect(component.isDisabledDropdowns).toBe(true);
-    expect(component.isErrorBrandDropdown).toBe(false);
-  });
-
-  it('should update categoriesValue and check for errors', () => {
-    component.brandValue = 1;
-    component.changeCategoryValue([1, 2]);
-    expect(component.categoriesValue).toEqual([1, 2]);
-    expect(component.isDisabledDropdowns).toBe(false);
-    expect(component.isErrorCategoryDropdown).toBe(false);
-  });
-
-  it('should validate brand dropdown and show error if brand is not selected', () => {
-    component.changeBrandValue(0);
-    component.hasErrors('brand');
-    expect(component.isErrorBrandDropdown).toBe(true);
-    expect(component.errorTextBrandDropdown).toBe('Selecciona alguna marca');
-  });
-
-  it('should validate category dropdown and show error if no categories selected', () => {
-    component.changeCategoryValue([]);
-    component.hasErrors('categories');
-    expect(component.isErrorCategoryDropdown).toBe(true);
-    expect(component.errorTextCategoryDropdown).toBe('Selecciona al menos una categoría');
-  });
-
-  it('should reset dropdowns to default values', () => {
-    component.brandValue = 1;
-    component.categoriesValue = [1, 2];
-    component.isDisabledDropdowns = false;
-    component.isErrorBrandDropdown = true;
-
-    component.resetDropdowns();
-    expect(component.brandValue).toBe(0);
-    expect(component.categoriesValue).toEqual([]);
-    expect(component.isDisabledDropdowns).toBe(true);
-    expect(component.isErrorBrandDropdown).toBe(false);
-  });
-
-  it('should handle product submission successfully', () => {
-    const productRequest = { name: 'Test Product', description: 'description', quantity: 5, price: 10, brandId: 1, categoriesId: [1] };
-    mockProductService.saveProduct.mockReturnValue(of({}));
-
-    component.brandValue = 1;
-    component.categoriesValue = [1];
-    component.handleSubmit(productRequest);
-
-    expect(mockProductService.saveProduct).toHaveBeenCalledWith({
-      ...productRequest,
+  it('should handle product submission with error', () => {
+    const productRequest = {
+      name: 'Test Product',
+      description: 'description',
       quantity: 5,
       price: 10,
       brandId: 1,
       categoriesId: [1],
-    });
-    expect(component.toastStatus).toBe('success');
-  });
-
-  it('should handle product submission with error', () => {
-    const productRequest = { name: 'Test Product', description: 'description', quantity: 100, price: 100, brandId: 1, categoriesId: [1] };
+    };
     mockProductService.saveProduct.mockReturnValue(throwError({ status: 409, error: { message: 'Error' } }));
 
     component.handleSubmit(productRequest);
 
     expect(component.toastMessage).toBe('Error');
-    expect(component.toastStatus).toBe('error');
   });
 
-  it('should trigger addProductCount when called', () => {
-    const addProductCountSpy = jest.spyOn(component, 'addNewProductCount');
-    component.addProductCount();
-    expect(addProductCountSpy).toHaveBeenCalled();
-  });
-
-  it('should set brand dropdown error when brand value is ZERO', () => {
-    component.brandValue = 0; 
-    component.hasErrors(BRAND_PRODUCT_INPUT_NAME);
-    
-    expect(component.isErrorBrandDropdown).toBeTruthy();
-    expect(component.errorTextBrandDropdown).toBe('Selecciona alguna marca');
-  });
-  
-  it('should not set brand dropdown error when brand value is different from ZERO', () => {
-    component.brandValue = 1;
-    component.hasErrors(BRAND_PRODUCT_INPUT_NAME);
-    
-    expect(component.isErrorBrandDropdown).toBeFalsy();
-    expect(component.errorTextBrandDropdown).toBe('');
-  });
-  
   it('should log error when brandService fails', () => {
     const error = { status: 500, message: 'Internal Server Error' };
     jest.spyOn(console, 'error');
-    jest.spyOn(mockBrandService, 'getTotalBrands').mockImplementation(() => throwError(error));
-  
+    mockBrandService.getTotalBrands.mockImplementation(() => throwError(error));
+
     component.ngOnInit();
-  
+
     expect(console.error).toHaveBeenCalledWith({ error });
   });
-  
+
   it('should log error when categoryService fails', () => {
     const error = { status: 500, message: 'Internal Server Error' };
     jest.spyOn(console, 'error');
-    jest.spyOn(mockCategoryService, 'getTotalCategories').mockImplementation(() => throwError(error));
-  
+    mockCategoryService.getTotalCategories.mockImplementation(() => throwError(error));
+
     component.ngOnInit();
-  
+
     expect(console.error).toHaveBeenCalledWith({ error });
   });
-  
-  it('should reset dropdown values', () => {
-    component.brandValue = 1;
-    component.categoriesValue = [1, 2];
-    component.isDisabledDropdowns = false;
-    component.isErrorBrandDropdown = true;
-    component.isErrorCategoryDropdown = true;
-  
-    component.resetDropdowns();
-  
-    expect(component.brandValue).toBe(0);
-    expect(component.categoriesValue).toEqual([]);
-    expect(component.isDisabledDropdowns).toBeTruthy();
-    expect(component.isErrorBrandDropdown).toBeFalsy();
-    expect(component.isErrorCategoryDropdown).toBeFalsy();
-  });
-
-  it('should handle validation errors when product data is invalid', () => {
-    const invalidProductRequest = { name: '', description: '', quantity: -1, price: -10, brandId: 0, categoriesId: [] };
-    component.handleSubmit(invalidProductRequest);
-    expect(component.toastStatus).toBe('error');
-    expect(component.toastMessage).toContain('Error');
-  });
-
-  it('should handle service error when saving product fails', () => {
-    mockProductService.saveProduct.mockReturnValue(throwError({ status: 500 }));
-    const productRequest = { name: 'Test Product', description: 'description', quantity: 5, price: 10, brandId: 1, categoriesId: [1] };
-    component.handleSubmit(productRequest);
-    expect(component.toastMessage).toBe('Error inesperado al guardar en el servidor');
-    expect(component.toastStatus).toBe('error');
-  });  
 
   it('should set showModal using showModalOutput', () => {
     const mockFunction = jest.fn();
-    
+
     component.showModalOutput(mockFunction);
-    
+
     expect(component.showModal).toBe(mockFunction);
   });
-  
-  it('should set showToast using showToastOutput', () => {
-    const mockFunction = jest.fn();
-    
-    component.showToastOutput(mockFunction);
-    
-    expect(component.showToast).toBe(mockFunction);
-  });
-  
+
   it('should set changeStatusSaveButton using changeStatusSaveButtonOutput', () => {
     const mockFunction = jest.fn();
-    
+
     component.changeStatusSaveButtonOutput(mockFunction);
-    
+
     expect(component.changeStatusSaveButton).toBe(mockFunction);
   });
-  
-  it('should set resetDropdownOption using resetOption', () => {
-    const mockFunction = jest.fn();
-    
-    component.resetOption(mockFunction);
-    
-    expect(component.resetDrowdownOption).toBe(mockFunction);
-  });
-  
-  it('should set resetDropdownOptions using resetOptions', () => {
-    const mockFunction = jest.fn();
-    
-    component.resetOptions(mockFunction);
-    
-    expect(component.resetDrowdownOptions).toBe(mockFunction);
+
+  it('should call changeStatusSaveButton, showModal, addProductCount and showToast on successful product save', () => {
+    const productRequest = {
+      name: 'Test Product',
+      description: 'description',
+      quantity: 5,
+      price: 10,
+      brandId: 1,
+      categoriesId: [1],
+    };
+    mockProductService.saveProduct.mockReturnValue(of(null));
+
+    jest.spyOn(component, 'changeStatusSaveButton');
+    jest.spyOn(component, 'showModal');
+    jest.spyOn(component, 'addProductCount');
+
+    component.handleSubmit(productRequest);
+
+    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(true, false);
+    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(false, true);
+    expect(component.showModal).toHaveBeenCalled();
+    expect(component.addProductCount).toHaveBeenCalled();
+    expect(mockToastService.showToast).toHaveBeenCalledWith(PRODUCT_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
   });
 
-  it('should call showToast twice with 3 seconds delay when handleSubmit is successful', fakeAsync(() => {
-    const productRequestMock = { name: 'Test Product', description: 'description', quantity: 5, price: 10, brandId: 1, categoriesId: [1] };
-    const saveProductSpy = jest.spyOn(mockProductService, 'saveProduct').mockReturnValue(of({}));
-    const showToastSpy = jest.spyOn(component, 'showToast');
+  it('should set toastMessage to SERVER_ERROR_TEXT on error', () => {
+    const productRequest = {
+      name: 'Test Product',
+      description: 'description',
+      quantity: 5,
+      price: 10,
+      brandId: 1,
+      categoriesId: [1],
+    };
+    const errorResponse = { status: 500, error: { message: 'Server error' } };
+    
+    component.changeStatusSaveButton = jest.fn();
   
-    component.handleSubmit(productRequestMock);
+    mockProductService.saveProduct.mockReturnValue(throwError(errorResponse));
   
-    expect(saveProductSpy).toHaveBeenCalled();
-    expect(component.showToast).toHaveBeenCalledTimes(1);
+    component.handleSubmit(productRequest);
   
-    tick(3000);
-    expect(showToastSpy).toHaveBeenCalledTimes(2);
-  }));
+    expect(component.toastMessage).toBe(SERVER_ERROR_TEXT);
+    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(false, true);
+    expect(mockToastService.showToast).toHaveBeenCalledWith(SERVER_ERROR_TEXT, StatusEnum.ERROR, ERROR_ICON_PATH);
+  });
   
-  it('should call showToast twice with 3 seconds delay when handleSubmit encounters an error', fakeAsync(() => {
-    const productRequestMock = { name: 'Test Product', description: 'description', quantity: 5, price: 10, brandId: 1, categoriesId: [1] };
-    const errorResponse = { status: 409, error: { message: 'Conflict' } };
-    const saveProductSpy = jest.spyOn(mockProductService, 'saveProduct').mockReturnValue(throwError(errorResponse));
-    const showToastSpy = jest.spyOn(component, 'showToast');
+  it('should set toastMessage to error message on conflict error (409)', () => {
+    const productRequest = {
+      name: 'Test Product',
+      description: 'description',
+      quantity: 5,
+      price: 10,
+      brandId: 1,
+      categoriesId: [1],
+    };
+    const errorResponse = { status: 409, error: { message: 'Conflict error' } };
   
-    component.handleSubmit(productRequestMock);
+    component.changeStatusSaveButton = jest.fn();
   
-    expect(saveProductSpy).toHaveBeenCalled();
-    expect(showToastSpy).toHaveBeenCalledTimes(1);
+    mockProductService.saveProduct.mockReturnValue(throwError(errorResponse)); 
   
-    tick(3000);
-    expect(showToastSpy).toHaveBeenCalledTimes(2);
-  }));
+    component.handleSubmit(productRequest);
+  
+    expect(component.toastMessage).toBe('Conflict error');
+    expect(component.changeStatusSaveButton).toHaveBeenCalledWith(false, true);
+    expect(mockToastService.showToast).toHaveBeenCalledWith('Conflict error', StatusEnum.ERROR, ERROR_ICON_PATH);
+  });  
 });

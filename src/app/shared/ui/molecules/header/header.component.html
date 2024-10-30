@@ -19,7 +19,7 @@
         <span>LOGO</span>
       </li>
     </ul>
-    <ul class="list-items-desktop">
+    <ul class="list-items-desktop" *ngIf="!isAdminOrWarehouseAssistantLogged">
       <li *ngFor="let item of menuItems">
         <a 
           class="item-desktop"
@@ -54,6 +54,11 @@
             routerLinkActive="item-mobile-active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
+            <ng-container *ngIf="item['icon']">
+              <div class="icon-mobile">
+                <ng-container *ngComponentOutlet="item['icon'] | dynamicComponent"></ng-container>
+              </div>
+            </ng-container>
             {{ item['label'] }}
           </a>
         </li>

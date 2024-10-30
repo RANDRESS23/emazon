@@ -4,6 +4,10 @@ import { of, throwError } from 'rxjs';
 import { CategoryService } from '@src/app/core/services/category/category.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CategoryRequest, CategoryResponse } from '@utils/interfaces/category';
+import { ToastService } from '@src/app/shared/services/toast/toast.service';
+import { ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { StatusEnum } from '@utils/enums/status';
+import { CATEGORY_SAVED_TEXT } from '@utils/constants/admin';
 
 jest.useFakeTimers();
 
@@ -11,16 +15,22 @@ describe('AddCategoryComponent', () => {
   let component: AddCategoryComponent;
   let fixture: ComponentFixture<AddCategoryComponent>;
   let categoryService: jest.Mocked<CategoryService>;
+  let toastService: jest.Mocked<ToastService>;
 
   beforeEach(async () => {
     const categoryServiceMock = {
       saveCategory: jest.fn()
     };
 
+    const toastServiceMock = {
+      showToast: jest.fn()
+    };
+
     await TestBed.configureTestingModule({
       declarations: [AddCategoryComponent],
       providers: [
-        { provide: CategoryService, useValue: categoryServiceMock }
+        { provide: CategoryService, useValue: categoryServiceMock },
+        { provide: ToastService, useValue: toastServiceMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA] 
     }).compileComponents();
@@ -28,6 +38,7 @@ describe('AddCategoryComponent', () => {
     fixture = TestBed.createComponent(AddCategoryComponent);
     component = fixture.componentInstance;
     categoryService = TestBed.inject(CategoryService) as jest.Mocked<CategoryService>;
+    toastService = TestBed.inject(ToastService) as jest.Mocked<ToastService>; 
 
     fixture.detectChanges();
   });
@@ -48,28 +59,23 @@ describe('AddCategoryComponent', () => {
         name: 'Category 1',
         description: 'Description of category 1'
       };
+
       categoryService.saveCategory.mockReturnValue(of(mockCategoryResponse));
 
       const changeStatusSaveButtonSpy = jest.spyOn(component, 'changeStatusSaveButton');
       const showModalSpy = jest.spyOn(component, 'showModal');
-      const showToastSpy = jest.spyOn(component, 'showToast');
       const addCategoryCountSpy = jest.spyOn(component, 'addCategoryCount');
 
       component.handleSubmit(mockCategory);
 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(true, false);
       expect(categoryService.saveCategory).toHaveBeenCalledWith(mockCategory);
-      expect(component.pathIcon).toBe('/assets/icons/success-icon.svg');
-      expect(component.toastMessage).toBe('La categoría fue guardada con éxito');
-      expect(component.toastStatus).toBe('success');  
+      expect(toastService.showToast).toHaveBeenCalledWith(CATEGORY_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH); 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(false, true);
       expect(showModalSpy).toHaveBeenCalled();
-      expect(showToastSpy).toHaveBeenCalled();
       expect(addCategoryCountSpy).toHaveBeenCalled();
 
-      
       jest.advanceTimersByTime(3000);
-      expect(showToastSpy).toHaveBeenCalledTimes(2);
     });
 
     it('should handle category submission error (409 conflict)', () => {
@@ -82,21 +88,16 @@ describe('AddCategoryComponent', () => {
       categoryService.saveCategory.mockReturnValue(throwError(() => errorResponse));
 
       const changeStatusSaveButtonSpy = jest.spyOn(component, 'changeStatusSaveButton');
-      const showToastSpy = jest.spyOn(component, 'showToast');
 
       component.handleSubmit(mockCategory);
 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(true, false);
       expect(categoryService.saveCategory).toHaveBeenCalledWith(mockCategory);
       expect(component.toastMessage).toBe('Category already exists');
-      expect(component.pathIcon).toBe('/assets/icons/error-icon.svg');
-      expect(component.toastStatus).toBe('error');
+      expect(toastService.showToast).toHaveBeenCalledWith('Category already exists', StatusEnum.ERROR, ERROR_ICON_PATH);
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(false, true);
-      expect(showToastSpy).toHaveBeenCalled();
 
-      
       jest.advanceTimersByTime(3000);
-      expect(showToastSpy).toHaveBeenCalledTimes(2);
     });
 
     it('should handle category submission error (other errors)', () => {
@@ -109,21 +110,16 @@ describe('AddCategoryComponent', () => {
       categoryService.saveCategory.mockReturnValue(throwError(() => errorResponse));
 
       const changeStatusSaveButtonSpy = jest.spyOn(component, 'changeStatusSaveButton');
-      const showToastSpy = jest.spyOn(component, 'showToast');
 
       component.handleSubmit(mockCategory);
 
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(true, false);
       expect(categoryService.saveCategory).toHaveBeenCalledWith(mockCategory);
-      expect(component.toastMessage).toBe('Error inesperado al guardar en el servidor');
-      expect(component.pathIcon).toBe('/assets/icons/error-icon.svg');
-      expect(component.toastStatus).toBe('error');
+      expect(component.toastMessage).toBe('Error inesperado en el servidor');
+      expect(toastService.showToast).toHaveBeenCalledWith('Error inesperado en el servidor', StatusEnum.ERROR, ERROR_ICON_PATH);
       expect(changeStatusSaveButtonSpy).toHaveBeenCalledWith(false, true);
-      expect(showToastSpy).toHaveBeenCalled();
 
-      
       jest.advanceTimersByTime(3000);
-      expect(showToastSpy).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -140,11 +136,24 @@ describe('AddCategoryComponent', () => {
     expect(component.showModal).toBe(mockShowModal);
   });
 
-  it('should assign onShowToast to showToast property when showToastOutput is called', () => {
-    const mockShowToast = jest.fn(); 
+  it('should assign onChangeStatusSaveButton to changeStatusSaveButton property when changeStatusSaveButtonOutput is called', () => {
+    const mockChangeStatusSaveButton = jest.fn(); 
 
-    component.showToastOutput(mockShowToast); 
-    expect(component.showToast).toBe(mockShowToast);
+    component.changeStatusSaveButtonOutput(mockChangeStatusSaveButton);
+    expect(component.changeStatusSaveButton).toBe(mockChangeStatusSaveButton);
+  });
+
+  it('should call addCategoryCount on addCategoryCount method', () => {
+    const addCategoryCountSpy = jest.spyOn(component, 'addNewCategoryCount');
+    component.addCategoryCount();
+    expect(addCategoryCountSpy).toHaveBeenCalled();
+  });
+
+  it('should assign onShowModal to showModal property when showModalOutput is called', () => {
+    const mockShowModal = jest.fn(); 
+
+    component.showModalOutput(mockShowModal); 
+    expect(component.showModal).toBe(mockShowModal);
   });
 
   it('should assign onChangeStatusSaveButton to changeStatusSaveButton property when changeStatusSaveButtonOutput is called', () => {

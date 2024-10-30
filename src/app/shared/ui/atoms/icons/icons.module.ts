@@ -6,6 +6,12 @@ import { EyeIconComponent } from './eye-icon/eye-icon.component';
 import { EyeClosedIconComponent } from './eye-closed-icon/eye-closed-icon.component';
 import { MenuIconComponent } from './menu-icon/menu-icon.component';
 import { CancelIconComponent } from './cancel-icon/cancel-icon.component';
+import { HomeIconComponent } from './home-icon/home-icon.component';
+import { BrandIconComponent } from './brand-icon/brand-icon.component';
+import { CategoryIconComponent } from './category-icon/category-icon.component';
+import { ProductIconComponent } from './product-icon/product-icon.component';
+import { AddUserIconComponent } from './add-user-icon/add-user-icon.component';
+import { SupplyIconComponent } from './supply-icon/supply-icon.component';
 
 
 
@@ -16,7 +22,13 @@ import { CancelIconComponent } from './cancel-icon/cancel-icon.component';
     EyeIconComponent,
     EyeClosedIconComponent,
     MenuIconComponent,
-    CancelIconComponent
+    CancelIconComponent,
+    HomeIconComponent,
+    BrandIconComponent,
+    CategoryIconComponent,
+    ProductIconComponent,
+    AddUserIconComponent,
+    SupplyIconComponent
   ],
   imports: [
     CommonModule
@@ -27,7 +39,13 @@ import { CancelIconComponent } from './cancel-icon/cancel-icon.component';
     EyeIconComponent,
     EyeClosedIconComponent,
     MenuIconComponent,
-    CancelIconComponent
+    CancelIconComponent,
+    HomeIconComponent,
+    BrandIconComponent,
+    CategoryIconComponent,
+    ProductIconComponent,
+    AddUserIconComponent,
+    SupplyIconComponent
   ]
 })
 export class IconsModule { }

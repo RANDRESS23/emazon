@@ -1,10 +1,13 @@
-<molecule-header [menuItems]="menuItems"></molecule-header>
+<molecule-header [menuItems]="menuItems" [isAdminOrWarehouseAssistantLogged]="isAdminLogged"></molecule-header>
 <main class="container">
-  <div class="titles">
-    <h1 class="title">
-      Administrar <span class="title--primary">auxiliares de bodega</span>
-    </h1>
-    <p class="titles__description">Gestiona fácilmente las cuentas de los auxiliares de bodega de Emazon. Crea, y visualiza todas los cuentas en un solo lugar para mantener tus registros organizados y actualizados.</p>
-  </div>
-  <app-list-of-warehouse-assistant></app-list-of-warehouse-assistant>
+  <molecule-sidebar [menuItems]="menuItems"></molecule-sidebar>
+  <section class="section">
+    <div class="titles">
+      <h1 class="title">
+        Administrar <span class="title--primary">auxiliares de bodega</span>
+      </h1>
+      <p class="titles__description">Gestiona fácilmente las cuentas de los auxiliares de bodega de Emazon. Crea, y visualiza todas los cuentas en un solo lugar para mantener tus registros organizados y actualizados.</p>
+    </div>
+    <app-list-of-warehouse-assistant></app-list-of-warehouse-assistant>
+  </section>
 </main>
