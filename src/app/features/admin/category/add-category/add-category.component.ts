@@ -1,14 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_LABEL, DESCRIPTION_CATEGORY_TEXTAREA_NAME, DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER, MAX_LENGTH_CATEGORY_DESCRIPTION_FIELD, MAX_LENGTH_CATEGORY_NAME_FIELD, NAME_CATEGORY_INPUT_LABEL, NAME_CATEGORY_INPUT_NAME, NAME_CATEGORY_INPUT_PLACEHOLDER, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SAVE_CATEGORY_BUTTON_TEXT, SERVER_ERROR_TEXT } from '@utils/constants/admin';
+import { ADD_CATEGORY_BUTTON_TEXT, CATEGORY_SAVED_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_LABEL, DESCRIPTION_CATEGORY_TEXTAREA_NAME, DESCRIPTION_CATEGORY_TEXTAREA_PLACEHOLDER, MAX_LENGTH_CATEGORY_DESCRIPTION_FIELD, MAX_LENGTH_CATEGORY_NAME_FIELD, NAME_CATEGORY_INPUT_LABEL, NAME_CATEGORY_INPUT_NAME, NAME_CATEGORY_INPUT_PLACEHOLDER, REGISTER_NEW_CATEGORY_TEXT, REGISTER_NEW_CATEGORY_TEXT_PRIMARY, SAVE_CATEGORY_BUTTON_TEXT } from '@utils/constants/admin';
 import { Size } from '@utils/types/size';
 import { SizeEnum } from '@utils/enums/size';
 import { ButtonType } from '@utils/types/button';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { CategoryService } from '@src/app/core/services/category/category.service';
 import { CategoryRequest } from '@utils/interfaces/category';
-import { StatusType } from '@utils/types/status';
 import { StatusEnum } from '@utils/enums/status';
-import { EMPTY_STRING, ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { EMPTY_STRING, ERROR_ICON_PATH, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
 @Component({

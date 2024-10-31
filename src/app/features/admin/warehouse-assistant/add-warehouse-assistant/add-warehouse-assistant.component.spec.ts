@@ -4,9 +4,9 @@ import { WarehouseAssistantService } from '@src/app/core/services/warehouse-assi
 import { of, throwError } from 'rxjs';
 import { WarehouseAssistantRequest } from '@utils/interfaces/warehouse-assistant';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
-import { SERVER_ERROR_TEXT, WAREHOUSE_ASSISTANT_SAVED_TEXT } from '@utils/constants/admin';
+import { WAREHOUSE_ASSISTANT_SAVED_TEXT } from '@utils/constants/admin';
 import { StatusEnum } from '@utils/enums/status';
-import { ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { ERROR_ICON_PATH, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
 
 const mockWarehouseAssistantService = {
   saveWarehouseAssistant: jest.fn()

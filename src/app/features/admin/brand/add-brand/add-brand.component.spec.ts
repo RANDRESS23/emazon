@@ -4,8 +4,8 @@ import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { of, throwError } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrandRequest, BrandResponse } from '@utils/interfaces/brand';
-import { ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
-import { BRAND_SAVED_TEXT, SERVER_ERROR_TEXT } from '@utils/constants/admin';
+import { ERROR_ICON_PATH, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { BRAND_SAVED_TEXT } from '@utils/constants/admin';
 import { StatusEnum } from '@utils/enums/status';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
 
