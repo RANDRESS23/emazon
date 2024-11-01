@@ -90,6 +90,7 @@
 }
 
 .navbar-mobile-container {
+  display: flex;
   width: 100%;
   position: absolute;
   overflow-y: auto;
@@ -164,5 +165,9 @@
 
   .button-sign-up {
     display: flex;
+  }
+
+  .navbar-mobile-container {
+    display: none;
   }
 }
