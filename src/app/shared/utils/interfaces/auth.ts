@@ -19,7 +19,7 @@ export interface ClientRequest {
   password: string;
 }
 
-export interface ClientResponse extends ClientRequest {
+export interface ClientResponse extends Omit<ClientRequest, 'password'> {
   userId: string;
   role: Role;
 }
