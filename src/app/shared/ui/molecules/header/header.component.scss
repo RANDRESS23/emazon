@@ -57,11 +57,14 @@
     align-items: center;
     
     & .item-desktop {
+      display: flex;
+      align-items: center;
       width: 100%;
       text-decoration: none;
       padding: 5px 0;
       transition: .2s ease all;
       color: $black-color;
+      gap: 5px;
       
       &:hover {
         color: $primary;
@@ -73,6 +76,17 @@
       font-weight: 500;
     }
   }
+}
+
+.list-items-desktop-auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-sign-up {
+  display: none;
 }
 
 .navbar-mobile-container {
@@ -146,5 +160,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .button-sign-up {
+    display: flex;
   }
 }

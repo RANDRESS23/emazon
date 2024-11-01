@@ -1,7 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@src/app/core/services/auth/auth.service';
-import { SIGN_OUT_BUTTON_TEXT } from '@utils/constants/general';
+import { LOGIN_BUTTON_TEXT, SIGN_OUT_BUTTON_TEXT, SIGN_UP_BUTTON_TEXT } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { SizeEnum } from '@utils/enums/size';
 import { ButtonType } from '@utils/types/button';
@@ -28,12 +29,14 @@ export class HeaderComponent implements OnInit {
   buttonSizeSmall: Size = SizeEnum.SMALL;
   buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
   buttonSignOutText: string = SIGN_OUT_BUTTON_TEXT;
+  buttonSignUpText: string = SIGN_UP_BUTTON_TEXT;
+  buttonLoginText: string = LOGIN_BUTTON_TEXT;
   isLogged: boolean = false;
   
   @Input() menuItems: Record<string, string>[] = [];
   @Input() isAdminOrWarehouseAssistantLogged: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLogged = this.authService.isAuthenticated();
@@ -45,5 +48,13 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.authService.logout();
+  }
+
+  navigateToLoginPage(): void {
+    this.router.navigate(['/login']);
+  }
+
+  navigateToSignUpPage(): void {
+    this.router.navigate(['/sign-up']);
   }
 }
