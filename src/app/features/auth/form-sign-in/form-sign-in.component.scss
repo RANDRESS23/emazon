@@ -18,6 +18,26 @@
       color: $primary;
     }
   }
+
+  &__footer {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+
+    &--link {
+      color: $primary;
+      text-decoration: none;
+      font-weight: 500;
+      transition: .2s ease all;
+
+      &:hover {
+        color: $primary-click;
+      }
+    }
+  }
 }
 
 @media (min-width: 760px) {

@@ -11,4 +11,13 @@
     (formDataEvent)="handleSubmit($event)"
   >
   </molecule-form-basic>
+  <span class="form__footer">
+    ¿No tienes una cuenta?
+    <a 
+      class="form__footer--link"
+      [routerLink]="['/sign-up']"
+    >
+      Regístrate
+    </a>
+  </span>
 </div>
