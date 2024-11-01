@@ -13,9 +13,6 @@ export const SAVE_CATEGORY_BUTTON_TEXT = 'Guardar categoría';
 export const SAVE_BRAND_BUTTON_TEXT = 'Guardar marca';
 export const SAVE_PRODUCT_BUTTON_TEXT = 'Guardar producto';
 export const SAVE_WAREHOUSE_ASSISTANT_BUTTON_TEXT = 'Guardar usuario';
-export const SIGN_IN_BUTTON_TEXT = 'Iniciar sesión';
-export const LOADING_BUTTON_TEXT = 'Cargando...';
-export const CANCEL_BUTTON_TEXT = 'Cancelar';
 
 export const REGISTER_NEW_CATEGORY_TEXT = 'Registrar nueva';
 export const REGISTER_NEW_CATEGORY_TEXT_PRIMARY = 'categoría';
@@ -71,47 +68,6 @@ export const CATEGORIES_PRODUCT_INPUT_LABEL = 'Categorías producto';
 export const CATEGORIES_PRODUCT_INPUT_LABEL2 = 'categorías';
 export const CATEGORIES_PRODUCT_INPUT_NAME = 'categoriesId';
 export const CATEGORIES_NAME = 'categories';
-
-export const NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Nombres completos';
-export const NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Nombres';
-export const NAME_WAREHOUSE_ASSISTANT_INPUT_NAME = 'name';
-
-export const LAST_NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Apellidos completos';
-export const LAST_NAME_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Apellidos';
-export const LAST_NAME_WAREHOUSE_ASSISTANT_INPUT_NAME = 'lastName';
-
-export const DOCUMENT_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Documento de identidad';
-export const DOCUMENT_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Documento';
-export const DOCUMENT_WAREHOUSE_ASSISTANT_INPUT_NAME = 'document';
-
-export const PHONE_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Número de celular';
-export const PHONE_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Celular';
-export const PHONE_WAREHOUSE_ASSISTANT_INPUT_NAME = 'phone';
-
-export const BIRTHDATE_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Fecha de nacimiento';
-export const BIRTHDATE_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Fecha de nacimiento';
-export const BIRTHDATE_WAREHOUSE_ASSISTANT_INPUT_NAME = 'birthdate';
-
-export const EMAIL_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Correo electrónico';
-export const EMAIL_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Correo';
-export const EMAIL_WAREHOUSE_ASSISTANT_INPUT_NAME = 'email';
-
-export const PASSWORD_WAREHOUSE_ASSISTANT_INPUT_LABEL = 'Contraseña';
-export const PASSWORD_WAREHOUSE_ASSISTANT_INPUT_LABEL2 = 'Contraseña';
-export const PASSWORD_WAREHOUSE_ASSISTANT_INPUT_NAME = 'password';
-
-export const REQUIRED_FIELD_ERROR_TEXT = 'El campo es requerido';
-export const MAX_LENGTH_FIELD_ERROR_TEXT = 'El campo debe tener un máximo de caracteres de';
-export const MIN_VALUE_FIELD_ERROR_TEXT = 'El valor tiene que ser mayor o igual a 1';
-export const SERVER_ERROR_TEXT = 'Error inesperado en el servidor';
-export const PATTERN_ERRORS = {
-  name: 'Los nombres solo puede contener letras',
-  lastName: 'Los apellidos solo puede contener letras',
-  document: 'El documento debe tener entre 7 y 10 dígitos',
-  phone: 'El número de celular debe tener un máximo de 13 dígitos, y puede contener el simbolo "+"',
-  email: 'El correo debe tener un formato válido',
-  password: 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial'
-}
 
 export const CATEGORY_SAVED_TEXT = 'La categoría fue guardada con éxito';
 export const BRAND_SAVED_TEXT = 'La marca fue guardada con éxito';
