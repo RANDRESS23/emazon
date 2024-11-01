@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@src/environments/environment';
 import { TOKEN_KEY_LOCAL_STORAGE } from '@utils/constants/general';
-import { TokenInterface, UserCredentials } from '@utils/interfaces/auth';
+import { ClientRequest, ClientResponse, TokenInterface, UserCredentials } from '@utils/interfaces/auth';
 import { RoleType } from '@utils/types/roles';
 import { Observable, tap } from 'rxjs';
 
@@ -22,6 +22,10 @@ export class AuthService {
         this.setToken(response.token);
       })
     );
+  }
+
+  saveClient(client: ClientRequest): Observable<ClientResponse> {
+    return this.http.post<ClientResponse>(`${this.BASE_URL}/user/client`, client);
   }
 
   private setToken(token: string): void {
