@@ -1,7 +1,7 @@
 @import '/src/styles/styles.scss';
 
 .toast {
-  position: absolute;
+  position: fixed;
   z-index: 200;
   bottom: 20px;
   right: 7.5%;
