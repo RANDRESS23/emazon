@@ -2,9 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 import { TOKEN_KEY_LOCAL_STORAGE } from '@utils/constants/general';
 import { environment } from '@src/environments/environment';
-import { TokenInterface, UserCredentials } from '@utils/interfaces/auth';
+import { ClientRequest, ClientResponse, TokenInterface, UserCredentials } from '@utils/interfaces/auth';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
+import { Permission, Role } from '@utils/interfaces/warehouse-assistant';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -140,5 +141,50 @@ describe('AuthService', () => {
     const fullName = service.getFullName();
 
     expect(fullName).toBe('');
+  });
+
+  it('should call http.post with correct URL and payload for saveClient', () => {
+    const clientRequest: ClientRequest = {
+      name: 'John',
+      lastName: 'Doe',
+      document: '123456789',
+      phone: '555-5555',
+      birthdate: '2000-01-01',
+      email: 'test@example.com',
+      password: 'password123'
+    };
+
+    const mockPermission: Permission = {
+      permissionId: '1',
+      name: 'READ',
+    }
+    
+    const mockRole: Role = {
+      roleId: '1',
+      name: 'CLIENTE',
+      description: 'Cliente',
+      permissionList: [mockPermission]
+    }
+
+    const clientResponse: ClientResponse = {
+      name: 'John',
+      lastName: 'Doe',
+      document: '123456789',
+      phone: '555-5555',
+      birthdate: '2000-01-01',
+      email: 'test@example.com',
+      userId: '1',
+      role: mockRole
+    };
+
+    service.saveClient(clientRequest).subscribe(response => {
+      expect(response).toEqual(clientResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.BASE_URL_USER}/user/client`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(clientRequest);
+
+    req.flush(clientResponse);
   });
 });

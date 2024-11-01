@@ -31,10 +31,29 @@
         </a>
       </li>
     </ul>
-    <ul>
-      <li>
+    <ul class="list-items-desktop-auth">
+      <li *ngIf="!isLogged">
         <atom-button 
-          *ngIf="isLogged"
+          (click)="navigateToSignUpPage()"
+          [text]="buttonSignUpText" 
+          [type]="buttonTypeButton" 
+          [size]="buttonSizeSmall"
+          class="button-sign-up"
+        >
+        </atom-button>
+      </li>
+      <li *ngIf="!isLogged">
+        <atom-button 
+          (click)="navigateToLoginPage()"
+          [text]="buttonLoginText" 
+          [type]="buttonTypeButton" 
+          [size]="buttonSizeSmall"
+          [isSecondaryButton]="true"
+        >
+        </atom-button>
+      </li>
+      <li *ngIf="isLogged">
+        <atom-button 
           (click)="signOut()"
           [text]="buttonSignOutText" 
           [type]="buttonTypeButton" 
@@ -60,6 +79,21 @@
               </div>
             </ng-container>
             {{ item['label'] }}
+          </a>
+        </li>
+        <li *ngIf="!isLogged">
+          <a 
+            class="item-mobile"
+            [routerLink]="['/sign-up']" 
+            routerLinkActive="item-mobile-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <ng-container>
+              <div class="icon-mobile">
+                <ng-container *ngComponentOutlet="'signUp' | dynamicComponent"></ng-container>
+              </div>
+            </ng-container>
+            Registrarse
           </a>
         </li>
       </ul>

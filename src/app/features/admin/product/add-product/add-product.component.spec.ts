@@ -6,8 +6,8 @@ import { ProductService } from '@src/app/core/services/product/product.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BRAND_PRODUCT_INPUT_LABEL, BRAND_PRODUCT_INPUT_LABEL2, BRAND_PRODUCT_INPUT_NAME, CATEGORIES_PRODUCT_INPUT_LABEL, CATEGORIES_PRODUCT_INPUT_LABEL2, CATEGORIES_PRODUCT_INPUT_NAME, PRODUCT_SAVED_TEXT, SERVER_ERROR_TEXT } from '@utils/constants/admin';
-import { EMPTY_STRING, ERROR_ICON_PATH, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { BRAND_PRODUCT_INPUT_LABEL, BRAND_PRODUCT_INPUT_LABEL2, BRAND_PRODUCT_INPUT_NAME, CATEGORIES_PRODUCT_INPUT_LABEL, CATEGORIES_PRODUCT_INPUT_LABEL2, CATEGORIES_PRODUCT_INPUT_NAME, PRODUCT_SAVED_TEXT } from '@utils/constants/admin';
+import { EMPTY_STRING, ERROR_ICON_PATH, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
 import { StatusEnum } from '@utils/enums/status';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
 

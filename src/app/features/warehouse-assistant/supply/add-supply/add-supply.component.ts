@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { SERVER_ERROR_TEXT } from '@utils/constants/admin';
 import { StatusEnum } from '@utils/enums/status';
-import { EMPTY_STRING, ERROR_ICON_PATH, QUANTITY_REGEX, SUCCESS_ICON_PATH, TRUE_TEXT } from '@utils/constants/general';
+import { EMPTY_STRING, ERROR_ICON_PATH, QUANTITY_REGEX, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH, TRUE_TEXT } from '@utils/constants/general';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
 import { InputType } from '@utils/types/input';
 import { InputTypeEnum } from '@utils/enums/input';

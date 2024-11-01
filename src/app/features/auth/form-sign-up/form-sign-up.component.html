@@ -1,6 +1,6 @@
 <div class="form">
   <h2 class="form__title">
-    Iniciar <span class="form__title--primary">sesión</span>
+    Registrar <span class="form__title--primary">cuenta</span>
   </h2>
   <molecule-form-basic 
     [buttonSaveText]="buttonSaveText"
@@ -12,12 +12,12 @@
   >
   </molecule-form-basic>
   <span class="form__footer">
-    ¿No tienes una cuenta?
+    ¿Ya tienes una cuenta?
     <a 
       class="form__footer--link"
-      [routerLink]="['/sign-up']"
+      [routerLink]="['/login']"
     >
-      Regístrate
+      Inicia sesión
     </a>
   </span>
 </div>

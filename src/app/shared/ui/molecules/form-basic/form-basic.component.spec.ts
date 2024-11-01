@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBasicComponent } from './form-basic.component';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, forwardRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
-import { MIN_VALUE_FIELD_ERROR_TEXT, PATTERN_ERRORS, PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER, REQUIRED_FIELD_ERROR_TEXT, LOADING_BUTTON_TEXT } from '@src/app/shared/utils/constants/admin';
+import { Component, forwardRef, Input } from '@angular/core';
+import { PRICE_PRODUCT_INPUT_LABEL, PRICE_PRODUCT_INPUT_NAME, PRICE_PRODUCT_INPUT_PLACEHOLDER, QUANTITY_PRODUCT_INPUT_LABEL, QUANTITY_PRODUCT_INPUT_NAME, QUANTITY_PRODUCT_INPUT_PLACEHOLDER } from '@src/app/shared/utils/constants/admin';
 import { InputTypeEnum } from '@utils/enums/input';
-import { EMPTY_STRING } from '@utils/constants/general';
+import { EMPTY_STRING, MIN_VALUE_FIELD_ERROR_TEXT, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT } from '@utils/constants/general';
 
 @Component({
   selector: 'atom-input',

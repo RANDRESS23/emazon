@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { SupplyPanelComponent } from './profile/warehouse-assistant/supply-panel/supply-panel.component';
 import { InicioAdminComponent } from './profile/admin/inicio/inicio.component';
 import { InicioWarehouseAssistantComponent } from './profile/warehouse-assistant/inicio/inicio.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { InicioWarehouseAssistantComponent } from './profile/warehouse-assistant
     LoginComponent,
     SupplyPanelComponent,
     InicioAdminComponent,
-    InicioWarehouseAssistantComponent
+    InicioWarehouseAssistantComponent,
+    SignUpComponent,
+    InicioComponent
   ],
   imports: [
     CommonModule,

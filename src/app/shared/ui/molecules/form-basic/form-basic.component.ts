@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CANCEL_BUTTON_TEXT, DESCRIPTION_CATEGORY_TEXTAREA_NAME, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, NAME_CATEGORY_INPUT_NAME, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT, LOADING_BUTTON_TEXT } from '@utils/constants/admin';
-import { EMPTY_STRING, ZERO } from '@utils/constants/general';
+import { DESCRIPTION_CATEGORY_TEXTAREA_NAME, NAME_CATEGORY_INPUT_NAME } from '@utils/constants/admin';
+import { CANCEL_BUTTON_TEXT, EMPTY_STRING, LOADING_BUTTON_TEXT, MAX_LENGTH_FIELD_ERROR_TEXT, MIN_VALUE_FIELD_ERROR_TEXT, PATTERN_ERRORS, REQUIRED_FIELD_ERROR_TEXT, ZERO } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { InputTypeEnum } from '@utils/enums/input';
 import { SizeEnum } from '@utils/enums/size';

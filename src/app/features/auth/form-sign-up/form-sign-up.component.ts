@@ -1,37 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { WarehouseAssistantService } from '@src/app/core/services/warehouse-assistant/warehouse-assistant.service';
+import { Router } from '@angular/router';
+import { AuthService } from '@src/app/core/services/auth/auth.service';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
-import { ADD_WAREHOUSE_ASSISTANT_BUTTON_TEXT, REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT, REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT_PRIMARY, SAVE_WAREHOUSE_ASSISTANT_BUTTON_TEXT, WAREHOUSE_ASSISTANT_SAVED_TEXT } from '@utils/constants/admin';
-import { BIRTHDATE_INPUT_LABEL, BIRTHDATE_INPUT_LABEL2, BIRTHDATE_INPUT_NAME, DOCUMENT_INPUT_LABEL, DOCUMENT_INPUT_LABEL2, DOCUMENT_INPUT_NAME, DOCUMENT_REGEX, EMAIL_INPUT_LABEL, EMAIL_INPUT_LABEL2, EMAIL_INPUT_NAME, EMAIL_REGEX, EMPTY_STRING, ERROR_ICON_PATH, LAST_NAME_INPUT_LABEL, LAST_NAME_INPUT_LABEL2, LAST_NAME_INPUT_NAME, NAME_INPUT_LABEL, NAME_INPUT_LABEL2, NAME_INPUT_NAME, NAME_REGEX, PASSWORD_INPUT_LABEL, PASSWORD_INPUT_LABEL2, PASSWORD_INPUT_NAME, PASSWORD_REGEX, PHONE_INPUT_LABEL, PHONE_INPUT_LABEL2, PHONE_INPUT_NAME, PHONE_REGEX, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
-import { ButtonTypeEnum } from '@utils/enums/button';
+import { EMAIL_INPUT_LABEL, EMAIL_INPUT_LABEL2, EMAIL_INPUT_NAME, EMAIL_REGEX, PASSWORD_REGEX, EMPTY_STRING, PASSWORD_INPUT_LABEL, PASSWORD_INPUT_LABEL2, PASSWORD_INPUT_NAME, SIGN_UP_BUTTON_TEXT, SUCCESS_ICON_PATH, SERVER_ERROR_TEXT, ERROR_ICON_PATH, SIGN_UP_SUCCESSFULLY_TEXT, NAME_INPUT_LABEL, NAME_INPUT_LABEL2, NAME_INPUT_NAME, LAST_NAME_INPUT_LABEL, LAST_NAME_INPUT_LABEL2, LAST_NAME_INPUT_NAME, DOCUMENT_INPUT_LABEL, DOCUMENT_INPUT_LABEL2, PHONE_INPUT_LABEL, PHONE_INPUT_LABEL2, BIRTHDATE_INPUT_LABEL, BIRTHDATE_INPUT_LABEL2, BIRTHDATE_INPUT_NAME, DOCUMENT_INPUT_NAME, PHONE_INPUT_NAME, NAME_REGEX, DOCUMENT_REGEX, PHONE_REGEX } from '@utils/constants/general';
 import { InputTypeEnum } from '@utils/enums/input';
-import { SizeEnum } from '@utils/enums/size';
 import { StatusEnum } from '@utils/enums/status';
-import { WarehouseAssistantRequest } from '@utils/interfaces/warehouse-assistant';
-import { ButtonType } from '@utils/types/button';
+import { ClientRequest, UserCredentials } from '@utils/interfaces/auth';
 import { InputType } from '@utils/types/input';
-import { Size } from '@utils/types/size';
 
 @Component({
-  selector: 'app-add-warehouse-assistant',
-  templateUrl: './add-warehouse-assistant.component.html',
-  styleUrls: ['./add-warehouse-assistant.component.scss']
+  selector: 'app-form-sign-up',
+  templateUrl: './form-sign-up.component.html',
+  styleUrls: ['./form-sign-up.component.scss']
 })
-export class AddWarehouseAssistantComponent implements OnInit {
-  buttonSaveText: string = SAVE_WAREHOUSE_ASSISTANT_BUTTON_TEXT;
-  buttonText: string = ADD_WAREHOUSE_ASSISTANT_BUTTON_TEXT;
-  buttonSizeMedium: Size = SizeEnum.MEDIUM;
-  buttonTypeButton: ButtonType = ButtonTypeEnum.BUTTON;
+export class FormSignUpComponent implements OnInit {
+  buttonSaveText: string = SIGN_UP_BUTTON_TEXT;
   inputTypeText: InputType = InputTypeEnum.TEXT;
-  inputTypeNumber: InputType = InputTypeEnum.NUMBER;
+  inputTypeDate: InputType = InputTypeEnum.DATE;
   inputTypeEmail: InputType = InputTypeEnum.EMAIL;
   inputTypePassword: InputType = InputTypeEnum.PASSWORD;
-  inputTypeDate: InputType = InputTypeEnum.DATE;
-  modalTitle: string = REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT;
-  modalTitlePrimary: string = REGISTER_NEW_WAREHOUSE_ASSISTANT_TEXT_PRIMARY;
+  isDisabledSaveIcon: boolean = true;
   toastMessage: string = EMPTY_STRING;
-  isDisabledSaveButton: boolean = true;
   moreInputs: Record<string, string>[] = [
     {
       label: NAME_INPUT_LABEL,
@@ -92,37 +82,41 @@ export class AddWarehouseAssistantComponent implements OnInit {
     [EMAIL_INPUT_NAME]: [EMPTY_STRING, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
     [PASSWORD_INPUT_NAME]: [EMPTY_STRING, [Validators.required, Validators.pattern(PASSWORD_REGEX)]]
   }
-  showModal: () => void = () => {};
   changeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void = () => {};
 
-  @Input() addNewWarehouseAssistantCount: () => void = () => {};
+  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) { }
 
-  constructor(private warehouseAssistantService: WarehouseAssistantService, private toastService: ToastService) { }
-
-  ngOnInit(): void { }
-
-  showModalOutput(onShowModal: () => void): void {
-    this.showModal = onShowModal;
+  ngOnInit(): void {
   }
 
   changeStatusSaveButtonOutput(onChangeStatusSaveButton: (isDisabled: boolean, loaded?: boolean) => void): void {
     this.changeStatusSaveButton = onChangeStatusSaveButton;
   }
 
-  addWarehouseAssistantCount(): void {
-    this.addNewWarehouseAssistantCount()
-  }
-
-  handleSubmit(warehouseAssistant: WarehouseAssistantRequest): void {
+  handleSubmit(clientRequest: ClientRequest): void {
     this.changeStatusSaveButton(true, false);
-
-    this.warehouseAssistantService.saveWarehouseAssistant(warehouseAssistant).subscribe({
+    
+    this.authService.saveClient(clientRequest).subscribe({
       next: () => {
         this.changeStatusSaveButton(false, true);
-        this.showModal();
-        this.addWarehouseAssistantCount();
+        this.login({ email: clientRequest.email, password: clientRequest.password });
+
+        this.toastService.showToast(SIGN_UP_SUCCESSFULLY_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
+      },
+      error: (error) => {
+        if (error.status === 409 || error.status === 400) this.toastMessage = error.error.message;
+        else this.toastMessage = SERVER_ERROR_TEXT;
         
-        this.toastService.showToast(WAREHOUSE_ASSISTANT_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
+        this.changeStatusSaveButton(false, true);
+        this.toastService.showToast(this.toastMessage, StatusEnum.ERROR, ERROR_ICON_PATH);
+      }
+    })
+  }
+
+  login(userCredentials: UserCredentials): void {
+    this.authService.login(userCredentials).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
       },
       error: (error) => {
         if (error.status === 409 || error.status === 400) this.toastMessage = error.error.message;

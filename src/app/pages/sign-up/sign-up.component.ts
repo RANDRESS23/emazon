@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS_CLIENT } from '@utils/constants/general';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class SignUpComponent implements OnInit {
   menuItems: Record<string, string>[] = MENU_ITEMS_CLIENT;
 
   constructor() { }

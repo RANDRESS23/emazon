@@ -17,6 +17,8 @@ import { ListOfWarehouseAssistantComponent } from './admin/warehouse-assistant/l
 import { FormSignInComponent } from './auth/form-sign-in/form-sign-in.component';
 import { ListOfProductsSupplyComponent } from './warehouse-assistant/supply/list-of-products-supply/list-of-products-supply.component';
 import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-supply.component';
+import { RouterModule } from '@angular/router';
+import { FormSignUpComponent } from './auth/form-sign-up/form-sign-up.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-
     ListOfWarehouseAssistantComponent,
     FormSignInComponent,
     ListOfProductsSupplyComponent,
-    AddSupplyComponent
+    AddSupplyComponent,
+    FormSignUpComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,8 @@ import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-
     OrganismsModule,
     IconsModule,
     ServicesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     AddCategoryComponent,
@@ -50,8 +54,9 @@ import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-
     ListOfBrandsComponent,
     ListOfProductsComponent,
     ListOfWarehouseAssistantComponent,
+    ListOfProductsSupplyComponent,
     FormSignInComponent,
-    ListOfProductsSupplyComponent
+    FormSignUpComponent
   ]
 })
 export class FeaturesModule { }
