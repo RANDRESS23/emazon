@@ -81,7 +81,7 @@ describe('AuthenticatedGuard', () => {
 
     expect(authService.isAuthenticated).toHaveBeenCalled();
     expect(authService.getRole).toHaveBeenCalledWith();
-    expect(router.navigate).toHaveBeenCalledWith(['/perfil/cliente/inicio']);
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should redirect to root when authenticated with an unknown role', () => {
