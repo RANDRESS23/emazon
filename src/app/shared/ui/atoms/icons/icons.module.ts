@@ -13,6 +13,8 @@ import { ProductIconComponent } from './product-icon/product-icon.component';
 import { AddUserIconComponent } from './add-user-icon/add-user-icon.component';
 import { SupplyIconComponent } from './supply-icon/supply-icon.component';
 import { SignUpIconComponent } from './sign-up-icon/sign-up-icon.component';
+import { CartIconComponent } from './cart-icon/cart-icon.component';
+import { CartPlusIconComponent } from './cart-plus-icon/cart-plus-icon.component';
 
 
 
@@ -30,7 +32,9 @@ import { SignUpIconComponent } from './sign-up-icon/sign-up-icon.component';
     ProductIconComponent,
     AddUserIconComponent,
     SupplyIconComponent,
-    SignUpIconComponent
+    SignUpIconComponent,
+    CartIconComponent,
+    CartPlusIconComponent
   ],
   imports: [
     CommonModule
@@ -48,7 +52,9 @@ import { SignUpIconComponent } from './sign-up-icon/sign-up-icon.component';
     ProductIconComponent,
     AddUserIconComponent,
     SupplyIconComponent,
-    SignUpIconComponent
+    SignUpIconComponent,
+    CartIconComponent,
+    CartPlusIconComponent
   ]
 })
 export class IconsModule { }
