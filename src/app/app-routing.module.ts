@@ -19,9 +19,15 @@ const routes: Routes = [
   },
   { 
     path: 'perfil/auxiliar-bodega', 
-    loadChildren: () => import('./pages/profile/warehouse-assistant/warehouse-assistant.module').then(m => m.WarehouseAssistantRoutingModule), 
+    loadChildren: () => import('./pages/profile/warehouse-assistant/warehouse-assistant-routing.module').then(m => m.WarehouseAssistantRoutingModule), 
     canActivate: [AuthGuard],
     data: { role: RolesEnum.AUX_BODEGA } 
+  },
+  { 
+    path: 'perfil/cliente', 
+    loadChildren: () => import('./pages/profile/client/client-routing.module').then(m => m.ClientRoutingModule), 
+    canActivate: [AuthGuard],
+    data: { role: RolesEnum.CLIENTE } 
   },
   { path: '', component: InicioComponent, canActivate: [ClientGuard] },
   { path: '**', redirectTo: '', pathMatch: 'full' },
