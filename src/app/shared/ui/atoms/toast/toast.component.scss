@@ -6,7 +6,7 @@
   bottom: 20px;
   right: 7.5%;
   left: 7.5%;
-  height: 55px;
+  min-height: 55px;
   display: flex;
   align-items: center;
   border-radius: 4px;
@@ -17,6 +17,8 @@
   &__bar-left {
     width: 6px;
     height: 100%;
+    left: 0;
+    position: absolute;
     border-radius: 4px 0 0 4px;
 
     &--success {
@@ -58,7 +60,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-left: 15px;
+  padding-left: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-right: 50px;
