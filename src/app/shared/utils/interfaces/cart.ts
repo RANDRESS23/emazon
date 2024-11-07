@@ -1,3 +1,5 @@
+import { CategoryProductResponse } from "./category";
+
 export interface CartProduct {
   cartProductId: number;
   cartId: number;
@@ -6,6 +8,10 @@ export interface CartProduct {
   quantity: number;
   unitPrice: number;
   totalPrice: number;
+} 
+
+export interface CartProductInfo extends CartProduct {
+  categories: CategoryProductResponse[];
 } 
 
 export interface Cart {

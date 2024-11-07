@@ -9,24 +9,33 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class CartService {
   private BASE_URL: string = environment.BASE_URL_CART;
-  private cartProducts: CartProduct[] = [];
-  private _products: BehaviorSubject<CartProduct[]>;
+  private cart: Cart = { products: [] as CartProduct[] } as Cart;
+  private _cart: BehaviorSubject<Cart>;
 
   constructor(private http: HttpClient) {
-    this._products = new BehaviorSubject<CartProduct[]>(this.cartProducts);
+    this._cart = new BehaviorSubject<Cart>(this.cart);
   }
-
-  get products(): Observable<CartProduct[]> {
-    return this._products.asObservable();
+  
+  get cartClient(): Observable<Cart> {
+    return this._cart.asObservable();
   }
 
   saveProductInTheCart(product: CartProductRequest): Observable<Cart> {
     return this.http.post<Cart>(`${this.BASE_URL}/cart`, product).pipe(
       tap((response: Cart) => {
-        this.cartProducts = response.products;
-        this._products.next(this.cartProducts);
+        this.cart = response;
+        this._cart.next(this.cart);
       })
-    );;
+    );
+  }
+  
+  removeProductInTheCart(product: CartProductRequest): Observable<Cart> {
+    return this.http.request<Cart>('delete', `${this.BASE_URL}/cart`, { body: product }).pipe(
+      tap((response: Cart) => {
+        this.cart = response;
+        this._cart.next(this.cart);
+      })
+    );
   }
 
   getTotalProductsInTheCart(): Observable<Cart> {
@@ -34,7 +43,7 @@ export class CartService {
   }
 
   setCartProducts(products: CartProduct[]): void {
-    this.cartProducts = products;
-    this._products.next(this.cartProducts);
+    this.cart.products = products;
+    this._cart.next(this.cart);
   }
 }

@@ -52,9 +52,9 @@ export class HeaderComponent implements OnInit {
     this.isClient = (this.authService.isAuthenticated() && this.authService.getRole() === RolesEnum.CLIENTE) || !this.authService.isAuthenticated();
     
     if (this.authService.isAuthenticated() && this.authService.getRole() === RolesEnum.CLIENTE) {
-      this.cartService.products.subscribe((products) => {
+      this.cartService.cartClient.subscribe(({ products }) => {
         let count = 0;
-        
+
         products.forEach((product) => count += product.quantity );
 
         this.countCartProducts = count;
