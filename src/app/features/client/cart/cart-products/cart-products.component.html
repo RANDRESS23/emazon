@@ -1,37 +1,45 @@
 <section class="list">
-  <article class="product">
-    <div class="product__image-container">
-      <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
-    </div>
-    <div class="product__info-container">
-      <div class="product__info-container-titles">
-        <div class="product-titles">
-          <span class="product-titles__title">Gradient Graphic T-shirt</span>
-          <span class="product-titles__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, alias.</span>
+  <ng-container *ngFor="let productCart of listOfProductsCart; let i = index">
+    <article class="product">
+      <div class="product__image-container">
+        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      </div>
+      <div class="product__info-container">
+        <div class="product__info-container-titles">
+          <div class="product-titles">
+            <span class="product-titles__title">{{ productCart.name }}</span>
+            <div class="product-titles__categories">
+              <span
+                *ngFor="let category of productCart.categories"
+              >
+                {{ category.name }}
+              </span>
+            </div>
+          </div>
+          <div class="product-remove-button">
+            <button (click)="deleteProductCart(productCart.productId, productCart.quantity)">
+              <atom-remove-icon></atom-remove-icon>
+            </button>
+          </div>
         </div>
-        <div class="product-remove-button">
-          <button>
-            <atom-remove-icon></atom-remove-icon>
-          </button>
+        <div class="product__info-container-prices">
+          <div class="product-prices">
+            <span>$ {{ productCart.totalPrice }}</span>
+          </div>
+          <div class="product__info-container-buttons">
+            <button (click)="deleteProductCart(productCart.productId)">
+              <atom-minus-icon></atom-minus-icon>
+            </button>
+            <span>{{ productCart.quantity }}</span>
+            <button (click)="addProductCart(productCart.productId)">
+              <atom-plus-icon></atom-plus-icon>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="product__info-container-prices">
-        <div class="product-prices">
-          <span>$ 100</span>
-        </div>
-        <div class="product__info-container-buttons">
-          <button>
-            <atom-minus-icon></atom-minus-icon>
-          </button>
-          <span>1</span>
-          <button>
-            <atom-plus-icon></atom-plus-icon>
-          </button>
-        </div>
-      </div>
+    </article>
+    <div class="dividing-line" *ngIf="i !== listOfProductsCart.length - 1">
+      <div></div>
     </div>
-  </article>
-  <div class="dividing-line">
-    <div></div>
-  </div>
+  </ng-container>
 </section>
