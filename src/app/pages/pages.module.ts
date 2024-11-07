@@ -15,6 +15,7 @@ import { InicioAdminComponent } from './profile/admin/inicio/inicio.component';
 import { InicioWarehouseAssistantComponent } from './profile/warehouse-assistant/inicio/inicio.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { CartComponent } from './profile/client/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { InicioComponent } from './inicio/inicio.component';
     InicioAdminComponent,
     InicioWarehouseAssistantComponent,
     SignUpComponent,
-    InicioComponent
+    InicioComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
