@@ -13,11 +13,19 @@ export class ClientGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.authService.isAuthenticated() 
-        && this.authService.getRole() === RolesEnum.CLIENTE) return true;
-      
-      this.router.navigate(['/login']);
+    if (this.authService.isAuthenticated() 
+        && (this.authService.getRole() === RolesEnum.ADMIN 
+        || this.authService.getRole() === RolesEnum.AUX_BODEGA)) {
+      switch (this.authService.getRole()) {
+        case RolesEnum.ADMIN:
+          return this.router.navigate(['/perfil/admin/inicio']);
+        case RolesEnum.AUX_BODEGA:
+          return this.router.navigate(['/perfil/auxiliar-bodega/inicio']);
+        default:
+          return this.router.navigate(['/']);
+      }
+    }
 
-      return false;
+    return true;
   }
 }

@@ -3,6 +3,7 @@ import { ClientGuard } from './client.guard';
 import { AuthService } from '../../services/auth/auth.service';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { RolesEnum } from '@utils/enums/roles';
+import { of } from 'rxjs';
 
 describe('ClientGuard', () => {
   let guard: ClientGuard;
@@ -14,19 +15,19 @@ describe('ClientGuard', () => {
   beforeEach(() => {
     const authServiceMock = {
       isAuthenticated: jest.fn(),
-      getRole: jest.fn(),
+      getRole: jest.fn()
     } as unknown as jest.Mocked<AuthService>;
 
     const routerMock = {
-      navigate: jest.fn(),
+      navigate: jest.fn()
     } as unknown as jest.Mocked<Router>;
 
     TestBed.configureTestingModule({
       providers: [
         ClientGuard,
         { provide: AuthService, useValue: authServiceMock },
-        { provide: Router, useValue: routerMock },
-      ],
+        { provide: Router, useValue: routerMock }
+      ]
     });
 
     guard = TestBed.inject(ClientGuard);
@@ -37,61 +38,38 @@ describe('ClientGuard', () => {
     state = {} as RouterStateSnapshot;
   });
 
-  it('should allow activation when user is authenticated and has CLIENTE role', () => {
-    authService.isAuthenticated.mockReturnValue(true);
-    authService.getRole.mockReturnValue(RolesEnum.CLIENTE);
-
-    const result = guard.canActivate(route, state);
-
-    expect(result).toBe(true);
-    expect(authService.isAuthenticated).toHaveBeenCalled();
-    expect(authService.getRole).toHaveBeenCalledWith();
-    expect(router.navigate).not.toHaveBeenCalled(); 
-  });
-
-  it('should block activation and redirect to /login if user is not authenticated', () => {
-    authService.isAuthenticated.mockReturnValue(false);
-
-    const result = guard.canActivate(route, state);
-
-    expect(result).toBe(false);
-    expect(authService.isAuthenticated).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
-  });
-
-  it('should block activation and redirect to /login if user is authenticated but not CLIENTE', () => {
+  it('should navigate to /perfil/admin/inicio if user is ADMIN', () => {
     authService.isAuthenticated.mockReturnValue(true);
     authService.getRole.mockReturnValue(RolesEnum.ADMIN);
 
-    const result = guard.canActivate(route, state);
+    const result = guard.canActivate(route as ActivatedRouteSnapshot, state as RouterStateSnapshot);
 
-    expect(result).toBe(false);
+    expect(result).toEqual(router.navigate(['/perfil/admin/inicio']));
     expect(authService.isAuthenticated).toHaveBeenCalled();
-    expect(authService.getRole).toHaveBeenCalledWith();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(authService.getRole).toHaveBeenCalledTimes(2);
+    expect(router.navigate).toHaveBeenCalledWith(['/perfil/admin/inicio']);
   });
 
-  it('should block activation and redirect to /login if user is AUX_BODEGA', () => {
+  it('should navigate to /perfil/auxiliar-bodega/inicio if user is AUX_BODEGA', () => {
     authService.isAuthenticated.mockReturnValue(true);
     authService.getRole.mockReturnValue(RolesEnum.AUX_BODEGA);
 
-    const result = guard.canActivate(route, state);
+    const result = guard.canActivate(route as ActivatedRouteSnapshot, state as RouterStateSnapshot);
 
-    expect(result).toBe(false);
+    expect(result).toEqual(router.navigate(['/perfil/auxiliar-bodega/inicio']));
     expect(authService.isAuthenticated).toHaveBeenCalled();
-    expect(authService.getRole).toHaveBeenCalledWith();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(authService.getRole).toHaveBeenCalledTimes(3);
+    expect(router.navigate).toHaveBeenCalledWith(['/perfil/auxiliar-bodega/inicio']);
   });
 
-  it('should return a UrlTree when router.navigate is called', () => {
-    const urlTreeMock = {} as any;
-    router.navigate.mockReturnValue(Promise.resolve(false));  
-
+  it('should allow activation if user is not authenticated', () => {
     authService.isAuthenticated.mockReturnValue(false);
 
-    const result = guard.canActivate(route, state);
-    
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
-    expect(result).toBe(false); 
+    const result = guard.canActivate(route as ActivatedRouteSnapshot, state as RouterStateSnapshot);
+
+    expect(result).toBe(true);
+    expect(authService.isAuthenticated).toHaveBeenCalled();
+    expect(authService.getRole).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
   });
 });

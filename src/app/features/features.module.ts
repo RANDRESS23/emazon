@@ -19,6 +19,8 @@ import { ListOfProductsSupplyComponent } from './warehouse-assistant/supply/list
 import { AddSupplyComponent } from './warehouse-assistant/supply/add-supply/add-supply.component';
 import { RouterModule } from '@angular/router';
 import { FormSignUpComponent } from './auth/form-sign-up/form-sign-up.component';
+import { ListOfProductsToBuyComponent } from './client/product/list-of-products-to-buy/list-of-products-to-buy.component';
+import { CartProductsComponent } from './client/cart/cart-products/cart-products.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { FormSignUpComponent } from './auth/form-sign-up/form-sign-up.component'
     FormSignInComponent,
     ListOfProductsSupplyComponent,
     AddSupplyComponent,
-    FormSignUpComponent
+    FormSignUpComponent,
+    ListOfProductsToBuyComponent,
+    CartProductsComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +59,8 @@ import { FormSignUpComponent } from './auth/form-sign-up/form-sign-up.component'
     ListOfProductsComponent,
     ListOfWarehouseAssistantComponent,
     ListOfProductsSupplyComponent,
+    ListOfProductsToBuyComponent,
+    CartProductsComponent,
     FormSignInComponent,
     FormSignUpComponent
   ]

@@ -35,6 +35,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    & img {
+      width: 110px;
+    }
   }
 
   &__menu-button {
@@ -89,7 +93,20 @@
   display: none;
 }
 
+.button-sign-in {
+  display: none;
+}
+
+.button-sign-out {
+  display: none;
+}
+
+.button-sign-out-mobile {
+  display: flex;
+}
+
 .navbar-mobile-container {
+  display: flex;
   width: 100%;
   position: absolute;
   overflow-y: auto;
@@ -149,6 +166,57 @@
   }
 }
 
+.button-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  & button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $black-color;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: .2s ease all;
+
+    &:hover {
+      color: $primary;
+    }
+
+    & span {
+      position: absolute;
+      bottom: -7px;
+      right: -7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: $primary;
+      color: $white-color;
+      width: 15px;
+      height: 15px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 50%;
+      padding: 2px;
+    }
+  }
+}
+
+@media (min-width: 450px) {
+  .button-sign-out {
+    display: flex;
+  }
+  
+  .button-sign-out-mobile {
+    display: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .list-primary {
     &__menu-button {
@@ -164,5 +232,13 @@
 
   .button-sign-up {
     display: flex;
+  }
+  
+  .button-sign-in {
+    display: flex;
+  }
+
+  .navbar-mobile-container {
+    display: none;
   }
 }

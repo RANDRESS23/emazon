@@ -96,7 +96,7 @@ export class AddSupplyComponent implements OnInit, OnChanges {
         this.toastService.showToast(SUPPLY_SAVED_TEXT, StatusEnum.SUCCESS, SUCCESS_ICON_PATH);
       },
       error: (error) => {
-        if (error.status === 409) this.toastMessage = error.error.message;
+        if (error.status === 409 || error.status === 400) this.toastMessage = error.error.message;
         else this.toastMessage = SERVER_ERROR_TEXT;
         
         this.changeStatusSaveButton(false, true);

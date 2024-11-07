@@ -20,7 +20,7 @@ export class AuthenticatedGuard implements CanActivate {
           case RolesEnum.AUX_BODEGA:
             return this.router.navigate(['/perfil/auxiliar-bodega/inicio']);
           case RolesEnum.CLIENTE:
-            return this.router.navigate(['/perfil/cliente/inicio']);
+            return this.router.navigate(['/']);
           default:
             return this.router.navigate(['/']);
         }

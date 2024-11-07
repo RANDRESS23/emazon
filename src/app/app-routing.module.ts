@@ -1,30 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryPanelComponent } from './pages/profile/admin/category-panel/category-panel.component';
-import { BrandPanelComponent } from './pages/profile/admin/brand-panel/brand-panel.component';
-import { ProductPanelComponent } from './pages/profile/admin/product-panel/product-panel.component';
-import { WarehouseAssistantPanelComponent } from './pages/profile/admin/warehouse-assistant-panel/warehouse-assistant-panel.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthenticatedGuard } from './core/guards/authenticated/authenticated.guard';
-import { AdminGuard } from './core/guards/admin/admin.guard';
-import { SupplyPanelComponent } from './pages/profile/warehouse-assistant/supply-panel/supply-panel.component';
-import { WarehouseAssistantGuard } from './core/guards/warehouse-assistant/warehouse-assistant.guard';
-import { InicioAdminComponent } from './pages/profile/admin/inicio/inicio.component';
-import { InicioWarehouseAssistantComponent } from './pages/profile/warehouse-assistant/inicio/inicio.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { RolesEnum } from '@utils/enums/roles';
+import { AuthGuard } from './core/guards/auth/auth.guard';
+import { ClientGuard } from './core/guards/client/client.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthenticatedGuard] },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthenticatedGuard] },
-  { path: 'perfil/admin/inicio', component: InicioAdminComponent, canActivate: [AdminGuard] },
-  { path: 'perfil/admin/panel-categoria', component: CategoryPanelComponent, canActivate: [AdminGuard] },
-  { path: 'perfil/admin/panel-marca', component: BrandPanelComponent, canActivate: [AdminGuard] },
-  { path: 'perfil/admin/panel-producto', component: ProductPanelComponent, canActivate: [AdminGuard] },
-  { path: 'perfil/admin/panel-auxiliar-bodega', component: WarehouseAssistantPanelComponent, canActivate: [AdminGuard] },
-  { path: 'perfil/auxiliar-bodega/inicio', component: InicioWarehouseAssistantComponent, canActivate: [WarehouseAssistantGuard] },
-  { path: 'perfil/auxiliar-bodega/panel-suministro', component: SupplyPanelComponent, canActivate: [WarehouseAssistantGuard] },
-  { path: '', component: InicioComponent },
+  { 
+    path: 'perfil/admin', 
+    loadChildren: () => import('./pages/profile/admin/admin-routing.module').then(m => m.AdminRoutingModule), 
+    canActivate: [AuthGuard],
+    data: { role: RolesEnum.ADMIN }
+  },
+  { 
+    path: 'perfil/auxiliar-bodega', 
+    loadChildren: () => import('./pages/profile/warehouse-assistant/warehouse-assistant-routing.module').then(m => m.WarehouseAssistantRoutingModule), 
+    canActivate: [AuthGuard],
+    data: { role: RolesEnum.AUX_BODEGA } 
+  },
+  { 
+    path: 'perfil/cliente', 
+    loadChildren: () => import('./pages/profile/client/client-routing.module').then(m => m.ClientRoutingModule), 
+    canActivate: [AuthGuard],
+    data: { role: RolesEnum.CLIENTE } 
+  },
+  { path: '', component: InicioComponent, canActivate: [ClientGuard] },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
