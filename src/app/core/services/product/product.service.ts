@@ -19,4 +19,8 @@ export class ProductService {
   getAllProducts(page: number, size: number, sortOrder: string, sortBy: string): Observable<PageProducts> {
     return this.http.get<PageProducts>(`${this.BASE_URL}/product?page=${page}&size=${size}&sortOrder=${sortOrder}&sortBy=${sortBy}`);
   }
+
+  getProductById(productId: number): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(`${this.BASE_URL}/product/id/${productId}`);
+  }
 }
