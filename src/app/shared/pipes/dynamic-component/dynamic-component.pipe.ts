@@ -5,6 +5,7 @@ import { BrandIconComponent } from '@atoms/icons/brand-icon/brand-icon.component
 import { CategoryIconComponent } from '@atoms/icons/category-icon/category-icon.component';
 import { HomeIconComponent } from '@atoms/icons/home-icon/home-icon.component';
 import { ProductIconComponent } from '@atoms/icons/product-icon/product-icon.component';
+import { SignInIconComponent } from '@atoms/icons/sign-in-icon/sign-in-icon.component';
 import { SignUpIconComponent } from '@atoms/icons/sign-up-icon/sign-up-icon.component';
 import { SupplyIconComponent } from '@atoms/icons/supply-icon/supply-icon.component';
 
@@ -24,7 +25,8 @@ export class DynamicComponentPipe implements PipeTransform {
       addUser: AddUserIconComponent,
       supply: SupplyIconComponent,
       add: AddBoxIconComponent,
-      signUp: SignUpIconComponent
+      signUp: SignUpIconComponent,
+      signIn: SignInIconComponent
     };
 
     return componentsMap[iconName] || null;
