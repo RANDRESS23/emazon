@@ -1,0 +1,29 @@
+<section class="list">
+  <article *ngFor="let product of listOfProducts" class="product">
+    <div class="product__image-container">
+      <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      <div class="product__image-container-category">
+        <span
+          *ngFor="let category of product.categories"
+        >
+          {{ category.name }}
+        </span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="content__info">
+        <span class="content__info-name">{{ product.name }}</span>
+        <span class="content__info-description">{{ product.description }}</span>
+        <span class="content__info-price">$ {{ product.price }}</span>
+      </div>
+      <button class="content__button" (click)="addProductToCart(product)">
+        <atom-cart-plus-icon></atom-cart-plus-icon>
+      </button>
+    </div>
+  </article>
+</section>
+<atom-pagination
+  [pageNumber]="pageNumber"
+  [totalPages]="totalPages"
+  (pageNumberChange)="changePage($event)"
+></atom-pagination>
