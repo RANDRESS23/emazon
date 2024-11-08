@@ -1,3 +1,4 @@
+import { BrandProductResponse } from "./brand";
 import { CategoryProductResponse } from "./category";
 
 export interface CartProduct {
@@ -11,6 +12,7 @@ export interface CartProduct {
 } 
 
 export interface CartProductInfo extends CartProduct {
+  brand: BrandProductResponse;
   categories: CategoryProductResponse[];
 } 
 
@@ -27,4 +29,30 @@ export interface Cart {
 export interface CartProductRequest {
   productId: number;
   quantity: number;
+}
+
+export interface CartProductFullInfo {
+  cartProductId: number;
+  productId: number;
+  name: string;
+  stockQuantity: number;
+  nextSupplyDate: Date | string;
+  totalQuantityInCart: number;
+  unitPrice: number;
+  totalPrice: number;
+  categories: CategoryProductResponse[];
+  brand: BrandProductResponse;
+}
+
+export interface PageProducts {
+  pageNumber: number,
+	pageSize: number,
+	totalElements: number,
+	totalPages: number,
+	content: CartProductFullInfo[]
+}
+
+export interface ListCartProducts {
+  cart: Omit<Cart, 'products'>;
+  products: PageProducts;
 }
