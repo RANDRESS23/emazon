@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '@src/app/core/services/auth/auth.service';
 import { CartService } from '@src/app/shared/services/cart/cart.service';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
-import { ERROR_CLIENT_NOT_LOGGED } from '@utils/constants/client';
+import { INITIAL_PAGE_TABLE, INITIAL_SIZE_ELEMENTS_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE } from '@utils/constants/admin';
+import { ERROR_CLIENT_NOT_LOGGED, INITIAL_FILTER_BRAND, INITIAL_FILTER_CATEGORY } from '@utils/constants/client';
 import { ERROR_ICON_PATH, LOGIN_BUTTON_TEXT, SIGN_OUT_BUTTON_TEXT, SIGN_UP_BUTTON_TEXT } from '@utils/constants/general';
 import { ButtonTypeEnum } from '@utils/enums/button';
 import { RolesEnum } from '@utils/enums/roles';
@@ -52,19 +53,15 @@ export class HeaderComponent implements OnInit {
     this.isClient = (this.authService.isAuthenticated() && this.authService.getRole() === RolesEnum.CLIENTE) || !this.authService.isAuthenticated();
     
     if (this.authService.isAuthenticated() && this.authService.getRole() === RolesEnum.CLIENTE) {
-      this.cartService.cartClient.subscribe(({ products }) => {
-        let count = 0;
-
-        products.forEach((product) => count += product.quantity );
-
-        this.countCartProducts = count;
-        this.cartNotEmpty = count > 0;
+      this.cartService.cartPagedClient.subscribe(({ cart }) => {
+        this.countCartProducts = cart?.totalQuantity;
+        this.cartNotEmpty = cart?.totalQuantity > 0;
       });
       
       this.cartService.getTotalProductsInTheCart().subscribe({
         next: (data: Cart) => {
-          this.cartNotEmpty = data.products.length > 0;
-          this.cartService.setCartProducts(data.products);
+          this.countCartProducts = data.totalQuantity;
+          this.cartNotEmpty = data.totalQuantity > 0;
         },
         error: (error) => {
           console.error({ error });
@@ -79,7 +76,7 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.authService.logout();
-    this.cartService.setCartProducts([]);
+    this.cartService.setInitialCart();
   }
 
   navigateToLoginPage(): void {
