@@ -1,13 +1,33 @@
-<section class="list">
-  <ng-container *ngFor="let productCart of listOfProductsCart; let i = index">
+<div class="info-cart-container">
+  <div>
+    <span class="label-info">Fecha Modificación:</span>
+    <span class="value-info"> {{ lastDateOfCartModification }}</span>
+  </div>
+  <div>
+    <span class="label-info">Total compra:</span>
+    <span class="value-info"> $ {{ totalPurchasePrice }}</span>
+  </div>
+</div>
+<app-filters-cart-products
+  (showFilterOrders)="showFilterOrders($event)"
+>
+</app-filters-cart-products>
+<section class="list" *ngIf="listOfProductsCart.length > 0; else emptyCart">
+  <ng-container 
+    *ngFor="let productCart of listOfProductsCart; let i = index"
+  >
     <article class="product">
       <div class="product__image-container">
         <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+        <div class="product__image-container-quantity-stock">
+          <span>{{ productCart.stockQuantity }}</span>
+        </div>
       </div>
       <div class="product__info-container">
         <div class="product__info-container-titles">
           <div class="product-titles">
             <span class="product-titles__title">{{ productCart.name }}</span>
+            <span class="product-titles__brand"><b>Marca:</b> {{ productCart.brand.name }}</span>
             <div class="product-titles__categories">
               <span
                 *ngFor="let category of productCart.categories"
@@ -17,7 +37,7 @@
             </div>
           </div>
           <div class="product-remove-button">
-            <button (click)="deleteProductCart(productCart.productId, productCart.quantity)">
+            <button (click)="deleteProductCart(productCart.productId, productCart.totalQuantityInCart)">
               <atom-remove-icon></atom-remove-icon>
             </button>
           </div>
@@ -30,7 +50,7 @@
             <button (click)="deleteProductCart(productCart.productId)">
               <atom-minus-icon></atom-minus-icon>
             </button>
-            <span>{{ productCart.quantity }}</span>
+            <span>{{ productCart.totalQuantityInCart }}</span>
             <button (click)="addProductCart(productCart.productId)">
               <atom-plus-icon></atom-plus-icon>
             </button>
@@ -43,3 +63,14 @@
     </div>
   </ng-container>
 </section>
+<atom-pagination
+  *ngIf="listOfProductsCart.length > 0"
+  [pageNumber]="pageNumber"
+  [totalPages]="totalPages"
+  (pageNumberChange)="changePage($event)"
+></atom-pagination>
+<ng-template #emptyCart>
+  <div class="empty-cart">
+    <span>¡No se encontraron productos en tu carrito de compras!</span>
+  </div>
+</ng-template>

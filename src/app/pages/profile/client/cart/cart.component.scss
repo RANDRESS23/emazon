@@ -4,3 +4,21 @@
   width: 90%;
   margin: 75px auto;
 }
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+
+  &__description {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.title {
+  &--primary {
+    color: $primary;
+  }
+}

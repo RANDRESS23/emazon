@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
 import { FormSignUpComponent } from './auth/form-sign-up/form-sign-up.component';
 import { ListOfProductsToBuyComponent } from './client/product/list-of-products-to-buy/list-of-products-to-buy.component';
 import { CartProductsComponent } from './client/cart/cart-products/cart-products.component';
+import { FiltersCartProductsComponent } from './client/cart/filters-cart-products/filters-cart-products.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CartProductsComponent } from './client/cart/cart-products/cart-products
     AddSupplyComponent,
     FormSignUpComponent,
     ListOfProductsToBuyComponent,
-    CartProductsComponent
+    CartProductsComponent,
+    FiltersCartProductsComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { CartProductsComponent } from './client/cart/cart-products/cart-products
     ListOfProductsSupplyComponent,
     ListOfProductsToBuyComponent,
     CartProductsComponent,
+    FiltersCartProductsComponent,
     FormSignInComponent,
     FormSignUpComponent
   ]

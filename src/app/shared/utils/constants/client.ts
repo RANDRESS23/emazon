@@ -6,3 +6,12 @@ export const PRODUCTS_REMOVED_IN_CART = 'Productos eliminados del carrito de com
 
 export const ERROR_CLIENT_NOT_LOGGED = 'Debes iniciar sesión para acceder a tu carrito de compras';
 export const ERROR_CLIENT_NOT_LOGGED2 = 'Debes iniciar sesión para agregar productos a tu carrito de compras';
+
+export const INITIAL_FILTER_CATEGORY = 'all';
+export const INITIAL_FILTER_BRAND = 'all';
+
+export const LABEL_FILTER_CATEGORY_DROPDOWN = 'Categoría';
+export const LABEL_FILTER_MARCA_DROPDOWN = 'Marca';
+
+export const ALL_CATEGORIES_TEXT = 'Todas las categorías';
+export const ALL_BRANDS_TEXT = 'Todas las marcas';
