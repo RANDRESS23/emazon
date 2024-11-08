@@ -14,7 +14,8 @@ main::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
 ul::-webkit-scrollbar,
 table::-webkit-scrollbar,
-tbody::-webkit-scrollbar {
+tbody::-webkit-scrollbar,
+select::-webkit-scrollbar {
   width: 0.7rem;
 }
 
@@ -23,7 +24,8 @@ main::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb,
 ul::-webkit-scrollbar-thumb,
 table::-webkit-scrollbar-thumb,
-tbody::-webkit-scrollbar-thumb {
+tbody::-webkit-scrollbar-thumb,
+select::-webkit-scrollbar-thumb {
   background: $primary;
   border-radius: 2rem;
 }
