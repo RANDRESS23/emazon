@@ -1,0 +1,30 @@
+<header class="header">
+  <div class="dropdowns">
+    <div class="dropdowns__principal">
+      <div class="dropdowns__principal__field">
+        <atom-dropdown-table
+          [label]="labelShowByDropdown"
+          [options]="optionsShowByDropdown"
+          (optionChange)="changeShowBy($event)"
+        ></atom-dropdown-table>
+        <atom-dropdown-table
+          [label]="labelSortOrderDropdown"
+          [options]="optionsSortOrderDropdown"
+          (optionChange)="changeSortOrder($event)"
+        ></atom-dropdown-table>
+      </div>
+      <div class="dropdowns__principal__field">
+        <atom-dropdown-table
+          [label]="labelFilterCategoryDropdown"
+          [options]="optionsFilterCategoryDropdown"
+          (optionChange)="changeFilterCategory($event)"
+        ></atom-dropdown-table>
+        <atom-dropdown-table
+          [label]="labelFilterBrandDropdown"
+          [options]="optionsFilterBrandDropdown"
+          (optionChange)="changeFilterBrand($event)"
+        ></atom-dropdown-table>
+      </div>
+    </div>
+  </div>
+</header>
