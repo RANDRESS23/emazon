@@ -56,3 +56,7 @@ export interface ListCartProducts {
   cart: Omit<Cart, 'products'>;
   products: PageProducts;
 }
+
+export interface CartProductsBoughtDto {
+  message: string;
+}
