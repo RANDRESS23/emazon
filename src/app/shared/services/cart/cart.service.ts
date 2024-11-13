@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@src/environments/environment';
-import { Cart, CartProductRequest, ListCartProducts } from '@utils/interfaces/cart';
+import { Cart, CartProductRequest, CartProductsBoughtDto, ListCartProducts } from '@utils/interfaces/cart';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -32,6 +32,14 @@ export class CartService {
     return this.http.request<Cart>('delete', `${this.BASE_URL}/cart`, { body: product }).pipe(
       tap((response: Cart) => {
         this.setCart(product, response, false);
+      })
+    );
+  }
+
+  buyCartProducts(): Observable<CartProductsBoughtDto> {
+    return this.http.post<CartProductsBoughtDto>(`${this.BASE_URL}/cart/buy`, {}).pipe(
+      tap(() => {
+        this.setInitialCart();
       })
     );
   }
