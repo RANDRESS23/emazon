@@ -4,6 +4,8 @@
   width: 100%;
   border: 1px solid $spacer-color;
   border-radius: 4px;
+  max-height: 470px;
+  overflow-y: auto;
 }
 
 .empty-cart {
@@ -242,24 +244,6 @@
     width: 100%;
     border-bottom: 1px solid $spacer-color;
   }
-}
-
-.info-cart-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.label-info {
-  font-size: 15px;
-}
-
-.value-info {
-  font-size: 15px;
-  font-weight: 500;
-  color: $primary;
 }
 
 @media (min-width: 760px) {
