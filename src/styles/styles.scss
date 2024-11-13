@@ -9,23 +9,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
-html::-webkit-scrollbar,
-main::-webkit-scrollbar,
-textarea::-webkit-scrollbar,
-ul::-webkit-scrollbar,
-table::-webkit-scrollbar,
-tbody::-webkit-scrollbar,
-select::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 0.7rem;
 }
 
-html::-webkit-scrollbar-thumb,
-main::-webkit-scrollbar-thumb,
-textarea::-webkit-scrollbar-thumb,
-ul::-webkit-scrollbar-thumb,
-table::-webkit-scrollbar-thumb,
-tbody::-webkit-scrollbar-thumb,
-select::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: $primary;
   border-radius: 2rem;
 }
