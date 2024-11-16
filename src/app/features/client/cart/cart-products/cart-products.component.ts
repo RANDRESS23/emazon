@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '@src/app/shared/services/cart/cart.service';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
