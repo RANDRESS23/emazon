@@ -22,3 +22,26 @@
     color: $primary;
   }
 }
+
+.cart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+@media (min-width: 760px) {
+  .cart {
+    flex-direction: row;
+    gap: 40px;
+
+    & :nth-child(1) {
+      width: 100%;
+    }
+
+    & :nth-child(2) {
+      width: 700px;
+    }
+  }
+}

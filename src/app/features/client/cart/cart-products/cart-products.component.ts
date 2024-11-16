@@ -1,6 +1,4 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '@src/app/core/services/product/product.service';
 import { CartService } from '@src/app/shared/services/cart/cart.service';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
 import { INITIAL_PAGE_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE } from '@utils/constants/admin';
@@ -12,8 +10,7 @@ import { CartProductFullInfo, ListCartProducts } from '@utils/interfaces/cart';
 @Component({
   selector: 'app-cart-products',
   templateUrl: './cart-products.component.html',
-  styleUrls: ['./cart-products.component.scss'],
-  providers: [DatePipe]
+  styleUrls: ['./cart-products.component.scss']
 })
 export class CartProductsComponent implements OnInit {
   pageNumber: number = INITIAL_PAGE_TABLE;
@@ -25,20 +22,14 @@ export class CartProductsComponent implements OnInit {
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   listOfProductsCart: CartProductFullInfo[] = [];
   toastMessage: string = EMPTY_STRING;
-  lastDateOfCartModification: string = EMPTY_STRING;
-  totalPurchasePrice: number = ZERO;
 
-  constructor(private toastService: ToastService, private cartService: CartService, private datePipe: DatePipe) { }
+  constructor(private toastService: ToastService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartService.cartPagedClient.subscribe((cartPagedClient) => {
       this.listOfProductsCart = cartPagedClient?.products?.content || [];
       this.totalPages = cartPagedClient?.products?.totalPages;
       this.totalElements = cartPagedClient?.products?.totalElements;
-      this.totalPurchasePrice = cartPagedClient?.cart?.totalPrice;
-      
-      const date = cartPagedClient?.cart?.updatedAt.toString();
-      this.lastDateOfCartModification = this.datePipe.transform(date, 'dd/MM/yyyy hh:mm:ss a') || '';
     });
 
     this.getCartProducts();
@@ -55,10 +46,6 @@ export class CartProductsComponent implements OnInit {
         this.listOfProductsCart = data?.products?.content || [];
         this.totalPages = data?.products?.totalPages;
         this.totalElements = data?.products?.totalElements;
-        this.totalPurchasePrice = data?.cart?.totalPrice;
-        
-        const date = data?.cart?.updatedAt.toString();
-        this.lastDateOfCartModification = this.datePipe.transform(date, 'dd/MM/yyyy hh:mm:ss a') || '';
       },
       error: (error) => {
         console.error({ error });

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { CartService } from './cart.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Cart, CartProductRequest, ListCartProducts } from '@utils/interfaces/cart';
+import { Cart, CartProductRequest, CartProductsBoughtDto, ListCartProducts } from '@utils/interfaces/cart';
 
 describe('CartService', () => {
   let service: CartService;
@@ -161,5 +161,20 @@ describe('CartService', () => {
 
     service.setInitialCart();
     expect(service['cartPaged']).toEqual({} as ListCartProducts);
+  });
+
+  it('should make a POST request to buy cart products and call setInitialCart', (done) => {
+    const mockResponse: CartProductsBoughtDto = { message: 'Purchase successful' };
+
+    service.buyCartProducts().subscribe((response) => {
+      expect(response).toEqual(mockResponse);
+      done();
+    });
+
+    const req = httpMock.expectOne(`${service['BASE_URL']}/cart/buy`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({});
+
+    req.flush(mockResponse);
   });
 });

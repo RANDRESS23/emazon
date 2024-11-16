@@ -1,14 +1,6 @@
-<div class="info-cart-container">
-  <div>
-    <span class="label-info">Fecha Modificación:</span>
-    <span class="value-info"> {{ lastDateOfCartModification }}</span>
-  </div>
-  <div>
-    <span class="label-info">Total compra:</span>
-    <span class="value-info"> $ {{ totalPurchasePrice }}</span>
-  </div>
-</div>
 <app-filters-cart-products
+  [pageNumber]="pageNumber"
+  [size]="size"
   (showFilterOrders)="showFilterOrders($event)"
 >
 </app-filters-cart-products>

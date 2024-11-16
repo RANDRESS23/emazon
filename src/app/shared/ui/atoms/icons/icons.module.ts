@@ -19,6 +19,7 @@ import { SignInIconComponent } from './sign-in-icon/sign-in-icon.component';
 import { RemoveIconComponent } from './remove-icon/remove-icon.component';
 import { PlusIconComponent } from './plus-icon/plus-icon.component';
 import { MinusIconComponent } from './minus-icon/minus-icon.component';
+import { ShoppingBagIconComponent } from './shopping-bag-icon/shopping-bag-icon.component';
 
 
 
@@ -42,7 +43,8 @@ import { MinusIconComponent } from './minus-icon/minus-icon.component';
     SignInIconComponent,
     RemoveIconComponent,
     PlusIconComponent,
-    MinusIconComponent
+    MinusIconComponent,
+    ShoppingBagIconComponent
   ],
   imports: [
     CommonModule
@@ -66,7 +68,8 @@ import { MinusIconComponent } from './minus-icon/minus-icon.component';
     CartPlusIconComponent,
     RemoveIconComponent,
     PlusIconComponent,
-    MinusIconComponent
+    MinusIconComponent,
+    ShoppingBagIconComponent
   ]
 })
 export class IconsModule { }

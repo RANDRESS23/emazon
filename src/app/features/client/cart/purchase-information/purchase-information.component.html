@@ -1,0 +1,34 @@
+<section class="summary">
+  <h3 class="summary__title">Resumen del pedido</h3>
+  <div class="container">
+    <div class="content-info">
+      <span class="content-info__label-secondary">Fecha Modificación</span>
+      <span class="content-info__value">{{ lastDateOfCartModification }}</span>
+    </div>
+    <div class="content-info">
+      <span class="content-info__label-secondary">Subtotal</span>
+      <span class="content-info__value">$ {{ totalPurchasePrice }}</span>
+    </div>
+  </div>
+  <div class="dividing-line">
+    <div></div>
+  </div>
+  <div class="container">
+    <div class="content-info">
+      <span class="content-info__label-primary">Total</span>
+      <span class="content-info__value">$ {{ totalPurchasePrice }}</span>
+    </div>
+  </div>
+  <div class="button-buy">
+    <atom-button 
+      (click)="purchaseProducts()"
+      [text]="buttonText" 
+      [type]="buttonTypeButton" 
+      [size]="buttonSizeMedium"
+      [isDisabled]="isDisablePurchaseButton"
+      [isSecondaryButton]="false"
+    >
+      <atom-shopping-bag-icon></atom-shopping-bag-icon>
+    </atom-button>
+  </div>
+</section>
