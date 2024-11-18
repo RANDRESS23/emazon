@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '@src/app/shared/services/cart/cart.service';
 import { ToastService } from '@src/app/shared/services/toast/toast.service';
 import { INITIAL_PAGE_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE } from '@utils/constants/admin';
@@ -23,7 +24,7 @@ export class CartProductsComponent implements OnInit {
   listOfProductsCart: CartProductFullInfo[] = [];
   toastMessage: string = EMPTY_STRING;
 
-  constructor(private toastService: ToastService, private cartService: CartService) { }
+  constructor(private toastService: ToastService, private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
     this.cartService.cartPagedClient.subscribe((cartPagedClient) => {
@@ -95,5 +96,9 @@ export class CartProductsComponent implements OnInit {
     this.pageNumber = INITIAL_PAGE_TABLE;
 
     this.getCartProducts();
+  }
+
+  navigateToDetail(productId: number): void {
+    this.router.navigate([`/producto/${productId}`]);
   }
 }

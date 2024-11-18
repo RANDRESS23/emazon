@@ -9,7 +9,7 @@
     *ngFor="let productCart of listOfProductsCart; let i = index"
   >
     <article class="product">
-      <div class="product__image-container">
+      <div class="product__image-container" (click)="navigateToDetail(productCart.productId)">
         <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
         <div class="product__image-container-quantity-stock">
           <span>{{ productCart.stockQuantity }}</span>
