@@ -1,6 +1,6 @@
 <section class="list">
   <article *ngFor="let product of listOfProducts" class="product">
-    <div class="product__image-container">
+    <div class="product__image-container" (click)="navigateToDetail(product.productId)">
       <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
       <div class="product__image-container-category">
         <span

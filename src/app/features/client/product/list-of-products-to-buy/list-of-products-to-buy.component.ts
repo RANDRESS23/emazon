@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@src/app/core/services/auth/auth.service';
 import { ProductService } from '@src/app/core/services/product/product.service';
 import { CartService } from '@src/app/shared/services/cart/cart.service';
@@ -25,7 +26,7 @@ export class ListOfProductsToBuyComponent implements OnInit {
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   toastMessage: string = EMPTY_STRING;
 
-  constructor(private authService: AuthService, private productService: ProductService, private toastService: ToastService, private cartService: CartService) { }
+  constructor(private authService: AuthService, private productService: ProductService, private toastService: ToastService, private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
     this.getProducts(this.pageNumber, this.size, this.sortOrder, this.sortBy);
@@ -68,5 +69,9 @@ export class ListOfProductsToBuyComponent implements OnInit {
     } else {
       this.toastService.showToast(ERROR_CLIENT_NOT_LOGGED2, StatusEnum.ERROR, ERROR_ICON_PATH);
     }
+  }
+
+  navigateToDetail(productId: number): void {
+    this.router.navigate([`/producto/${productId}`]);
   }
 }
