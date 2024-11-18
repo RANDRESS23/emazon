@@ -1,0 +1,256 @@
+@import '/src/styles/styles.scss';
+
+.product {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.images-containers {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &__options {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.image-container-principal-mobile {
+  display: flex;
+}
+
+.image-container-principal-desktop {
+  display: none;
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg-light-grey;
+  border: 1px solid transparent;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: .2s ease all;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+  
+  &:hover img {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
+  }
+  
+  &:hover &-category span, &:hover &-quantity-stock span {
+    background-color: $white-color;
+    color: $primary;
+  }
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
+  }
+}
+
+.image-container-principal {
+  width: 100%;
+  height: 180px;
+}
+
+.image-container-secondary {
+  width: 100%;
+  height: 80px;
+}
+
+.image-container-selected {
+  border: 1px solid $primary;
+}
+
+.product-info {
+  &__title {
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  &__price {
+    margin-top: 5px;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  &__description {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  &__container-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    width: 105px;
+    height: 31px;
+    background-color: $bg-light-grey;
+    border-radius: 62px;
+  
+    & button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      background-color: transparent;
+      height: 100%;
+      border: none;
+      cursor: pointer;
+      transition: .2s ease all;
+  
+      &:nth-child(1) {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+      }
+      
+      &:nth-child(3) {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+  
+      &:hover {
+        color: $primary;
+      }
+    }
+  
+    & span {
+      text-align: center;
+      font-weight: 500;
+      flex: 1;
+    }
+  }
+}
+
+.product-info-content {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  &__label {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__value {
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  &__categories {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    transition: .2s ease all;
+    
+    & span {
+      max-width: 120px;
+      background-color: $primary;
+      font-size: 16px;
+      border-radius: 4px;
+      color: $white-color;
+      padding: 3px 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      anchor-name: category;
+    }
+  }
+
+  &__stock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px;
+    background-color: $primary;
+    color: $white-color;
+    border-radius: 50%;
+  }
+}
+
+.dividing-line {
+  width: 100%;
+  padding: 15px 0;
+  
+  & div {
+    width: 100%;
+    border-bottom: 1px solid $spacer-color;
+  }
+}
+
+@media (min-width: 760px) {
+  .product {
+    flex-direction: row;
+    gap: 40px;
+  }
+  
+  .images-containers {
+    flex-direction: row;
+
+    &__options {
+      flex-direction: column;
+    }
+  }
+
+  .image-container-principal-mobile {
+    display: none;
+  }
+  
+  .image-container-principal-desktop {
+    display: flex;
+  }
+
+  .image-container-principal {
+    width: 410px;
+    height: 400px;
+  }
+  
+  .image-container-secondary {
+    width: 120px;
+    height: 100%;
+  }
+
+  .product-info {
+    &__buttons {
+      width: 145px;
+      height: 41px;
+    }
+  }
+
+  .button-add-cart {
+    width: 70%;
+  }
+}

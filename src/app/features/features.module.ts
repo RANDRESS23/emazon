@@ -23,6 +23,7 @@ import { ListOfProductsToBuyComponent } from './client/product/list-of-products-
 import { CartProductsComponent } from './client/cart/cart-products/cart-products.component';
 import { FiltersCartProductsComponent } from './client/cart/filters-cart-products/filters-cart-products.component';
 import { PurchaseInformationComponent } from './client/cart/purchase-information/purchase-information.component';
+import { AllProductDetailComponent } from './client/product/all-product-detail/all-product-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PurchaseInformationComponent } from './client/cart/purchase-information
     ListOfProductsToBuyComponent,
     CartProductsComponent,
     FiltersCartProductsComponent,
-    PurchaseInformationComponent
+    PurchaseInformationComponent,
+    AllProductDetailComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ import { PurchaseInformationComponent } from './client/cart/purchase-information
     CartProductsComponent,
     FiltersCartProductsComponent,
     PurchaseInformationComponent,
+    AllProductDetailComponent,
     FormSignInComponent,
     FormSignUpComponent
   ]
