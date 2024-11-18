@@ -7,6 +7,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { RolesEnum } from '@utils/enums/roles';
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { ClientGuard } from './core/guards/client/client.guard';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthenticatedGuard] },
@@ -29,6 +30,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: RolesEnum.CLIENTE } 
   },
+  { path: 'producto/:productId', component: ProductDetailComponent, canActivate: [ClientGuard] },
   { path: '', component: InicioComponent, canActivate: [ClientGuard] },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
