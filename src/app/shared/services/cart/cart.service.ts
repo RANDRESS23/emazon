@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@src/environments/environment';
+import { INITIAL_PAGE_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE } from '@utils/constants/admin';
+import { INITIAL_FILTER_BRAND, INITIAL_FILTER_CATEGORY } from '@utils/constants/client';
 import { Cart, CartProductRequest, CartProductsBoughtDto, ListCartProducts } from '@utils/interfaces/cart';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
@@ -23,6 +25,7 @@ export class CartService {
   saveProductInTheCart(product: CartProductRequest): Observable<Cart> {
     return this.http.post<Cart>(`${this.BASE_URL}/cart`, product).pipe(
       tap((response: Cart) => {
+        this.getAllCartProducts(INITIAL_PAGE_TABLE, response.products.length, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_FILTER_CATEGORY, INITIAL_FILTER_BRAND).subscribe();
         this.setCart(product, response, true);
       })
     );
