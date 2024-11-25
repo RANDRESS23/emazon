@@ -16,6 +16,7 @@ import { InicioWarehouseAssistantComponent } from './profile/warehouse-assistant
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { CartComponent } from './profile/client/cart/cart.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CartComponent } from './profile/client/cart/cart.component';
     InicioWarehouseAssistantComponent,
     SignUpComponent,
     InicioComponent,
-    CartComponent
+    CartComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

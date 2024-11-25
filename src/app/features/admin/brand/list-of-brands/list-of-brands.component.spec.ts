@@ -4,10 +4,13 @@ import { ListOfBrandsComponent } from './list-of-brands.component';
 import { BrandService } from '@src/app/core/services/brand/brand.service';
 import { PageBrands } from '@utils/interfaces/brand';
 import { INITIAL_PAGE_TABLE } from '@utils/constants/admin';
+import { AuthService } from '@src/app/core/services/auth/auth.service';
+import { RolesEnum } from '@utils/enums/roles';
 
 describe('ListOfBrandsComponent', () => {
   let component: ListOfBrandsComponent;
   let brandService: BrandService;
+  let authService: jest.Mocked<AuthService>;
 
   const mockPageBrands: PageBrands = {
     pageNumber: 0,
@@ -25,15 +28,22 @@ describe('ListOfBrandsComponent', () => {
       getAllBrands: jest.fn().mockReturnValue(of(mockPageBrands)),
     };
 
+    const authServiceMock = {
+      isAuthenticated: jest.fn(),
+      getRole: jest.fn()
+    };
+
     TestBed.configureTestingModule({
       providers: [
         ListOfBrandsComponent,
+        { provide: AuthService, useValue: authServiceMock },
         { provide: BrandService, useValue: brandServiceMock },
       ],
     });
 
     component = TestBed.inject(ListOfBrandsComponent);
     brandService = TestBed.inject(BrandService);
+    authService = TestBed.inject(AuthService) as jest.Mocked<AuthService>;
   });
 
   it('should call getBrands on ngOnInit', () => {
@@ -82,5 +92,23 @@ describe('ListOfBrandsComponent', () => {
     expect(component.sortOrder).toBe('asc');
     expect(component.pageNumber).toBe(INITIAL_PAGE_TABLE);
     expect(getBrandsSpy).toHaveBeenCalledWith(INITIAL_PAGE_TABLE, 10, 'asc');
+  });
+
+  it('should set showButtonAddBrand to true if the role is ADMIN', () => {
+    jest.spyOn(authService, 'getRole').mockReturnValue(RolesEnum.ADMIN);
+
+    component.ngOnInit();
+
+    expect(component.showButtonAddBrand).toBe(true);
+    expect(jest.spyOn(authService, 'getRole')).toHaveBeenCalled();
+  });
+
+  it('should set showButtonAddBrand to false if the role is not ADMIN', () => {
+    jest.spyOn(authService, 'getRole').mockReturnValue(RolesEnum.AUX_BODEGA);
+
+    component.ngOnInit();
+
+    expect(component.showButtonAddBrand).toBe(false);
+    expect(jest.spyOn(authService, 'getRole')).toHaveBeenCalled();
   });
 });

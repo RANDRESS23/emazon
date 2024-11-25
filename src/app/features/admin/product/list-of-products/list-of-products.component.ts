@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { INITIAL_PAGE_TABLE, INITIAL_SIZE_ELEMENTS_TABLE, INITIAL_SORT_BY_ELEMENTS_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE, PRODUCT_KEYS, PRODUCT_OPTIONS_SORT_BY_DROPDOWN, TABLE_HEADERS_PRODUCT } from '@utils/constants/admin';
 import { PageProducts, ProductResponse } from '@utils/interfaces/product';
 import { ProductService } from '@src/app/core/services/product/product.service';
+import { AuthService } from '@src/app/core/services/auth/auth.service';
+import { RolesEnum } from '@utils/enums/roles';
 
 @Component({
   selector: 'app-list-of-products',
@@ -19,11 +21,13 @@ export class ListOfProductsComponent implements OnInit {
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   headers: Record<string, string | boolean>[] = TABLE_HEADERS_PRODUCT;
   keys: (keyof ProductResponse)[] = PRODUCT_KEYS as (keyof (ProductResponse))[];
+  showButtonAddProduct: boolean = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getProducts(this.pageNumber, this.size, this.sortOrder, this.sortBy);
+    this.showButtonAddProduct = this.authService.getRole() === RolesEnum.ADMIN;
   }
 
   changePage(pageNumber: number): void {

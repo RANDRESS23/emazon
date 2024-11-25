@@ -10,6 +10,7 @@ import { RolesEnum } from '@utils/enums/roles';
 import { ERROR_CLIENT_NOT_LOGGED2, PRODUCT_SAVED_IN_CART } from '@utils/constants/client';
 import { StatusEnum } from '@utils/enums/status';
 import { ERROR_ICON_PATH, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { Router } from '@angular/router';
 
 describe('ListOfProductsToBuyComponent', () => {
   let component: ListOfProductsToBuyComponent;
@@ -18,6 +19,7 @@ describe('ListOfProductsToBuyComponent', () => {
   let mockProductService: any;
   let mockToastService: any;
   let mockCartService: any;
+  let routerMock: any;
 
   beforeEach(() => {
     mockAuthService = {
@@ -37,6 +39,10 @@ describe('ListOfProductsToBuyComponent', () => {
       showToast: jest.fn()
     };
 
+    routerMock = {
+      navigate: jest.fn()
+    };
+
     mockCartService = {
       saveProductInTheCart: jest.fn()
     };
@@ -47,7 +53,8 @@ describe('ListOfProductsToBuyComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: ProductService, useValue: mockProductService },
         { provide: ToastService, useValue: mockToastService },
-        { provide: CartService, useValue: mockCartService }
+        { provide: CartService, useValue: mockCartService },
+        { provide: Router, useValue: routerMock }
       ]
     }).compileComponents();
 
@@ -77,6 +84,13 @@ describe('ListOfProductsToBuyComponent', () => {
     component.changePage(2);
     expect(component.pageNumber).toBe(2);
     expect(component.getProducts).toHaveBeenCalledWith(2, component.size, component.sortOrder, component.sortBy);
+  });
+
+  it('should call navigateToDetail when image product is clicked', () => {
+    const productId = 1;
+
+    component.navigateToDetail(productId);
+    expect(routerMock.navigate).toHaveBeenCalledWith([`/producto/${productId}`]);
   });
 
   it('should fetch products and set data on getProducts', () => {

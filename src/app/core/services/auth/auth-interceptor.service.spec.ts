@@ -1,60 +1,70 @@
-import { TestBed } from '@angular/core/testing';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { AuthService } from './auth.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { of } from 'rxjs';
 
 describe('AuthInterceptorService', () => {
-  let authService: AuthService;
-  let httpMock: HttpTestingController;
-  let httpClient: HttpClient;
-
-  const mockToken = 'mockToken';
+  let authInterceptor: AuthInterceptorService;
+  let authService: jest.Mocked<AuthService>;
+  let next: jest.Mocked<HttpHandler>;
 
   beforeEach(() => {
-    const authServiceMock = {
-      getToken: jest.fn()
-    };
+    authService = {
+      getToken: jest.fn(),
+      isAuthenticated: jest.fn(),
+    } as unknown as jest.Mocked<AuthService>;
 
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
-        { provide: AuthService, useValue: authServiceMock },
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthInterceptorService,
-          multi: true
-        }
-      ]
-    });
+    next = {
+      handle: jest.fn().mockReturnValue(of({} as HttpEvent<any>)),
+    } as jest.Mocked<HttpHandler>;
 
-    authService = TestBed.inject(AuthService);
-    httpMock = TestBed.inject(HttpTestingController);
-    httpClient = TestBed.inject(HttpClient);
+    authInterceptor = new AuthInterceptorService(authService);
   });
 
-  afterEach(() => {
-    httpMock.verify();
+  it('should pass through request unchanged if no token is present', () => {
+    authService.getToken.mockReturnValue(null);
+    authService.isAuthenticated.mockReturnValue(false);
+
+    const request = new HttpRequest('GET', '/test');
+    authInterceptor.intercept(request, next);
+
+    expect(authService.getToken).toHaveBeenCalled();
+    expect(authService.isAuthenticated).not.toHaveBeenCalled();
+    expect(next.handle).toHaveBeenCalledWith(request);
   });
 
-  it('should add Authorization header if token exists', () => {
-    (authService.getToken as jest.Mock).mockReturnValue(mockToken);
+  it('should pass through request unchanged if token exists but user is not authenticated', () => {
+    authService.getToken.mockReturnValue('mockToken');
+    authService.isAuthenticated.mockReturnValue(false);
 
-    httpClient.get('/test').subscribe();
+    const request = new HttpRequest('GET', '/test');
+    authInterceptor.intercept(request, next);
 
-    const httpRequest = httpMock.expectOne('/test');
-
-    expect(httpRequest.request.headers.has('Authorization')).toBeTruthy();
-    expect(httpRequest.request.headers.get('Authorization')).toBe(`Bearer ${mockToken}`);
+    expect(authService.getToken).toHaveBeenCalled();
+    expect(authService.isAuthenticated).toHaveBeenCalled();
+    expect(next.handle).toHaveBeenCalledWith(request);
   });
 
-  it('should not add Authorization header if no token exists', () => {
-    (authService.getToken as jest.Mock).mockReturnValue(null);
-
-    httpClient.get('/test').subscribe();
-
-    const httpRequest = httpMock.expectOne('/test');
-
-    expect(httpRequest.request.headers.has('Authorization')).toBeFalsy();
-  });
+  it('should add Authorization header if token exists and user is authenticated', () => {
+    authService.getToken.mockReturnValue('mockToken');
+    authService.isAuthenticated.mockReturnValue(true);
+  
+    const request = new HttpRequest('GET', '/test');
+    authInterceptor.intercept(request, next);
+  
+    expect(authService.getToken).toHaveBeenCalled();
+    expect(authService.isAuthenticated).toHaveBeenCalled();
+    expect(next.handle).toHaveBeenCalledWith(
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          lazyUpdate: expect.arrayContaining([
+            expect.objectContaining({
+              name: 'Authorization',
+              value: 'Bearer mockToken',
+            }),
+          ]),
+        }),
+      })
+    );
+  });  
 });

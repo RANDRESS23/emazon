@@ -1,0 +1,12 @@
+@import '/src/styles/styles.scss';
+
+.container {
+  width: 90%;
+  margin: 75px auto;
+}
+
+@media (min-width: 760px) {
+  .container {
+    margin: 100px auto;
+  }
+}

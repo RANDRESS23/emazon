@@ -79,6 +79,10 @@ export class HeaderComponent implements OnInit {
     this.cartService.setInitialCart();
   }
 
+  navigateToHomePage(): void {
+    this.router.navigate(['/']);
+  }
+
   navigateToLoginPage(): void {
     this.router.navigate(['/login']);
   }

@@ -1,0 +1,81 @@
+<section class="product">
+  <div class="images-containers">
+    <div class="images-containers__options image-container-principal-mobile">
+      <div class="image-container image-container-principal">
+        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      </div>
+    </div>
+    <div class="images-containers__options">
+      <div class="image-container image-container-secondary image-container-selected">
+        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      </div>
+      <div class="image-container image-container-secondary">
+        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      </div>
+      <div class="image-container image-container-secondary">
+        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      </div>
+    </div>
+    <div class="images-containers__options image-container-principal-desktop">
+      <div class="image-container image-container-principal">
+        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="Imagen producto">
+      </div>
+    </div>
+  </div>
+  <div class="product-info">
+    <h3 class="product-info__title">{{ product.name | uppercase }}</h3>
+    <span class="product-info__price">$ {{ product.price }}</span>
+    <p class="product-info__description">{{ product.description }}</p>
+    <div class="dividing-line">
+      <div></div>
+    </div>
+    <div class="product-info-content">
+      <span class="product-info-content__label">Marca:</span>
+      <span class="product-info-content__value">{{ product.brand.name }}</span>
+    </div>
+    <div class="dividing-line">
+      <div></div>
+    </div>
+    <div class="product-info-content">
+      <span class="product-info-content__label">Categorías:</span>
+      <div class="product-info-content__categories">
+        <span
+          *ngFor="let category of product.categories"
+        >
+          {{ category.name }}
+        </span>
+      </div>
+    </div>
+    <div class="dividing-line">
+      <div></div>
+    </div>
+    <div class="product-info-content">
+      <span class="product-info-content__label">Cantidad en stock:</span>
+      <span class="product-info-content__stock">{{ product.quantity }}</span>
+    </div>
+    <div class="dividing-line">
+      <div></div>
+    </div>
+    <div class="product-info__container-buttons">
+      <div class="product-info__buttons">
+        <button (click)="deleteProductCart(product.productId)">
+          <atom-minus-icon></atom-minus-icon>
+        </button>
+        <span>{{ productQuantityInTheCart }}</span>
+        <button (click)="addProductCart(product.productId)">
+          <atom-plus-icon></atom-plus-icon>
+        </button>
+      </div>
+      <atom-button 
+        [text]="buttonText" 
+        [type]="buttonTypeButton" 
+        [size]="buttonSizeMedium"
+        [isSecondaryButton]="false"
+        class="button-add-cart"
+        (click)="addProductCart(product.productId)"
+      >
+        <atom-cart-plus-icon></atom-cart-plus-icon>
+      </atom-button>
+    </div>
+  </div>
+</section>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '@src/app/core/services/category/category.service';
 import { CategoryResponse, PageCategories } from '@utils/interfaces/category';
 import { CATEGORY_KEYS, INITIAL_PAGE_TABLE, INITIAL_SIZE_ELEMENTS_TABLE, INITIAL_SORT_ORDER_ELEMENTS_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TABLE, TABLE_HEADERS_CATEGORY } from '@utils/constants/admin';
+import { AuthService } from '@src/app/core/services/auth/auth.service';
+import { RolesEnum } from '@utils/enums/roles';
 
 @Component({
   selector: 'app-list-of-categories',
@@ -17,11 +19,13 @@ export class ListOfCategoriesComponent implements OnInit {
   totalElements: number = INITIAL_TOTAL_ELEMENTS_TABLE;
   headers: Record<string, string | boolean>[] = TABLE_HEADERS_CATEGORY;
   keys: (keyof CategoryResponse)[] = CATEGORY_KEYS as (keyof (CategoryResponse))[];
+  showButtonAddCategory: boolean = false;
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCategories(this.pageNumber, this.size, this.sortOrder);
+    this.showButtonAddCategory = this.authService.getRole() === RolesEnum.ADMIN;
   }
 
   changePage(pageNumber: number): void {
