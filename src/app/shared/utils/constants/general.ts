@@ -60,6 +60,21 @@ export const MENU_ITEMS_WAREHOUSE_ASSISTANT: Record<string, string>[] = [
     label: 'Suministros',
     path: '/perfil/auxiliar-bodega/panel-suministro',
     icon: 'supply'
+  },
+  {
+    label: 'Categorías',
+    path: '/perfil/auxiliar-bodega/panel-categoria',
+    icon: 'category'
+  },
+  {
+    label: 'Marcas',
+    path: '/perfil/auxiliar-bodega/panel-marca',
+    icon: 'brand'
+  },
+  {
+    label: 'Productos',
+    path: '/perfil/auxiliar-bodega/panel-producto',
+    icon: 'product'
   }
 ]
 export const MENU_ITEMS_CLIENT: Record<string, string>[] = [
