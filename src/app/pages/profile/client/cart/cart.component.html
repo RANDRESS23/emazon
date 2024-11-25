@@ -1,0 +1,13 @@
+<molecule-header [menuItems]="menuItems"></molecule-header>
+<main class="container">
+  <div class="titles">
+    <h1 class="title">
+      Carrito de <span class="title--primary">compras</span>
+    </h1>
+    <p class="titles__description">Aqui se muestran todos los productos que has agregado al carrito de compras, puedes eliminarlos o continuar con el proceso de compra si lo deseas.</p>
+  </div>
+  <div class="cart">
+    <app-cart-products></app-cart-products>
+    <app-purchase-information></app-purchase-information>
+  </div>
+</main>

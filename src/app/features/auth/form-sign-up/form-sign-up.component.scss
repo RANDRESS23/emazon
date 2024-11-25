@@ -1,0 +1,51 @@
+@import '/src/styles/styles.scss';
+
+.form {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 4px;
+  border: 1px solid $spacer-light-color;
+  background-color: $white-color;
+  box-shadow: 0px 8px 16px 0px rgba(62, 19, 77, 0.07);
+  padding: 25px;
+
+  &__title {
+    font-size: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    &--primary {
+      color: $primary;
+    }
+  }
+
+  &__footer {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+
+    &--link {
+      color: $primary;
+      text-decoration: none;
+      font-weight: 500;
+      transition: .2s ease all;
+
+      &:hover {
+        color: $primary-click;
+      }
+    }
+  }
+}
+
+@media (min-width: 760px) {
+  .form {
+    width: 450px;
+
+    &__title {
+      font-size: 30px;
+    }
+  }
+}

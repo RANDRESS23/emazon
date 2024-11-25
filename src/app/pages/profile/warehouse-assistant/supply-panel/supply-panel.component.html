@@ -1,0 +1,13 @@
+<molecule-header [menuItems]="menuItems" [isAdminOrWarehouseAssistantLogged]="isWarehouseAssistantLogged"></molecule-header>
+<main class="container">
+  <molecule-sidebar [menuItems]="menuItems"></molecule-sidebar>
+  <section class="section">
+    <div class="titles">
+      <h1 class="title">
+        Administrar <span class="title--primary">suministros</span>
+      </h1>
+      <p class="titles__description">Gestiona fácilmente los suministros de Emazon. Agrega, y visualiza todas los suministros en un solo lugar para mantener tu catálogo organizado y actualizado.</p>
+    </div>
+    <app-list-of-products-supply></app-list-of-products-supply>
+  </section>
+</main>

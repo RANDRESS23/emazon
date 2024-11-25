@@ -1,0 +1,23 @@
+<header class="header">
+  <ng-content></ng-content>
+  <div class="dropdowns">
+    <div class="dropdowns__principal">
+      <atom-dropdown-table
+        [label]="labelShowByDropdown"
+        [options]="optionsShowByDropdown"
+        (optionChange)="changeShowBy($event)"
+      ></atom-dropdown-table>
+      <atom-dropdown-table
+        [label]="labelSortOrderDropdown"
+        [options]="optionsSortOrderDropdown"
+        (optionChange)="changeSortOrder($event)"
+      ></atom-dropdown-table>
+    </div>
+    <atom-dropdown-table
+      *ngIf="showSortByDropdown"
+      [label]="labelSortByDropdown"
+      [options]="optionsSortByDropdown"
+      (optionChange)="changeSortBy($event)"
+    ></atom-dropdown-table>
+  </div>
+</header>

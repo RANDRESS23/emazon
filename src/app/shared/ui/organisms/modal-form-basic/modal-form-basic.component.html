@@ -1,0 +1,35 @@
+<div class="modal" *ngIf="showModal" [@modalAnimationContainer]>
+  <div class="modal__content" [@modalAnimationContent]>
+    <div class="modal__header">
+      <h2 class="modal__title">
+        {{ modalTitle }}
+        <span class="modal__title-primary">{{ modalTitlePrimary }}</span>
+      </h2>
+      <button class="modal__close" (click)="onShowModal()">
+        <img [src]="pathCloseIcon" alt="Close icon" />
+      </button>
+    </div>
+    <main class="modal__body">
+      <molecule-form-basic 
+        [inputLabel]="inputLabel"
+        [inputPlaceholder]="inputPlaceholder"
+        [inputName]="inputName"
+        [textareaLabel]="textareaLabel"
+        [textareaPlaceholder]="textareaPlaceholder"
+        [textareaName]="textareaName"
+        [buttonSaveText]="buttonSaveText"
+        [nameMaxLength]="nameMaxLength"
+        [descriptionMaxLength]="descriptionMaxLength"
+        [showModal]="onShowModal.bind(this)"
+        [moreFields]="moreFields"
+        [moreInputs]="moreInputs"
+        [moreDropdowns]="moreDropdowns"
+        [moreDropdownsCombobox]="moreDropdownsCombobox"
+        (changeStatusSaveButtonEvent)="changeStatusSaveButtonOutput($event)"
+        (formDataEvent)="handleSubmit($event)"
+      >
+      <ng-content></ng-content>
+    </molecule-form-basic>
+    </main>
+  </div>
+</div>

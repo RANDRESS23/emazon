@@ -1,0 +1,81 @@
+@import '/src/styles/styles.scss';
+
+.button {
+  width: 100%;
+  background-color: $primary;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: $white-color;
+  cursor: pointer;
+  transition: .2s ease all;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+
+  &:active {
+    background-color: $primary-click;
+  }
+
+  &:disabled {
+    background-color: $primary-disabled;
+    cursor: not-allowed;
+  }
+}
+
+.button-secondary {
+  background-color: $white-color;
+  border: 1px solid $primary;
+  color: $primary;
+  
+  &:hover {
+    background-color: $white-color;
+    border: 1px solid $primary-hover;
+    color: $primary-hover;
+  }
+  
+  &:active {
+    background-color: $white-color;
+    border: 1px solid $primary-click;
+    color: $primary-click;
+  }
+
+  &:disabled {
+    background-color: $white-color;
+    border: 1px solid $disabled-color;
+    color: $disabled-color;
+    cursor: not-allowed;
+  }
+}
+
+.button-size-full {
+  width: 100%;
+}
+
+.button-size-l {
+  min-width: 189px;
+  min-height: 48px;
+  font-size: 18px;
+  font-weight: 400px;
+  padding: 12px 10px 12px 10px;
+}
+
+.button-size-m {
+  min-width: 135px;
+  min-height: 40px;
+  font-size: 16px;
+  font-weight: 400px;
+  padding: 8px;
+}
+
+.button-size-s {
+  min-width: 94px;
+  min-height: 28px;
+  font-size: 14px;
+  font-weight: 400px;
+  padding: 7px 10px;
+}

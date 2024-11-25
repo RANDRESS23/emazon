@@ -1,0 +1,59 @@
+@import '/src/styles/styles.scss';
+
+.summary {
+  width: 100%;
+  border: 1px solid $spacer-color;
+  border-radius: 4px;
+  padding: 20px;
+
+  &__title {
+    font-size: 20px;
+    margin-bottom: 20px;
+
+    &-secondary {
+      color: $primary;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0;
+  gap: 5px;
+}
+
+.content-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  &__label-primary {
+    font-weight: 500;
+  }
+  
+  &__label-secondary {
+    color: grey;
+    font-weight: 400;
+  }
+
+  &__value {
+    text-align: right;
+    font-weight: 700;
+  }
+}
+
+.dividing-line {
+  width: 100%;
+  
+  & div {
+    width: 100%;
+    border-bottom: 1px solid $spacer-color;
+  }
+}
+
+.button-buy {
+  margin-top: 30px;
+}

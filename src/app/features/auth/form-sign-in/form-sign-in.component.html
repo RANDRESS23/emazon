@@ -1,0 +1,23 @@
+<div class="form">
+  <h2 class="form__title">
+    Iniciar <span class="form__title--primary">sesión</span>
+  </h2>
+  <molecule-form-basic 
+    [buttonSaveText]="buttonSaveText"
+    [moreFields]="moreFields"
+    [moreInputs]="moreInputs"
+    [isDisabledSaveIcon]="isDisabledSaveIcon"
+    (changeStatusSaveButtonEvent)="changeStatusSaveButtonOutput($event)"
+    (formDataEvent)="handleSubmit($event)"
+  >
+  </molecule-form-basic>
+  <span class="form__footer">
+    ¿No tienes una cuenta?
+    <a 
+      class="form__footer--link"
+      [routerLink]="['/sign-up']"
+    >
+      Regístrate
+    </a>
+  </span>
+</div>

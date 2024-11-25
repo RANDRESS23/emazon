@@ -1,0 +1,135 @@
+<header class="header">
+  <nav class="navbar">
+    <ul class="list-primary">
+      <li class="list-primary__menu-button">
+        <atom-menu-button 
+          *ngIf="!showNavbarMobileContent" 
+          (click)="toggleNavbarMobileContent()"
+        ></atom-menu-button>
+
+        <button 
+          *ngIf="showNavbarMobileContent"
+          (click)="toggleNavbarMobileContent()"
+          class="cancel-button" 
+        >
+          <atom-cancel-icon></atom-cancel-icon>
+        </button>
+      </li>
+      <li class="list-primary__logo" (click)="navigateToHomePage()">
+        <img src="../../../../../assets/logo-emazon-1.webp" alt="logo">
+      </li>
+    </ul>
+    <ul class="list-items-desktop" *ngIf="!isAdminOrWarehouseAssistantLogged">
+      <li *ngFor="let item of menuItems">
+        <a 
+          class="item-desktop"
+          [routerLink]="[item['path']]" 
+          routerLinkActive="item-desktop-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          {{ item['label'] }}
+        </a>
+      </li>
+    </ul>
+    <ul class="list-items-desktop-auth">
+      <li *ngIf="!isLogged">
+        <atom-button 
+          (click)="navigateToSignUpPage()"
+          [text]="buttonSignUpText" 
+          [type]="buttonTypeButton" 
+          [size]="buttonSizeSmall"
+          class="button-sign-up"
+        >
+        </atom-button>
+      </li>
+      <li *ngIf="!isLogged">
+        <atom-button 
+          (click)="navigateToLoginPage()"
+          [text]="buttonLoginText" 
+          [type]="buttonTypeButton" 
+          [size]="buttonSizeSmall"
+          [isSecondaryButton]="true"
+          class="button-sign-in"
+        >
+        </atom-button>
+      </li>
+      <li *ngIf="isLogged">
+        <atom-button 
+          (click)="signOut()"
+          [text]="buttonSignOutText" 
+          [type]="buttonTypeButton" 
+          [size]="buttonSizeSmall"
+          class="button-sign-out"
+        >
+        </atom-button>
+      </li>
+      <li class="button-cart" *ngIf="isClient">
+        <button (click)="navigateToCart()">
+          <atom-cart-icon></atom-cart-icon>
+          <span *ngIf="cartNotEmpty">{{ countCartProducts }}</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <main class="navbar-mobile-container" *ngIf="showNavbarMobileContent" [@mobileContainerAnimation]>
+    <div class="navbar-mobile-content">
+      <ul class="list-mobile">
+        <li *ngFor="let item of menuItems">
+          <a 
+            class="item-mobile"
+            [routerLink]="[item['path']]" 
+            routerLinkActive="item-mobile-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <ng-container *ngIf="item['icon']">
+              <div class="icon-mobile">
+                <ng-container *ngComponentOutlet="item['icon'] | dynamicComponent"></ng-container>
+              </div>
+            </ng-container>
+            {{ item['label'] }}
+          </a>
+        </li>
+        <li *ngIf="!isLogged">
+          <a 
+            class="item-mobile"
+            [routerLink]="['/login']" 
+            routerLinkActive="item-mobile-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <ng-container>
+              <div class="icon-mobile">
+                <ng-container *ngComponentOutlet="'signIn' | dynamicComponent"></ng-container>
+              </div>
+            </ng-container>
+            Iniciar Sesión
+          </a>
+        </li>
+        <li *ngIf="!isLogged">
+          <a 
+            class="item-mobile"
+            [routerLink]="['/sign-up']" 
+            routerLinkActive="item-mobile-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <ng-container>
+              <div class="icon-mobile">
+                <ng-container *ngComponentOutlet="'signUp' | dynamicComponent"></ng-container>
+              </div>
+            </ng-container>
+            Registrarse
+          </a>
+        </li>
+        <li *ngIf="isLogged">
+          <atom-button 
+            (click)="signOut()"
+            [text]="buttonSignOutText" 
+            [type]="buttonTypeButton" 
+            [size]="buttonSizeSmall"
+            class="button-sign-out-mobile"
+          >
+          </atom-button>
+        </li>
+      </ul>
+    </div>
+  </main>
+</header>

@@ -1,0 +1,20 @@
+<section>
+  <organism-header-table
+    (showFilterOrders)="showFilterOrders($event)"
+  >
+    <app-add-brand
+      [addNewBrandCount]="addNewBrandCount.bind(this)"
+      *ngIf="showButtonAddBrand"
+    ></app-add-brand>
+  </organism-header-table>
+  <organism-table
+    [list]="listOfBrands"
+    [headers]="headers"
+    [keys]="keys"
+  ></organism-table>
+  <atom-pagination
+    [pageNumber]="pageNumber"
+    [totalPages]="totalPages"
+    (pageNumberChange)="changePage($event)"
+  ></atom-pagination>
+</section>

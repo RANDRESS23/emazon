@@ -1,0 +1,27 @@
+@import '/src/styles/styles.scss';
+
+.dropdown {
+  display: flex;
+  gap: 5px;
+
+  &__label {
+    font-size: 14px;
+    font-weight: 400;
+    color: $black-color;
+  }
+}
+
+.select {
+  border: none;
+  color: $primary;
+  cursor: pointer;
+
+  &__option {
+    font-size: 14px;
+    font-weight: 300;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}

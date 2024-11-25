@@ -1,0 +1,34 @@
+<div class="container">
+  <label 
+    [htmlFor]="inputName" 
+    class="container__label"
+    *ngIf="inputLabel"
+  >{{ inputLabel }}</label>
+  <div class="container__input-content">
+    <input 
+      [placeholder]="inputPlaceholder"
+      [type]="inputType"
+      [name]="inputName"
+      [disabled]="isDisabled"
+      class="container__input"
+      [ngClass]="{'container__input--error': isErrored}"
+      [value]="value"
+      (input)="onInputChange($event)"
+    />
+    <atom-eye-closed-icon 
+      *ngIf="!showPassword && inputType === 'password'"
+      class="container__input__eye-icon"
+      [ngClass]="{'container__input__eye-icon--error': isErrored}"  
+      (click)="toggleShowPassword()"
+    ></atom-eye-closed-icon>
+    <atom-eye-icon 
+      *ngIf="showPassword"
+      class="container__input__eye-icon"
+      [ngClass]="{'container__input__eye-icon--error': isErrored}"  
+      (click)="toggleShowPassword()"
+    ></atom-eye-icon>
+  </div>
+  <div class="error">
+    <p class="error__text" *ngIf="isErrored" [@ErrorTextAnimation]>{{ errorText }}</p>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+@import '/src/styles/styles.scss';
+
+.toast {
+  position: fixed;
+  z-index: 200;
+  bottom: 20px;
+  right: 7.5%;
+  left: 7.5%;
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid $spacer-light-color;
+  background-color: $white-color;
+  box-shadow: 0px 8px 16px 0px rgba(62, 19, 77, 0.07);
+
+  &__bar-left {
+    width: 6px;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    border-radius: 4px 0 0 4px;
+
+    &--success {
+      background-color: $approval-light;
+    }
+    
+    &--error {
+      background-color: $error-light;
+    }
+    
+    &--warning {
+      background-color: $attention-light;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    top: 7px;
+    right: 7px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .2s ease all;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.055);
+    }
+  }
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 50px;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 50%;
+
+    &--success {
+      background-color: $approval-light;
+    }
+    
+    &--error {
+      background-color: $error-light;
+    }
+    
+    &--warning {
+      background-color: $attention-light;
+    }
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 500;
+
+    &--success {
+      color: $approval;
+    }
+    
+    &--error {
+      color: $error;
+    }
+    
+    &--warning {
+      color: $attention;
+    }
+  }
+}
+
+@media (min-width: 760px) {
+  .toast {
+    width: 400px;
+    right: 30px;
+    left: auto;
+  }
+}

@@ -1,0 +1,81 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <atom-input
+    *ngIf="inputLabel !== ''"
+    [inputLabel]="inputLabel"
+    [inputPlaceholder]="inputPlaceholder"
+    [inputType]="inputType"
+    [inputName]="inputName"
+    [isErrored]="hasErrors(inputName)"
+    [errorText]="inputErrorText"
+    formControlName="{{ inputName }}"
+  ></atom-input>
+  
+  <atom-textarea
+    *ngIf="textareaLabel !== ''"
+    [textareaLabel]="textareaLabel"
+    [textareaPlaceholder]="textareaPlaceholder"
+    [textareaName]="textareaName"
+    [isErrored]="hasErrors(textareaName)"
+    [errorText]="textareaErrorText"
+    formControlName="{{ textareaName }}"
+  ></atom-textarea>
+  
+  <div *ngFor="let field of moreInputs">
+    <atom-input
+      [inputLabel]="field['label']"
+      [inputPlaceholder]="field['placeholder']"
+      [inputType]="field['type']"
+      [inputName]="field['name']"
+      [isErrored]="hasErrors(field['name'])"
+      [isDisabled]="field['isDisabled'] === 'true'"
+      [errorText]="field['errorText']"
+      formControlName="{{ field['name'] }}"
+    ></atom-input>
+  </div>
+
+  <div *ngFor="let dropdown of moreDropdowns">
+    <atom-dropdown
+      [label]="dropdown['label']"
+      [label2]="dropdown['label2']"
+      [options]="dropdown['options']"
+      [isErrored]="hasErrors(dropdown['name'])"
+      [errorText]="dropdown['errorText']"
+      formControlName="{{ dropdown['name'] }}"
+    ></atom-dropdown>
+  </div>
+
+  <div *ngFor="let dropdown of moreDropdownsCombobox">
+    <atom-dropdown-combobox
+      [label]="dropdown['label']"
+      [label2]="dropdown['label2']"
+      [options]="dropdown['options']"
+      [isErrored]="hasErrors(dropdown['name'])"
+      [errorText]="dropdown['errorText']"
+      formControlName="{{ dropdown['name'] }}"
+    ></atom-dropdown-combobox>
+  </div>
+
+  <div class="buttons">
+    <atom-button 
+      [text]="buttonSaveText" 
+      [type]="buttonTypeSubmit" 
+      [size]="buttonSizeMedium"
+      [isDisabled]="isDisabledSaveButton"
+      [isSecondaryButton]="false"
+      [isFullWidth]="true"
+    >
+      <atom-save-icon *ngIf="!isDisabledSaveIcon"></atom-save-icon>
+    </atom-button>
+    <atom-button 
+      (click)="onShowModal()"
+      [text]="buttonCancelText" 
+      [type]="buttonTypeButton" 
+      [size]="buttonSizeMedium"
+      [isDisabled]="false"
+      [isSecondaryButton]="true"
+      [isFullWidth]="true"
+      *ngIf="!isDisabledSaveIcon"
+    >
+    </atom-button>
+  </div>
+</form>

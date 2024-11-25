@@ -1,0 +1,22 @@
+<section>
+  <organism-header-table
+    (showFilterOrders)="showFilterOrders($event)"
+    [optionsSortByDropdown]="optionsSortByDropdown"
+  >
+  </organism-header-table>
+  <organism-table
+    [list]="listOfProducts"
+    [headers]="headers"
+    [keys]="keys"
+  ></organism-table>
+  <atom-pagination
+    [pageNumber]="pageNumber"
+    [totalPages]="totalPages"
+    (pageNumberChange)="changePage($event)"
+  ></atom-pagination>
+</section>
+<app-add-supply
+  (modalEvent)="showModalOutput($event)" 
+  [productId]="productId"
+  [addNewSupplyCount]="addNewSupplyCount.bind(this)"
+></app-add-supply>

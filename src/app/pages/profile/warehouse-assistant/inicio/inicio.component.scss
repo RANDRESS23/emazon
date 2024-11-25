@@ -1,0 +1,55 @@
+@import '/src/styles/styles.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100vh;
+  margin: auto;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+
+  &__description {
+    text-align: center;
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+
+  &--primary {
+    color: $primary;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    width: 100%;
+    padding-left: 450px;
+    padding-right: 100px;
+  }
+
+  .title {
+    font-size: 60px;
+    font-weight: 700;
+  }
+}

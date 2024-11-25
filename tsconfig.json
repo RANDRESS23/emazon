@@ -2,6 +2,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@atoms/*": ["src/app/shared/ui/atoms/*"],
+      "@molecules/*": ["src/app/shared/ui/molecules/*"],
+      "@organisms/*": ["src/app/shared/ui/organisms/*"],
+      "@utils/*": ["src/app/shared/utils/*"],
+      "@src/*": ["src/*"]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -21,7 +28,9 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "types": ["jest"],
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

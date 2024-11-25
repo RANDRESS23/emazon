@@ -1,0 +1,22 @@
+<div class="toast" *ngIf="showToast" [@modalAnimationToast]>
+  <div 
+    class="toast__bar-left"
+    [ngClass]="{'toast__bar-left--success': status === statusSuccess, 'toast__bar-left--error': status === statusError, 'toast__bar-left--warning': status === statusWarning}"
+  >
+  </div>
+  <div class="content">
+    <div 
+      class="content__icon"
+      [ngClass]="{'content__icon--success': status === statusSuccess, 'content__icon--error': status === statusError, 'content__icon--warning': status === statusWarning}"
+    >
+      <img [src]="pathIcon" alt="Icon" />
+    </div>
+    <span 
+      class="content__label"
+      [ngClass]="{'content__label--success': status === statusSuccess, 'content__label--error': status === statusError, 'content__label--warning': status === statusWarning}"
+    >{{ message }}</span>
+  </div>
+  <button class="toast__close" (click)="closeToast()">
+    <img [src]="pathCloseIcon" alt="Close icon" />
+  </button>
+</div>

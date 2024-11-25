@@ -1,0 +1,35 @@
+<section class="sidebar">
+  <div>
+    <ul class="list-items">
+      <li *ngFor="let item of menuItems">
+        <a 
+          class="item"
+          [routerLink]="[item['path']]" 
+          routerLinkActive="item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <ng-container *ngIf="item['icon']">
+            <div class="icon-item">
+              <ng-container *ngComponentOutlet="item['icon'] | dynamicComponent"></ng-container>
+            </div>
+          </ng-container>
+          {{ item['label'] }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul class="list-items">
+      <li>
+        <a 
+          class="item"
+          [routerLink]="['/']" 
+          routerLinkActive="item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          {{ fullName }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
