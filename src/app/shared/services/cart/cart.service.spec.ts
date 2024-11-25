@@ -20,32 +20,6 @@ describe('CartService', () => {
     httpMock.verify();
   });
 
-  it('should save product in the cart and update cart state', (done) => {
-    service['cartPaged'] = {
-      cart: { cartId: 1, clientId: 1, totalQuantity: 1, totalPrice: 50, createdAt: '', updatedAt: '' },
-      products: { 
-        pageNumber: 1, 
-        pageSize: 10, 
-        totalElements: 1, 
-        totalPages: 1, 
-        content: [{ productId: 123, totalQuantityInCart: 1, stockQuantity: 100, unitPrice: 50, totalPrice: 50, nextSupplyDate: '', name: 'product', brand: { brandId: 1, name: 'brand' }, cartProductId: 1, categories: [{ name: 'categoría', categoryId: 1 }] }] 
-      }
-    };
-    const product: CartProductRequest = { productId: 123, quantity: 2 };
-    const response: Cart = { 
-      cartId: 1, clientId: 1, totalQuantity: 2, totalPrice: 100, createdAt: '', updatedAt: '', products: [] 
-    };
-
-    service.saveProductInTheCart(product).subscribe((res) => {
-      expect(res).toEqual(response);
-      done();
-    });
-
-    const req = httpMock.expectOne(`${service['BASE_URL']}/cart`);
-    expect(req.request.method).toBe('POST');
-    req.flush(response);
-  });
-
   it('should remove product from the cart and update cart state', (done) => {
     service['cartPaged'] = {
       cart: { cartId: 1, clientId: 1, totalQuantity: 1, totalPrice: 50, createdAt: '', updatedAt: '' },

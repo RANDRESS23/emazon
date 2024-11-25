@@ -8,12 +8,14 @@ import { INITIAL_PAGE_TABLE, INITIAL_TOTAL_ELEMENTS_TABLE, INITIAL_TOTAL_PAGE_TA
 import { PRODUCT_REMOVED_IN_CART, PRODUCT_SAVED_IN_CART, PRODUCTS_REMOVED_IN_CART } from '@utils/constants/client';
 import { StatusEnum } from '@utils/enums/status';
 import { ERROR_ICON_PATH, SERVER_ERROR_TEXT, SUCCESS_ICON_PATH } from '@utils/constants/general';
+import { Router } from '@angular/router';
 
 describe('CartProductsComponent', () => {
   let component: CartProductsComponent;
   let fixture: ComponentFixture<CartProductsComponent>;
   let mockCartService: any;
   let mockToastService: any;
+  let routerMock: any;
 
   beforeEach(() => {
     mockCartService = {
@@ -41,12 +43,17 @@ describe('CartProductsComponent', () => {
       showToast: jest.fn()
     };
 
+    routerMock = {
+      navigate: jest.fn()
+    };
+
     TestBed.configureTestingModule({
       declarations: [CartProductsComponent],
       providers: [
         DatePipe,
         { provide: CartService, useValue: mockCartService },
-        { provide: ToastService, useValue: mockToastService }
+        { provide: ToastService, useValue: mockToastService },
+        { provide: Router, useValue: routerMock }
       ]
     }).compileComponents();
 
@@ -157,6 +164,13 @@ describe('CartProductsComponent', () => {
     expect(component.totalPages).toBeUndefined();
     expect(component.totalElements).toBeUndefined();
   });  
+
+  it('should call navigateToDetail when image product is clicked', () => {
+    const productId = 1;
+
+    component.navigateToDetail(productId);
+    expect(routerMock.navigate).toHaveBeenCalledWith([`/producto/${productId}`]);
+  });
 
   it('should set default quantity to 1 and use correct message based on quantity in deleteProductCart', () => {
     mockCartService.removeProductInTheCart.mockReturnValue(of({}));

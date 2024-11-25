@@ -95,6 +95,11 @@ describe('HeaderComponent', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/sign-up']);
   });
 
+  it('should call navigateToHomePage when logo is clicked', () => {
+    component.navigateToHomePage();
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
+  });
+
   it('should call navigateToCart when cart button is clicked and user is authenticated as CLIENTE', () => {
     authServiceMock.isAuthenticated.mockReturnValue(true);
     authServiceMock.getRole.mockReturnValue(RolesEnum.CLIENTE);

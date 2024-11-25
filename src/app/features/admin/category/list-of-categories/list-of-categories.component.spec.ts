@@ -4,10 +4,13 @@ import { CategoryService } from '@src/app/core/services/category/category.servic
 import { PageCategories } from '@utils/interfaces/category';
 import { of, throwError } from 'rxjs';
 import { INITIAL_PAGE_TABLE } from '@utils/constants/admin';
+import { AuthService } from '@src/app/core/services/auth/auth.service';
+import { RolesEnum } from '@utils/enums/roles';
 
 describe('ListOfCategoriesComponent', () => {
   let component: ListOfCategoriesComponent;
   let categoryService: CategoryService;
+  let authService: jest.Mocked<AuthService>;
 
   const mockPageCategories: PageCategories = {
     pageNumber: 0,
@@ -25,15 +28,22 @@ describe('ListOfCategoriesComponent', () => {
       getAllCategories: jest.fn().mockReturnValue(of(mockPageCategories)),
     };
 
+    const authServiceMock = {
+      isAuthenticated: jest.fn(),
+      getRole: jest.fn()
+    };
+
     TestBed.configureTestingModule({
       providers: [
         ListOfCategoriesComponent,
+        { provide: AuthService, useValue: authServiceMock },
         { provide: CategoryService, useValue: categoryServiceMock },
       ],
     });
 
     component = TestBed.inject(ListOfCategoriesComponent);
     categoryService = TestBed.inject(CategoryService);
+    authService = TestBed.inject(AuthService) as jest.Mocked<AuthService>;
   });
 
   it('should call getCategories on ngOnInit', () => {
@@ -82,5 +92,23 @@ describe('ListOfCategoriesComponent', () => {
     expect(component.sortOrder).toBe('asc');
     expect(component.pageNumber).toBe(INITIAL_PAGE_TABLE);
     expect(getCategoriesSpy).toHaveBeenCalledWith(INITIAL_PAGE_TABLE, 10, 'asc');
+  });
+
+  it('should set showButtonAddCategory to true if the role is ADMIN', () => {
+    jest.spyOn(authService, 'getRole').mockReturnValue(RolesEnum.ADMIN);
+
+    component.ngOnInit();
+
+    expect(component.showButtonAddCategory).toBe(true);
+    expect(jest.spyOn(authService, 'getRole')).toHaveBeenCalled();
+  });
+
+  it('should set showButtonAddCategory to false if the role is not ADMIN', () => {
+    jest.spyOn(authService, 'getRole').mockReturnValue(RolesEnum.AUX_BODEGA);
+
+    component.ngOnInit();
+
+    expect(component.showButtonAddCategory).toBe(false);
+    expect(jest.spyOn(authService, 'getRole')).toHaveBeenCalled();
   });
 });
